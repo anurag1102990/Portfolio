@@ -1,0 +1,270 @@
+/*
+  Minimal dark‑themed style for Anurag Jain’s AI/ML portfolio. The palette uses
+  deep navy backgrounds with bright blue accents to evoke an AI aesthetic.
+*/
+:root {
+  --background: #0d1117;
+  --surface: #161b22;
+  --accent: #2f80ed;
+  --accent-dark: #1c5bb5;
+  --text-primary: #f5f5f5;
+  --text-secondary: #cccccc;
+  --card-shadow: rgba(0, 0, 0, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--text-primary);
+  background-color: var(--background);
+  line-height: 1.6;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  height: 100vh;
+  background-image: url('ai_hero.png');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  /* Hide overflow so animated gradient stays within hero */
+  overflow: hidden;
+}
+
+/* Animated gradient overlay on hero */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg,
+    rgba(47, 128, 237, 0.3),
+    rgba(155, 81, 224, 0.3),
+    rgba(111, 207, 151, 0.3),
+    rgba(47, 128, 237, 0.3));
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.hero .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 80%;
+  /* Prepare for fade‑in animation */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+/* When page has loaded, reveal hero content */
+body.loaded .hero-content {
+  opacity: 1;
+  transform: none;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.hero-content p {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+.cta {
+  display: inline-block;
+  background-color: var(--accent);
+  color: var(--text-primary);
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  font-weight: 500;
+}
+
+.cta:hover {
+  background-color: var(--accent-dark);
+}
+
+/* Sections */
+section {
+  padding: 4rem 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* About */
+#about p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+.button {
+  display: inline-block;
+  background-color: var(--accent);
+  color: var(--text-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  font-weight: 500;
+}
+
+.button:hover {
+  background-color: var(--accent-dark);
+}
+
+/* Profile image styling */
+.profile-photo {
+  max-width: 150px;
+  border-radius: 50%;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+/* Project link styling */
+.project-link {
+  display: inline-block;
+  margin-top: 0.75rem;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.project-link:hover {
+  color: var(--accent-dark);
+  text-decoration: underline;
+}
+
+/* Scroll reveal animations */
+.hidden {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.show {
+  opacity: 1;
+  transform: none;
+}
+
+/* Projects Grid */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.project-card {
+  background-color: var(--surface);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px var(--card-shadow);
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+}
+
+.project-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: #58a6ff;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.project-card p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Contact */
+#contact ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+#contact li {
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+#contact a {
+  color: #58a6ff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+#contact a:hover {
+  color: #3e73bf;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 2rem;
+  background-color: var(--background);
+  color: #666;
+  font-size: 0.8rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .hero-content h1 {
+    font-size: 2.2rem;
+  }
+  .hero-content p {
+    font-size: 1rem;
+  }
+  .cta {
+    padding: 0.5rem 1rem;
+  }
+}
