@@ -1,143 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anurag Jain | AI/ML Portfolio</title>
     <!-- Google Fonts for clean typography -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Dynamic particle background canvas -->
     <canvas id="bg"></canvas>
+    <!-- Floating gradient blobs -->
+    <div id="blobs">
+        <span class="blob" style="--size: 360px; --top: 10%; --left: 15%; --dx: 80px; --dy: 60px; --time: 16s; --start-color: rgba(130,170,255,0.6); --end-color: rgba(155,81,224,0.3);"></span>
+        <span class="blob" style="--size: 420px; --top: 60%; --left: 70%; --dx: -100px; --dy: 90px; --time: 18s; --start-color: rgba(155,81,224,0.5); --end-color: rgba(111,207,151,0.3);"></span>
+        <span class="blob" style="--size: 300px; --top: 35%; --left: 80%; --dx: 120px; --dy: -100px; --time: 20s; --start-color: rgba(111,207,151,0.5); --end-color: rgba(130,170,255,0.3);"></span>
+        <span class="blob" style="--size: 480px; --top: 75%; --left: 20%; --dx: -80px; --dy: -70px; --time: 22s; --start-color: rgba(155,81,224,0.6); --end-color: rgba(130,170,255,0.2);"></span>
+    </div>
+
     <!-- Hero section with AI‑themed artwork -->
     <header class="hero">
-      <div class="overlay"></div>
-      <div class="hero-content">
-        <h1>Anurag Jain</h1>
-        <p>AI/ML Researcher &amp; Developer</p>
-        <a href="#projects" class="cta">View Projects</a>
-      </div>
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <h1>Anurag Jain</h1>
+            <p>AI/ML Researcher &amp; Developer</p>
+            <a href="#projects" class="cta">View Projects</a>
+        </div>
     </header>
     <!-- About section -->
     <section id="about">
-      <h2>About Me</h2>
-      <!-- User portrait placeholder. -->
-      <img
-        src="ProfilePic.png"
-        alt="Portrait of Anurag"
-        class="profile-photo"
-      />
-      <p>
-        I’m an undergraduate researcher at the University of Alberta, exploring
-        how machine learning and reinforcement learning can solve complex tasks.
-        I’ve built ML models in industry and academia—from spatial‐relationship
-        prediction in construction to generative models on FashionMNIST. My
-        current work focuses on reinforcement learning strategies for
-        trick‑taking card games with imperfect information.
-      </p>
-      <a href="Anurag_Jain_Resume.pdf" class="button" download
-        >Download Resume</a
-      >
+        <h2>About Me</h2>
+        <!-- User portrait placeholder. Replace 'profile-placeholder.png' with your own photo file if desired. -->
+        <img src="profile-placeholder.png" alt="Portrait of Anurag" class="profile-photo">
+        <p>I’m an undergraduate researcher at the University of Alberta, exploring how machine learning and reinforcement learning can solve complex tasks. I’ve built ML models in industry and academia—from spatial‐relationship prediction in construction to generative models on FashionMNIST. My current work focuses on reinforcement learning strategies for trick‑taking card games with imperfect information.</p>
+        <a href="Anurag_Jain_Resume.pdf" class="button" download>Download Resume</a>
     </section>
     <!-- Projects section -->
     <section id="projects">
-      <h2>Projects</h2>
-      <div class="project-grid">
-        <div class="project-card">
-          <h3>Vision Transformer &amp; Image Captioning</h3>
-          <p>
-            Implemented a ViT for CIFAR‑10 image classification and built an
-            image captioning pipeline by pairing a pre‑trained ViT with GPT‑2.
-            Achieved over 80&nbsp;% test accuracy and bridged vision and
-            language with a BLEU score of 0.06 on Flickr8k.
-          </p>
-          <a
-            href="https://github.com/anurag1102990/ViT-and-GPT2-Captioning"
-            class="project-link"
-            target="_blank"
-            rel="noopener"
-            >GitHub Repository</a
-          >
+        <h2>Projects</h2>
+        <div class="project-grid">
+            <div class="project-card">
+                <h3>Vision Transformer &amp; Image Captioning</h3>
+                <p>Implemented a ViT for CIFAR‑10 image classification and built an image captioning pipeline by pairing a pre‑trained ViT with GPT‑2. Achieved over 80&nbsp;% test accuracy and bridged vision and language with a BLEU score of 0.06 on Flickr8k.</p>
+                <a href="https://github.com/yourusername/vit-image-captioning" class="project-link" target="_blank" rel="noopener">GitHub Repository</a>
+            </div>
+            <div class="project-card">
+                <h3>Object Detection &amp; Segmentation</h3>
+                <p>Trained a U‑Net based model for object detection and semantic segmentation on noisy MNIST digits. Tuned hyper‑parameters on Google Colab, reaching 94&nbsp;% accuracy, 82&nbsp;% IoU, and 75&nbsp;% pixel‑wise precision.</p>
+                <a href="https://github.com/yourusername/object-detection-segmentation" class="project-link" target="_blank" rel="noopener">GitHub Repository</a>
+            </div>
+            <div class="project-card">
+                <h3>Generative Models</h3>
+                <p>Designed VAE, DDPM and DDIM models from scratch to generate class‑conditioned FashionMNIST images. Implemented robust training pipelines with model checkpointing and gradient clipping, achieving 86&nbsp;% classification accuracy on generated samples.</p>
+                <a href="https://github.com/yourusername/generative-models" class="project-link" target="_blank" rel="noopener">GitHub Repository</a>
+            </div>
+            <div class="project-card">
+                <h3>Reinforcement Learning for Skat</h3>
+                <p>Current research explores AI‑driven strategies for the trick‑taking card game Skat. Leveraging reinforcement learning and generative modelling, I simulate imperfect‑information game scenarios and refine policies for smarter play.</p>
+                <a href="https://github.com/yourusername/skat-rl" class="project-link" target="_blank" rel="noopener">GitHub Repository</a>
+            </div>
         </div>
-        <div class="project-card">
-          <h3>Object Detection &amp; Segmentation</h3>
-          <p>
-            Trained a U‑Net based model for object detection and semantic
-            segmentation on noisy MNIST digits. Tuned hyper‑parameters on
-            Google Colab, reaching 94&nbsp;% accuracy, 82&nbsp;% IoU, and
-            75&nbsp;% pixel‑wise precision.
-          </p>
-          <a
-            href="https://github.com/anurag1102990/Object-Detection-and-Semantic-Segmentation"
-            class="project-link"
-            target="_blank"
-            rel="noopener"
-            >GitHub Repository</a
-          >
-        </div>
-        <div class="project-card">
-          <h3>Generative Models</h3>
-          <p>
-            Designed VAE, DDPM and DDIM models from scratch to generate
-            class‑conditioned FashionMNIST images. Implemented robust training
-            pipelines with model checkpointing and gradient clipping, achieving
-            86&nbsp;% classification accuracy on generated samples.
-          </p>
-          <a
-            href="https://github.com/anurag1102990/VAE-DDIM-DDPM"
-            class="project-link"
-            target="_blank"
-            rel="noopener"
-            >GitHub Repository</a
-          >
-        </div>
-        <!-- <div class="project-card">
-          <h3>Reinforcement Learning for Skat</h3>
-          <p>
-            Current research explores AI‑driven strategies for the trick‑taking
-            card game Skat. Leveraging reinforcement learning and generative
-            modelling, I simulate imperfect‑information game scenarios and
-            refine policies for smarter play.
-          </p>
-          <a
-            href="https://github.com/yourusername/skat-rl"
-            class="project-link"
-            target="_blank"
-            rel="noopener"
-            >GitHub Repository</a
-          >
-        </div> -->
-      </div>
     </section>
     <!-- Contact section -->
     <section id="contact">
-      <h2>Contact</h2>
-      <p>
-        If you’d like to collaborate or have questions about my work, feel free
-        to reach out via email or connect on LinkedIn.
-      </p>
-      <ul>
-        <li>
-          <a href="mailto:anurag.jain486@gmail.com">anurag.jain486@gmail.com</a>
-        </li>
-        <!-- <li><a href="mailto:anurag5@ualberta.ca">anurag5@ualberta.ca</a></li> -->
-        <li>
-          <a
-            href="https://linkedin.com/in/jainanurag23"
-            target="_blank"
-            rel="noopener"
-            >LinkedIn</a
-          >
-        </li>
-      </ul>
+        <h2>Contact</h2>
+        <p>If you’d like to collaborate or have questions about my work, feel free to reach out via email or connect on LinkedIn.</p>
+        <ul>
+            <li><a href="mailto:anurag.jain486@gmail.com">anurag.jain486@gmail.com</a></li>
+            <li><a href="mailto:anurag5@ualberta.ca">anurag5@ualberta.ca</a></li>
+            <li><a href="https://linkedin.com/in/jainanurag23" target="_blank" rel="noopener">LinkedIn</a></li>
+        </ul>
     </section>
     <footer>
-      <p>&copy; 2025 Anurag Jain. Built with love for AI/ML.</p>
+        <p>&copy; 2025 Anurag Jain. Built with love for AI/ML.</p>
     </footer>
     <script src="script.js"></script>
-  </body>
+</body>
 </html>
