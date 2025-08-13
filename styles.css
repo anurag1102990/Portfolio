@@ -262,7 +262,7 @@ section h2 {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(120px 120px at var(--mx,50%) var(--my,50%), rgba(255,255,255,0.15), transparent 60%);
+  background: radial-gradient(120px 120px at var(--mx,50%) var(--my,50%), rgba(255,255,255,0.25), transparent 60%);
   opacity: 0;
   transition: opacity 0.2s ease;
 }
@@ -300,6 +300,8 @@ section h2 {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   will-change: transform;
   perspective: 800px;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
 }
 
 .project-card:hover {

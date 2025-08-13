@@ -151,8 +151,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const rect = card.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width;
       const y = (e.clientY - rect.top) / rect.height;
-      const rx = (0.5 - y) * 8;
-      const ry = (x - 0.5) * 8;
+      // Increase tilt amplitude for more noticeable effect
+      const rx = (0.5 - y) * 12;
+      const ry = (x - 0.5) * 12;
       if (rafId) cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(() => {
         card.style.transform = `translateY(-6px) rotateX(${rx}deg) rotateY(${ry}deg)`;
