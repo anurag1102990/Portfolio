@@ -1,35 +1,137 @@
-// Smooth scroll for the call‑to‑action button
+// Smooth scroll + animated background + card tilt + staggered reveals
 document.addEventListener('DOMContentLoaded', () => {
+  // Smooth scroll on CTA
   const cta = document.querySelector('.cta');
-  // Smooth scroll on call‑to‑action click
   if (cta) {
-    cta.addEventListener('click', event => {
+    cta.addEventListener('click', (event) => {
       event.preventDefault();
       const projectsSection = document.querySelector('#projects');
-      if (projectsSection) {
-        projectsSection.scrollIntoView({ behavior: 'smooth' });
-      }
+      if (projectsSection) projectsSection.scrollIntoView({ behavior: 'smooth' });
     });
   }
-  // Trigger loaded state on next animation frame to reveal hero content
-  requestAnimationFrame(() => {
-    document.body.classList.add('loaded');
-  });
-  // Intersection observer for scroll reveal of project cards
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
+
+  // Loaded state to fade hero text
+  requestAnimationFrame(() => document.body.classList.add('loaded'));
+
+  // Respect reduced motion
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ===== Animated particle background (constellation) =====
+  const canvas = document.getElementById('bg');
+  const ctx = canvas ? canvas.getContext('2d') : null;
+  let w = 0, h = 0, particles = [];
+
+  function resize() {
+    if (!canvas) return;
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+
+  function rnd(min, max) { return Math.random() * (max - min) + min; }
+
+  function createParticles() {
+    const count = Math.min(140, Math.floor((w * h) / 14000)); // density scaling
+    particles = new Array(count).fill(0).map(() => ({
+      x: rnd(0, w),
+      y: rnd(0, h),
+      vx: rnd(-0.25, 0.25),
+      vy: rnd(-0.25, 0.25),
+      r: rnd(0.6, 1.8)
+    }));
+  }
+
+  function step() {
+    if (!ctx) return;
+    ctx.clearRect(0, 0, w, h);
+    const linkDist = 130; // max distance to draw links
+    // draw particles
+    ctx.fillStyle = 'rgba(130, 170, 255, 0.9)';
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > w) p.vx *= -1;
+      if (p.y < 0 || p.y > h) p.vy *= -1;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    // draw links
+    ctx.lineWidth = 0.6;
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const a = particles[i], b = particles[j];
+        const dx = a.x - b.x, dy = a.y - b.y, d2 = dx*dx + dy*dy;
+        if (d2 < linkDist * linkDist) {
+          const alpha = 1 - d2 / (linkDist * linkDist);
+          ctx.strokeStyle = `rgba(155, 81, 224, ${alpha * 0.35})`;
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        }
+      }
+    }
+    if (!reduceMotion) requestAnimationFrame(step);
+  }
+
+  if (canvas && ctx && !reduceMotion) {
+    resize();
+    createParticles();
+    step();
+    window.addEventListener('resize', () => { resize(); createParticles(); });
+    // Subtle mouse repulsion
+    canvas.addEventListener('mousemove', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const mx = e.clientX - rect.left; const my = e.clientY - rect.top;
+      particles.forEach(p => {
+        const dx = p.x - mx, dy = p.y - my; const d2 = dx*dx + dy*dy; const r = 120*120;
+        if (d2 < r) { const f = (r - d2) / r * 0.05; p.vx += dx * f / 120; p.vy += dy * f / 120; }
+      });
+    });
+  }
+
+  // ===== IntersectionObserver for scroll‑reveal (staggered) =====
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry, idx) => {
       if (entry.isIntersecting) {
+        entry.target.style.transitionDelay = `${idx * 80}ms`;
         entry.target.classList.remove('hidden');
         entry.target.classList.add('show');
-        observer.unobserve(entry.target);
+        io.unobserve(entry.target);
       }
     });
-  }, {
-    threshold: 0.1
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.project-card').forEach((el) => {
+    el.classList.add('hidden');
+    io.observe(el);
   });
-  const projectCards = document.querySelectorAll('.project-card');
-  projectCards.forEach(card => {
-    card.classList.add('hidden');
-    observer.observe(card);
+
+  // ===== Parallax tilt on project cards =====
+  const cards = document.querySelectorAll('.project-card');
+  cards.forEach(card => {
+    let raf = null;
+    function onMove(e) {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width; // 0..1
+      const y = (e.clientY - rect.top) / rect.height; // 0..1
+      const rx = (0.5 - y) * 8; // tilt limits
+      const ry = (x - 0.5) * 8;
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        card.style.transform = `translateY(-6px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+      });
+    }
+    function onLeave() {
+      if (raf) cancelAnimationFrame(raf);
+      card.style.transform = 'translateY(-6px) scale(1.01)';
+    }
+    card.addEventListener('mousemove', onMove);
+    card.addEventListener('mouseleave', onLeave);
+  });
+
+  // ===== Button spotlight effect follows cursor =====
+  document.querySelectorAll('.button, .cta').forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      btn.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+      btn.style.setProperty('--my', `${e.clientY - rect.top}px`);
+    });
   });
 });
