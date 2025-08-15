@@ -161,7 +161,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     function handleLeave() {
       if (rafId) cancelAnimationFrame(rafId);
-      card.style.transform = 'translateY(-6px) scale(1.01)';
+      // Clear inline transform so CSS (:hover) and base styles control the final state
+      card.style.transform = '';
     }
     card.addEventListener('mousemove', handleMove);
     card.addEventListener('mouseleave', handleLeave);
