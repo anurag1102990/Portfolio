@@ -382,3 +382,21 @@ footer {
   .hero-content p { font-size: 1rem; }
   .cta { padding: 0.5rem 1rem; }
 }
+
+/* .exp-chip .exp-end {
+  color: var(--accent);
+  font-weight: 600;
+} */
+
+/* .exp-chip .exp-end {
+  color: var(--text-secondary);
+  font-weight: 500;
+} */
+.exp-chip .exp-end.present {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* Now, in your HTML for the ongoing experience, add class="exp-end present" to just the Present date. Example:
+   <span class="exp-chip"><time class="exp-start">May 2024</time> — <time class="exp-end present">Present</time> • <span class="exp-duration">ongoing</span></span>
+*/
