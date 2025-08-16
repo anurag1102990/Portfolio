@@ -1,16 +1,16 @@
 // Smooth scroll + background animations + typewriter + card tilt + hover highlights
 document.addEventListener('DOMContentLoaded', () => {
-  // Smooth scroll on CTA click
-  const cta = document.querySelector('.cta');
-  if (cta) {
-    cta.addEventListener('click', (event) => {
-      event.preventDefault();
-      const projectsSection = document.querySelector('#projects');
-      if (projectsSection) {
-        projectsSection.scrollIntoView({ behavior: 'smooth' });
+  // Smooth scroll on hero CTA clicks
+  document.querySelectorAll('.hero .cta').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href') || '';
+      if (href.startsWith('#')) {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
       }
     });
-  }
+  });
 
   // Fade in hero content on load
   requestAnimationFrame(() => document.body.classList.add('loaded'));

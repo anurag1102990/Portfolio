@@ -147,6 +147,11 @@ body.loaded .hero-content {
 .cta:hover {
   background-color: var(--accent-dark);
 }
+.cta-group { margin-top: 0.9rem; display: flex; gap: 0.6rem; flex-wrap: wrap; justify-content: center; }
+.cta.cta-ghost { background: transparent; color: var(--text-primary); border: 1px solid rgba(255,255,255,0.22); }
+.cta.cta-ghost:hover { background: rgba(255,255,255,0.06); color: var(--text-primary); border-color: rgba(255,255,255,0.35); }
+
+@media (max-width: 600px) { .cta-group { gap: 0.5rem; } .cta, .cta.cta-ghost { padding: 0.6rem 1rem; } }
 
 /* Sections */
 section {
@@ -424,7 +429,7 @@ footer {
   flex-direction: column;
 }
 .edu-card:hover {
-  transform: translateY(-3px);
+  /* transform: translateY(-3px); */
   box-shadow: 0 16px 40px rgba(85, 83, 83, 0.24);
   border-color: rgba(39, 228, 15, 0.16);
 }
