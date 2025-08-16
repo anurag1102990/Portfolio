@@ -1,15 +1,11 @@
-/*
-  Minimal dark‑themed style for Anurag Jain’s AI/ML portfolio. The palette uses
-  deep navy backgrounds with bright blue accents to evoke an AI aesthetic.
-*/
 :root {
-  --background: #0d1117;
-  --surface: #161b22;
-  --accent: #2f80ed;
-  --accent-dark: #1c5bb5;
-  --text-primary: #f5f5f5;
-  --text-secondary: #cccccc;
-  --card-shadow: rgba(0, 0, 0, 0.2);
+  --background: #111317;
+  --surface: #181b20;
+  --accent: #34d399;      /* Only for CTAs and links */
+  --accent-dark: #10b981; /* Hover */
+  --text-primary: #f3f7fa;
+  --text-secondary: #b8c7d5;
+  --card-shadow: rgba(0, 0, 0, 0.24);
 }
 
 * {
@@ -23,11 +19,10 @@ body {
   color: var(--text-primary);
   background-color: var(--background);
   line-height: 1.6;
-  /* Fix the background so radial gradients stay in place and add subtle gradients */
   background-attachment: fixed;
   background-image:
-    radial-gradient(1200px 800px at 70% 10%, rgba(47,128,237,0.08), transparent 60%),
-    radial-gradient(1000px 600px at 20% 80%, rgba(155,81,224,0.08), transparent 60%);
+    radial-gradient(1200px 800px at 70% 10%, rgba(255,255,255,0.04), transparent 60%),
+    radial-gradient(1000px 600px at 20% 80%, rgba(255,255,255,0.02), transparent 60%);
 }
 
 /* Fullscreen canvas for dynamic particle background */
@@ -42,7 +37,7 @@ body {
   pointer-events: none;
 }
 
-/* Floating gradient blobs */
+/* Floating blobs are now soft monochrome */
 #blobs {
   position: fixed;
   inset: 0;
@@ -52,7 +47,6 @@ body {
   z-index: -2;
   pointer-events: none;
 }
-
 .blob {
   position: absolute;
   width: var(--size);
@@ -61,15 +55,14 @@ body {
   left: var(--left);
   border-radius: 50%;
   background: radial-gradient(circle, var(--start-color), var(--end-color));
-  filter: blur(80px);
-  opacity: 0.5;
+  filter: grayscale(100%) blur(100px);
+  opacity: 0.32;
   animation: blobMove var(--time) ease-in-out infinite alternate;
 }
-
 @keyframes blobMove {
   0%   { transform: translate(0, 0) scale(1); }
-  50%  { transform: translate(var(--dx), var(--dy)) scale(1.1); }
-  100% { transform: translate(calc(var(--dx) * -1), calc(var(--dy) * -1)) scale(0.9); }
+  50%  { transform: translate(var(--dx), var(--dy)) scale(1.07); }
+  100% { transform: translate(calc(var(--dx) * -1), calc(var(--dy) * -1)) scale(0.95); }
 }
 
 /* Hero Section */
@@ -83,11 +76,8 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  /* Hide overflow so animated gradient stays within hero */
   overflow: hidden;
 }
-
-/* Animated gradient overlay on hero */
 .hero::before {
   content: "";
   position: absolute;
@@ -96,32 +86,18 @@ body {
   width: 100%;
   height: 100%;
   background: linear-gradient(135deg,
-    rgba(47, 128, 237, 0.3),
-    rgba(155, 81, 224, 0.3),
-    rgba(111, 207, 151, 0.3),
-    rgba(47, 128, 237, 0.3));
+      rgba(255,255,255,0.07),
+      rgba(255,255,255,0.02),
+      rgba(255,255,255,0.05),
+      rgba(255,255,255,0.03));
   background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
+  animation: gradientShift 20s ease infinite;
   z-index: 0;
   pointer-events: none;
 }
-
 @keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-/* Animate the gradient sliding across the main title */
-@keyframes titleShift {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
 
@@ -133,42 +109,29 @@ body {
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
 }
-
 .hero-content {
   position: relative;
   z-index: 1;
   max-width: 80%;
-  /* Prepare for fade‑in animation */
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 1s ease, transform 1s ease;
 }
-
-/* When page has loaded, reveal hero content */
 body.loaded .hero-content {
   opacity: 1;
   transform: none;
 }
-
 .hero-content h1 {
   font-size: 3rem;
   margin-bottom: 0.5rem;
   font-weight: 700;
-  /* Animated gradient for the main title */
-  background: linear-gradient(90deg, #82aaff, #eeb1ff, #82aaff);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  background-size: 200% 100%;
-  animation: titleShift 10s ease-in-out infinite;
+  color: var(--text-primary);
 }
-
 .hero-content p {
   font-size: 1.25rem;
   margin-bottom: 1rem;
   color: var(--text-secondary);
 }
-
 .cta {
   display: inline-block;
   background-color: var(--accent);
@@ -176,13 +139,11 @@ body.loaded .hero-content {
   padding: 0.75rem 1.5rem;
   border-radius: 4px;
   text-decoration: none;
-  transition: background-color 0.3s ease;
-  /* Prepare for button highlight animation */
+  transition: background-color 0.3s;
   position: relative;
   overflow: hidden;
   font-weight: 500;
 }
-
 .cta:hover {
   background-color: var(--accent-dark);
 }
@@ -193,12 +154,21 @@ section {
   max-width: 1000px;
   margin: 0 auto;
 }
-
 section h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: var(--accent);
+  color: var(--text-primary);
   font-weight: 600;
+  position: relative;
+}
+section h2::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 2px;
+  margin-top: 8px;
+  background: var(--accent);
+  opacity: 0.65;
 }
 
 /* About */
@@ -206,7 +176,6 @@ section h2 {
   margin-bottom: 1rem;
   color: var(--text-secondary);
 }
-
 .button {
   display: inline-block;
   background-color: var(--accent);
@@ -214,25 +183,26 @@ section h2 {
   padding: 0.5rem 1rem;
   border-radius: 4px;
   text-decoration: none;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s;
   position: relative;
   overflow: hidden;
   font-weight: 500;
 }
-
 .button:hover {
   background-color: var(--accent-dark);
 }
-
 /* Profile image styling */
 .profile-photo {
   max-width: 150px;
   border-radius: 50%;
   display: block;
   margin-bottom: 1rem;
-  /* Add a glow and subtle floating animation */
-  box-shadow: 0 8px 30px rgba(155,81,224,0.18);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.28);
   animation: float 8s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
 /* Project link styling */
@@ -242,9 +212,8 @@ section h2 {
   color: var(--accent);
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.3s ease;
+  transition: color 0.3s;
 }
-
 .project-link:hover {
   color: var(--accent-dark);
   text-decoration: underline;
@@ -262,122 +231,128 @@ section h2 {
   line-height: 1;
   padding: 0.35rem 0.6rem;
   border-radius: 999px;
-  border: 1px solid rgba(130, 170, 255, 0.25);
-  background: linear-gradient(180deg, rgba(47,128,237,0.16), rgba(155,81,224,0.12));
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.05);
   color: var(--text-primary);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.13);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: transform 0s, box-shadow 0s, border-color 0s;
 }
 .tag:hover, .tag:focus {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(47,128,237,0.18), 0 2px 10px rgba(0,0,0,0.35);
-  border-color: rgba(130, 170, 255, 0.45);
+  transition-delay: 0ms;
+  transition: none;
+  border-color: var(--accent);
+  box-shadow: 0 6px 18px rgba(52,211,153,0.18), 0 2px 10px rgba(0,0,0,0.18);
   outline: none;
 }
 .tag:active { transform: translateY(0); }
 
 /* Optional subtle entrance for tags when card reveals */
-.project-card .tag { opacity: 0; transform: translateY(6px); }
-.project-card.show .tag { opacity: 1; transform: none; transition-delay: 120ms; }
-.project-card.show .tag:nth-child(2) { transition-delay: 180ms; }
-.project-card.show .tag:nth-child(3) { transition-delay: 240ms; }
-.project-card.show .tag:nth-child(4) { transition-delay: 300ms; }
-.project-card.show .tag:nth-child(5) { transition-delay: 360ms; }
+.project-card .tag { opacity: 0; transform: translateY(6px); transition: none; }
+.project-card.show .tag { opacity: 1; transform: none; transition-delay: 0ms; }
 
-/* Floating animation for profile photo */
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-
-/* Hover spotlight effect following cursor */
-.button::after,
-.cta::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(120px 120px at var(--mx,50%) var(--my,50%), rgba(255,255,255,0.25), transparent 60%);
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-.button:hover::after,
-.cta:hover::after {
-  opacity: 1;
-}
-
-/* Scroll reveal animations */
-.hidden {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.show {
-  opacity: 1;
-  transform: none;
-}
-
-/* Projects Grid */
+/* Project Grid */
 .project-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
 }
-
 .project-card {
   background-color: var(--surface);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 2px 8px var(--card-shadow);
-  /* Faster transitions for transform and box‑shadow; prepare element for 3D tilt */
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.25s, box-shadow 0.25s;
   will-change: transform;
   perspective: 800px;
   transform-style: preserve-3d;
   backface-visibility: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
 }
-
 .project-card:hover {
   transform: translateY(-6px) scale(1.01);
-  box-shadow: 0 10px 30px rgba(47,128,237,0.12), 0 6px 16px rgba(0,0,0,0.35);
-}
+  /* box-shadow: 0 10px 30px rgba(0,0,0,0.38), 0 6px 16px rgba(0,0,0,0.22); */
+  box-shadow: 0 16px 40px rgba(85, 83, 83, 0.24);
 
+}
 .project-card h3 {
   margin-top: 0;
   margin-bottom: 0.5rem;
-  color: #58a6ff;
+  color: var(--text-primary);
   font-size: 1.2rem;
   font-weight: 600;
 }
-
 .project-card p {
   color: var(--text-secondary);
   font-size: 0.95rem;
   line-height: 1.4;
 }
 
+/* Experience (alt pattern) */
+#experience.exp-alt { padding-top: 3rem; padding-bottom: 3rem; }
+.exp-list { display: grid; gap: 1rem; }
+.exp-card {
+  position: relative;
+  background: var(--surface);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 12px;
+  padding: 1.1rem 1.2rem 1rem 1.2rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.17);
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+.exp-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.10), rgba(255,255,255,0.03));
+  border-top-left-radius: 12px; border-bottom-left-radius: 12px;
+}
+.exp-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(85, 83, 83, 0.24);
+  border-color: rgba(39, 228, 15, 0.16);
+}
+.exp-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.exp-role { font-size: 1.05rem; font-weight: 600; color: var(--text-primary); }
+.exp-role span { color: var(--text-secondary); font-weight: 500; }
+.exp-meta { display: flex; align-items: center; gap: 0.5rem; }
+.exp-chip {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-size: 0.82rem; line-height: 1;
+  padding: 0.45rem 0.6rem; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.06);
+  color: var(--text-primary);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.13);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+}
+.exp-summary { color: var(--text-secondary); margin: 0.45rem 0 0.35rem 0; font-size: 0.95rem; }
+.exp-bullets { margin-left: 1rem; margin-top: 0.25rem; margin-bottom: 0.25rem; }
+.exp-bullets li { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.4; margin-bottom: 0.25rem; }
+.exp-tags { margin-top: 0.5rem; }
+.exp-card.hidden { opacity: 0; transform: translateY(16px); }
+.exp-card.show { opacity: 1; transform: none; transition: opacity 0.6s, transform 0.6s; }
+
+/* Removed transition-delay from scroll reveal for exp-card and project-card */
+
 /* Contact */
-#contact ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-#contact li {
-  margin-bottom: 0.5rem;
-  font-size: 0.95rem;
-}
-
+#contact ul { list-style: none; padding-left: 0; }
+#contact li { margin-bottom: 0.5rem; font-size: 0.95rem; }
 #contact a {
-  color: #58a6ff;
+  color: var(--accent);
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: color 0.3s;
 }
-
 #contact a:hover {
-  color: #3e73bf;
+  color: var(--accent-dark);
 }
 
 /* Reduce animations for users who prefer minimal motion */
@@ -403,13 +378,7 @@ footer {
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
-  .hero-content h1 {
-    font-size: 2.2rem;
-  }
-  .hero-content p {
-    font-size: 1rem;
-  }
-  .cta {
-    padding: 0.5rem 1rem;
-  }
+  .hero-content h1 { font-size: 2.2rem; }
+  .hero-content p { font-size: 1rem; }
+  .cta { padding: 0.5rem 1rem; }
 }

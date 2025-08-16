@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ctx.clearRect(0, 0, w, h);
     const linkDist = 180;
     // Draw particles
-    ctx.fillStyle = 'rgba(130, 170, 255, 0.9)';
+    ctx.fillStyle = 'rgba(230, 235, 240, 0.60)';
     particles.forEach(p => {
       p.x += p.vx;
       p.y += p.vy;
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const dist2 = dx * dx + dy * dy;
         if (dist2 < linkDist * linkDist) {
           const alpha = 1 - dist2 / (linkDist * linkDist);
-          ctx.strokeStyle = `rgba(155, 81, 224, ${alpha * 0.4})`;
+          ctx.strokeStyle = `rgba(220, 225, 230, ${alpha * 0.25})`;
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
           ctx.lineTo(b.x, b.y);
@@ -129,9 +129,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ===== IntersectionObserver for staggered scroll reveal =====
   const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry, idx) => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        entry.target.style.transitionDelay = `${idx * 80}ms`;
+        // Remove transition-delay for scroll reveal
+        entry.target.style.transitionDelay = `0ms`;
         entry.target.classList.remove('hidden');
         entry.target.classList.add('show');
         io.unobserve(entry.target);
@@ -139,10 +140,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, { threshold: 0.15 });
 
-  document.querySelectorAll('.project-card').forEach((card) => {
+  document.querySelectorAll('.project-card, .exp-card').forEach((card) => {
     card.classList.add('hidden');
     io.observe(card);
   });
+
+  (function() {
+    const cards = document.querySelectorAll('.exp-card');
+    const today = new Date();
+    function parseYM(ym) { if (!ym) return null; if (String(ym).toLowerCase() === 'present') return today; const [y, m] = String(ym).split('-').map(Number); if (!y || !m) return null; return new Date(y, m - 1, 1); }
+    function monthsBetween(a, b) { const years = b.getFullYear() - a.getFullYear(); const months = b.getMonth() - a.getMonth(); return years * 12 + months + 1; }
+    cards.forEach(card => { const start = parseYM(card.dataset.start || ''); const end = parseYM(card.dataset.end || ''); const durEl = card.querySelector('.exp-duration'); if (start && end && durEl) { const total = Math.max(1, monthsBetween(start, end)); const years = Math.floor(total / 12); const months = total % 12; const parts = []; if (years > 0) parts.push(`${years} yr${years>1?'s':''}`); if (months > 0) parts.push(`${months} mo${months>1?'s':''}`); durEl.textContent = parts.join(' ') || '1 mo'; } });
+  })();
 
   // ===== Parallax tilt effect on project cards =====
   document.querySelectorAll('.project-card').forEach(card => {

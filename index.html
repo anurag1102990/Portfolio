@@ -10,28 +10,6 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css?v=2025-08-13a" />
-    <style>
-      /* Fallback styles in case CDN/browser caches old CSS on GitHub Pages */
-      .tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-top: 12px;
-      }
-      .tag {
-        font-size: 0.8rem;
-        line-height: 1;
-        padding: 0.35rem 0.6rem;
-        border-radius: 999px;
-        border: 1px solid rgba(125, 211, 252, 0.3);
-        background: linear-gradient(
-          180deg,
-          rgba(125, 211, 252, 0.16),
-          rgba(168, 85, 247, 0.12)
-        );
-        color: #f5f7fb;
-      }
-    </style>
   </head>
   <body>
     <!-- Dynamic particle background canvas -->
@@ -132,6 +110,116 @@
       <a href="Anurag_Jain_Resume.pdf" class="button" download
         >Download Resume</a
       >
+    </section>
+    <!-- Experience section -->
+    <section id="experience" class="exp-alt">
+      <h2>Experience</h2>
+      <div class="exp-list">
+        <!-- Skat Research -->
+        <article class="exp-card" data-start="2025-05" data-end="present">
+          <header class="exp-top">
+            <div class="exp-role">
+              Undergraduate Researcher <span>@ University of Alberta</span>
+            </div>
+            <div class="exp-meta">
+              <span class="exp-chip"
+                ><time class="exp-start">May 2025</time> —
+                <time class="exp-end">Present</time> •
+                <span class="exp-duration">ongoing</span></span
+              >
+            </div>
+          </header>
+          <p class="exp-summary">
+            Research in AI/ML with focus on deep learning, reinforcement
+            learning, and generative models.
+          </p>
+          <ul class="exp-bullets">
+            <li>
+              Explored policy learning for imperfect‑information games and
+              transformer‑based pipelines.
+            </li>
+            <li>
+              Ran ablations, reproduced baselines, and wrote concise experiment
+              notes.
+            </li>
+          </ul>
+          <div class="tags exp-tags">
+            <span class="tag">Deep Learning</span>
+            <span class="tag">Reinforcement Learning</span>
+            <span class="tag">Generative Models</span>
+          </div>
+        </article>
+
+        <!-- PCL Construction -->
+        <article class="exp-card" data-start="2024-01" data-end="2024-04">
+          <header class="exp-top">
+            <div class="exp-role">
+              Machine Learning Intern <span>@ PCL Construction</span>
+            </div>
+            <div class="exp-meta">
+              <span class="exp-chip"
+                ><time class="exp-start">January 2024</time> —
+                <time class="exp-end">April 2024</time> •
+                <span class="exp-duration">4 mos</span></span
+              >
+            </div>
+          </header>
+          <p class="exp-summary">
+            Built ML models for analyzing complex BIM data to automate parts of
+            construction planning.
+          </p>
+          <ul class="exp-bullets">
+            <li>
+              Structured high‑dimensional building information (BIM) for
+              downstream ML tasks.
+            </li>
+            <li>
+              Prototyped and evaluated models; documented results and trade‑offs
+              for stakeholders.
+            </li>
+          </ul>
+          <div class="tags exp-tags">
+            <span class="tag">Machine Learning</span>
+            <span class="tag">BIM</span>
+            <span class="tag">Python</span>
+          </div>
+        </article>
+
+        <!-- PaySpaze -->
+        <article class="exp-card" data-start="2024-05" data-end="2024-08">
+          <header class="exp-top">
+            <div class="exp-role">
+              Software Developer Intern <span>@ PaySpaze</span>
+            </div>
+            <div class="exp-meta">
+              <span class="exp-chip"
+                ><time class="exp-start">May 2024</time> —
+                <time class="exp-end">August 2024</time> •
+                <span class="exp-duration">4 mos</span></span
+              >
+            </div>
+          </header>
+          <p class="exp-summary">
+            Built a cross‑platform app in Flutter/Dart and implemented digital
+            authentication flows.
+          </p>
+          <ul class="exp-bullets">
+            <li>
+              Shipped UI features and improved reliability of auth and session
+              handling.
+            </li>
+            <li>
+              Collaborated across design and backend to reduce friction in the
+              sign‑in experience.
+            </li>
+          </ul>
+          <div class="tags exp-tags">
+            <span class="tag">Flutter</span>
+            <span class="tag">Dart</span>
+            <span class="tag">Authentication</span>
+          </div>
+        </article>
+      </div>
     </section>
     <!-- Projects section -->
     <section id="projects">
