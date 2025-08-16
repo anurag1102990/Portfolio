@@ -397,6 +397,103 @@ footer {
   font-weight: 700;
 }
 
-/* Now, in your HTML for the ongoing experience, add class="exp-end present" to just the Present date. Example:
-   <span class="exp-chip"><time class="exp-start">May 2024</time> — <time class="exp-end present">Present</time> • <span class="exp-duration">ongoing</span></span>
-*/
+#education {
+  padding: 4rem 2rem 2.5rem 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.edu-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-left: 0;
+  padding-left: 0;
+  border-left: none;
+}
+.edu-card {
+  position: relative;
+  background: var(--surface);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.17);
+  padding: 1.1rem 1.2rem 1rem 1.2rem;  /* Matches .exp-card */
+  border: 1px solid rgba(255,255,255,0.10);
+  margin-left: 0;
+  min-width: 0;
+  transition: box-shadow 0.25s, border-color 0.25s;
+  display: flex;
+  flex-direction: column;
+}
+.edu-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(85, 83, 83, 0.24);
+  border-color: rgba(39, 228, 15, 0.16);
+}
+.edu-year {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: rgba(52,211,153,0.08);
+  border: 1px solid rgba(52,211,153,0.25);
+  border-radius: 999px;
+  padding: 0.17em 0.8em 0.15em 0.8em;
+  margin-bottom: 0.47rem;
+}
+.edu-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.26rem;
+}
+.edu-degree {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.48em;
+  margin-bottom: 0.1rem;
+}
+.edu-badge {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid rgba(52,211,153,0.30);
+  border-radius: 7px;
+  padding: 0.13em 0.70em 0.11em 0.70em;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.edu-univ {
+  color: var(--text-secondary);
+  font-size: 0.99rem;
+  font-weight: 400;
+}
+.edu-details {
+  color: var(--text-secondary);
+  font-size: 0.96rem;
+  margin-top: 0.04em;
+}
+@media (max-width: 700px) {
+  #education { padding-left: 0.2rem; padding-right: 0.2rem; }
+  .edu-card { padding: 1.05rem 1rem 1rem 1rem; margin-left: 0; }
+  .edu-year { font-size: 0.92rem; 
+  }
+}
+
+
+/* Skills (categorized, minimal) */
+#skills.skills-section { padding-top: 3rem; padding-bottom: 3rem; }
+.skills-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 1.25rem; }
+.skill-group { background: var(--surface); border: 1px solid rgba(255,255,255,0.10); border-radius: 12px; padding: 0.9rem 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.17); transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; }
+.skill-group:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(85,83,83,0.24); border-color: rgba(255,255,255,0.16); }
+.skill-label { display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 600; font-size: 0.95rem; color: var(--text-primary); margin-bottom: 0.55rem; position: relative; }
+.skill-label::after { content: ""; display: inline-block; width: 36px; height: 2px; background: var(--accent); opacity: 0.6; border-radius: 2px; margin-left: 8px; }
+.skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.skills-section .tag { border: 1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.05); box-shadow: 0 2px 10px rgba(0,0,0,0.13); }
+.skills-section .tag:hover { border-color: var(--accent); box-shadow: 0 6px 18px rgba(52,211,153,0.18), 0 2px 10px rgba(0,0,0,0.18); }
+
+@media (max-width: 800px) { .skills-grid { grid-template-columns: 1fr; } }
