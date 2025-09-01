@@ -140,10 +140,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, { threshold: 0.15 });
 
-  document.querySelectorAll('.project-card, .exp-card').forEach((card) => {
+  document.querySelectorAll('.project-card, .exp-card, .feature-card').forEach((card) => {
     card.classList.add('hidden');
     io.observe(card);
   });
+
+  // ===== Floating Back-to-Top button =====
+  const toTop = document.getElementById('backToTop');
+  if (toTop) {
+    const toggleToTop = () => {
+      const show = window.scrollY > 240;
+      toTop.classList.toggle('show', show);
+    };
+    // initial state
+    toggleToTop();
+    // scroll listener
+    window.addEventListener('scroll', () => {
+      if (!reduceMotion) {
+        // rAF for smoother updates when animations allowed
+        requestAnimationFrame(toggleToTop);
+      } else {
+        toggleToTop();
+      }
+    }, { passive: true });
+    // click to scroll
+    toTop.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (reduceMotion) {
+        window.scrollTo(0, 0);
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+  }
 
   (function() {
     const cards = document.querySelectorAll('.exp-card');
@@ -153,29 +182,30 @@ document.addEventListener('DOMContentLoaded', () => {
     cards.forEach(card => { const start = parseYM(card.dataset.start || ''); const end = parseYM(card.dataset.end || ''); const durEl = card.querySelector('.exp-duration'); if (start && end && durEl) { const total = Math.max(1, monthsBetween(start, end)); const years = Math.floor(total / 12); const months = total % 12; const parts = []; if (years > 0) parts.push(`${years} yr${years>1?'s':''}`); if (months > 0) parts.push(`${months} mo${months>1?'s':''}`); durEl.textContent = parts.join(' ') || '1 mo'; } });
   })();
 
-  // ===== Parallax tilt effect on project cards =====
-  document.querySelectorAll('.project-card').forEach(card => {
-    let rafId = null;
-    function handleMove(e) {
-      const rect = card.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width;
-      const y = (e.clientY - rect.top) / rect.height;
-      // Increase tilt amplitude for more noticeable effect
-      const rx = (0.5 - y) * 12;
-      const ry = (x - 0.5) * 12;
-      if (rafId) cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(() => {
-        card.style.transform = `translateY(-6px) rotateX(${rx}deg) rotateY(${ry}deg)`;
-      });
-    }
-    function handleLeave() {
-      if (rafId) cancelAnimationFrame(rafId);
-      // Clear inline transform so CSS (:hover) and base styles control the final state
-      card.style.transform = '';
-    }
-    card.addEventListener('mousemove', handleMove);
-    card.addEventListener('mouseleave', handleLeave);
-  });
+  // ===== Parallax tilt effect on project + featured cards (smoothed + consistent) =====
+  if (!reduceMotion) {
+    document.querySelectorAll('.project-card, .feature-card').forEach(card => {
+      let rafId = null;
+      function handleMove(e) {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width;
+        const y = (e.clientY - rect.top) / rect.height;
+        const amp = 8; // unified amplitude for smoother feel
+        const rx = (0.5 - y) * amp;
+        const ry = (x - 0.5) * amp;
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(() => {
+          card.style.transform = `translateY(-6px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+        });
+      }
+      function handleLeave() {
+        if (rafId) cancelAnimationFrame(rafId);
+        card.style.transform = '';
+      }
+      card.addEventListener('mousemove', handleMove);
+      card.addEventListener('mouseleave', handleLeave);
+    });
+  }
 
   // ===== Button/CTA spotlight effect tracking cursor =====
   document.querySelectorAll('.button, .cta').forEach(btn => {

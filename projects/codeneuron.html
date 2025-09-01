@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodeNeuron — Early Access | Anurag Jain</title>
+    <meta
+      name="description"
+      content="Practice ML hands‑on with guided, structured problem sets in a browser IDE. Learn by doing with immediate feedback, plots, and concise theory when you need it."
+    />
+    <meta property="og:title" content="CodeNeuron — Early Access" />
+    <meta
+      property="og:description"
+      content="An experimental ML/AI practice platform: IDE + sandbox runner + problem catalog."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://jainanurag.me/images/projects/codeneuron/og-image.png"
+    />
+    <meta
+      property="og:url"
+      content="https://jainanurag.me/projects/codeneuron.html"
+    />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="CodeNeuron — Early Access" />
+    <meta
+      property="twitter:description"
+      content="An experimental ML/AI practice platform: IDE + sandbox runner + problem catalog."
+    />
+    <meta
+      property="twitter:image"
+      content="https://jainanurag.me/images/projects/codeneuron/og-image.png"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+      /* Scoped tweaks for CodeNeuron page */
+      body[data-page="codeneuron"] .hero-content {
+        max-width: 760px;
+        padding: 1.25rem 1.25rem;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.32),
+          rgba(0, 0, 0, 0.18)
+        );
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
+      }
+      body[data-page="codeneuron"] .hero-content h1 {
+        margin-bottom: 0.25rem;
+      }
+      body[data-page="codeneuron"] .hero-content p {
+        margin-top: 0.25rem;
+      }
+
+      body[data-page="codeneuron"] main section {
+        max-width: 940px;
+        padding: 3rem 1.5rem;
+      }
+      body[data-page="codeneuron"] section > p {
+        color: var(--text-secondary);
+        margin-bottom: 0.85rem;
+      }
+      body[data-page="codeneuron"] ul {
+        padding-left: 1.1rem;
+        margin-top: 0.5rem;
+      }
+      body[data-page="codeneuron"] li {
+        margin: 0.45rem 0;
+        line-height: 1.55;
+      }
+      body[data-page="codeneuron"] .tags {
+        margin-top: 0.6rem;
+      }
+      body[data-page="codeneuron"] .button {
+        margin-top: 0.5rem;
+      }
+
+      body[data-page="codeneuron"] pre {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas,
+          "Liberation Mono", monospace;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+
+      body[data-page="codeneuron"] .project-grid img {
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+      }
+
+      @media (max-width: 720px) {
+        body[data-page="codeneuron"] main section {
+          padding: 2.25rem 1rem;
+        }
+        body[data-page="codeneuron"] .hero-content {
+          padding: 1rem;
+        }
+        body[data-page="codeneuron"] .hero {
+          min-height: 52vh !important;
+        }
+      }
+      @media (max-width: 420px) {
+        body[data-page="codeneuron"] .project-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      /* Back button styling */
+      body[data-page="codeneuron"] .back-link {
+        position: fixed;
+        top: 16px;
+        left: 16px;
+        z-index: 1000;
+        padding: 0.45rem 0.75rem;
+        border-radius: 999px;
+        font-size: 0.9rem;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        background: rgba(0, 0, 0, 0.25);
+        border-color: rgba(255, 255, 255, 0.22);
+      }
+      body[data-page="codeneuron"] .back-link:hover {
+        border-color: rgba(52, 211, 153, 0.5);
+      }
+      @media (max-width: 600px) {
+        body[data-page="codeneuron"] .back-link {
+          top: 12px;
+          left: 12px;
+          font-size: 0.85rem;
+          padding: 0.4rem 0.65rem;
+        }
+      }
+    </style>
+  </head>
+  <body data-page="codeneuron">
+    <canvas id="bg"></canvas>
+    <div id="blobs"></div>
+
+    <header
+      class="hero"
+      style="
+        height: auto;
+        min-height: 48vh;
+        background-image: url('../images/projects/codeneuron/hero.jpg');
+        background-size: cover;
+        background-position: center;
+      "
+    >
+      <div class="overlay"></div>
+      <div class="hero-content" style="padding: 4rem 1rem; max-width: 960px">
+        <a
+          href="../index.html#featured"
+          class="cta cta-ghost back-link"
+          aria-label="Back to portfolio"
+          onclick="try{if(document.referrer && new URL(document.referrer).origin===location.origin){history.back(); return false;}}catch(e){}"
+          >← Back</a
+        >
+        <h1 style="margin-top: 0.5rem">CodeNeuron</h1>
+        <p style="margin: 0.25rem 0 0.75rem 0">
+          Hands‑on ML practice: guided problems, in‑browser IDE, instant
+          feedback.
+        </p>
+        <div class="tags" style="justify-content: center">
+          <span class="tag">Early Access — Open to collaborate</span>
+        </div>
+      </div>
+    </header>
+
+    <main style="padding-top: 2rem">
+      <section>
+        <h2>Overview</h2>
+        <p>
+          Preparing for ML roles often becomes juggling tutorials, notes, and
+          repos — with little signal on whether you can actually ship a
+          solution.
+        </p>
+        <p style="font-style: italic; color: var(--text-secondary)">
+          Plenty of theory exists; structured practice is scarce.
+        </p>
+        <p>
+          CodeNeuron aims to close that gap: a practical, guided environment
+          where you tackle problems end‑to‑end in a browser IDE, iterate
+          quickly, and get immediate, visual feedback. Short concept notes
+          appear only when helpful so momentum stays high.
+        </p>
+
+        <div class="tags">
+          <span class="tag">React</span>
+          <span class="tag">Vite</span>
+          <span class="tag">Tailwind</span>
+          <span class="tag">FastAPI</span>
+          <span class="tag">Python</span>
+          <span class="tag">Docker</span>
+          <span class="tag">Firebase</span>
+          <span class="tag">Cloud Run</span>
+        </div>
+
+        <div style="margin-top: 1rem">
+          <a
+            class="button"
+            href="https://codeneuron.tech/"
+            target="_blank"
+            rel="noopener"
+            >Live</a
+          >
+          <!-- <a class="cta cta-ghost" href="#" style="margin-left: 0.5rem;" aria-disabled="true">Repo (coming soon)</a>
+          <a class="cta cta-ghost" href="#" style="margin-left: 0.5rem;" aria-disabled="true">Demo (coming soon)</a> -->
+        </div>
+      </section>
+
+      <section>
+        <h2>What’s Shipped (v1)</h2>
+        <ul style="color: var(--text-secondary); margin-left: 1rem">
+          <li>
+            Problem sets grounded in real‑life scenarios — topics like linear
+            regression, train/test splits, k‑nearest neighbours, decision trees,
+            and model generalization.
+          </li>
+          <li>
+            Coverage so far: 9 core topics and 30 structured questions (and
+            growing).
+          </li>
+          <li>
+            Every problem follows a clear flow: short scenario, step‑by‑step
+            tasks (preprocessing → modeling → evaluation → visualization),
+            datasets, sample inputs/outputs, and difficulty estimates.
+          </li>
+          <li>
+            In‑browser IDE: run your code against real datasets and see instant
+            results — including plots rendered back in the output.
+          </li>
+          <li>
+            Learn alongside the work: concise inline concept notes surface when
+            you need them to build intuition faster.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>My Role</h2>
+        <p>
+          Solo engineer — product design, UI, backend, runner, Firebase,
+          Docker/Cloud Run, and early content tooling.
+        </p>
+      </section>
+
+      <section>
+        <h2>Status &amp; Roadmap</h2>
+        <p>
+          <strong>Status:</strong> Early Access. Shipping fast and learning in
+          public.
+        </p>
+        <ul style="color: var(--text-secondary); margin-left: 1rem">
+          <li>Publish more problems and topics</li>
+          <li>Add editorial walkthroughs and a layered hint system</li>
+          <li>Shape learning paths with milestones</li>
+          <li>Richer feedback with metrics and visuals</li>
+          <li>Community space to share and create together</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Collaborate / Feedback</h2>
+        <p>
+          If this resonates and you’d like to jam on ideas, contribute problems,
+          help with UX/UI, or just chat about ML learning — I’d love to connect.
+        </p>
+        <ul style="color: var(--text-secondary); margin-left: 1rem">
+          <li>
+            DM me on LinkedIn:
+            <a
+              style="color: aqua"
+              href="https://linkedin.com/in/jainanurag23"
+              target="_blank"
+              rel="noopener"
+              >@jainanurag23</a
+            >
+          </li>
+          <li>Share feedback via the site’s Feedback option</li>
+          <li>Or email me — happy to share via LinkedIn</li>
+        </ul>
+      </section>
+
+      <!-- <section>
+        <h2>Demo &amp; Screens</h2>
+        <p>
+          Short demo video coming soon. Screenshots below (IDE, problem view,
+          results, dev console):
+        </p>
+        <div class="project-grid" style="margin-top: 1rem">
+          <img
+            src="../images/projects/codeneuron/hero.jpg"
+            alt="CodeNeuron hero"
+            style="
+              width: 100%;
+              border-radius: 8px;
+              border: 1px solid rgba(255, 255, 255, 0.08);
+            "
+          />
+          <img
+            src="../images/projects/codeneuron/ide.jpg"
+            alt="IDE screenshot"
+            style="
+              width: 100%;
+              border-radius: 8px;
+              border: 1px solid rgba(255, 255, 255, 0.08);
+            "
+          />
+          <img
+            src="../images/projects/codeneuron/results.jpg"
+            alt="Results view"
+            style="
+              width: 100%;
+              border-radius: 8px;
+              border: 1px solid rgba(255, 255, 255, 0.08);
+            "
+          />
+          <img
+            src="../images/projects/codeneuron/dev-console.jpg"
+            alt="Developer console"
+            style="
+              width: 100%;
+              border-radius: 8px;
+              border: 1px solid rgba(255, 255, 255, 0.08);
+            "
+          />
+        </div>
+      </section> -->
+    </main>
+
+    <button
+      id="backToTop"
+      class="to-top"
+      aria-label="Back to top"
+      title="Back to top"
+    >
+      ▲
+    </button>
+    <footer style="padding-top: 1rem">
+      <section style="padding-top: 1rem">
+        <p>&copy; 2025 Anurag Jain. Thanks for reading!</p>
+      </section>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>
