@@ -178,6 +178,178 @@
         object-fit: cover;
       }
 
+      /* Hero CTA alignment */
+      body[data-page="codeneuron"] .hero-ctas {
+        display: inline-flex;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: stretch;
+        margin-top: 0.75rem;
+      }
+      body[data-page="codeneuron"] .hero-ctas .button,
+      body[data-page="codeneuron"] .hero-ctas .cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 160px;
+        min-height: 44px;
+        text-align: center;
+      }
+      @media (max-width: 520px) {
+        body[data-page="codeneuron"] .hero-ctas {
+          display: grid;
+          grid-template-columns: 1fr;
+          width: 100%;
+        }
+        body[data-page="codeneuron"] .hero-ctas .button,
+        body[data-page="codeneuron"] .hero-ctas .cta {
+          width: 100%;
+        }
+      }
+
+      /* Highlights grid */
+      body[data-page="codeneuron"] .cn-highlights {
+        padding-top: 1rem;
+      }
+      body[data-page="codeneuron"] .highlights-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 0.9rem;
+        margin-top: 0.75rem;
+      }
+      body[data-page="codeneuron"] .highlight {
+        position: relative;
+        padding: 1rem;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.06),
+          rgba(255, 255, 255, 0.03)
+        );
+        box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
+      }
+      body[data-page="codeneuron"] .highlight .icon {
+        font-size: 1.15rem;
+        margin-bottom: 0.35rem;
+      }
+      body[data-page="codeneuron"] .highlight h4 {
+        margin-bottom: 0.25rem;
+      }
+      body[data-page="codeneuron"] .highlight p {
+        color: var(--text-secondary);
+      }
+
+      /* Stats band */
+      body[data-page="codeneuron"] .cn-stats {
+        margin: 1.25rem 0 0;
+        padding: 0.9rem 1rem;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: radial-gradient(
+            180px 90px at 15% 30%,
+            rgba(52, 211, 153, 0.12),
+            transparent 60%
+          ),
+          radial-gradient(
+            200px 120px at 85% 70%,
+            rgba(130, 170, 255, 0.1),
+            transparent 60%
+          ),
+          rgba(255, 255, 255, 0.04);
+      }
+      body[data-page="codeneuron"] .stat-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 0.75rem;
+      }
+      body[data-page="codeneuron"] .stat {
+        display: flex;
+        align-items: baseline;
+        gap: 0.45rem;
+      }
+      body[data-page="codeneuron"] .stat .num {
+        font-size: 1.8rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+      body[data-page="codeneuron"] .stat .label {
+        color: var(--text-secondary);
+      }
+
+      /* Checklist */
+      body[data-page="codeneuron"] .checklist {
+        list-style: none;
+        padding: 0;
+        margin-left: 0;
+        color: var(--text-secondary);
+      }
+      body[data-page="codeneuron"] .checklist li {
+        position: relative;
+        padding-left: 1.5rem;
+        margin: 0.5rem 0;
+      }
+      body[data-page="codeneuron"] .checklist li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        top: 0.05rem;
+        width: 1rem;
+        height: 1rem;
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      /* Roadmap timeline */
+      body[data-page="codeneuron"] .timeline {
+        list-style: none;
+        padding-left: 0.5rem;
+        border-left: 2px dashed rgba(255, 255, 255, 0.15);
+        margin-left: 0.5rem;
+      }
+      body[data-page="codeneuron"] .timeline li {
+        position: relative;
+        padding-left: 1rem;
+        margin: 0.6rem 0;
+        color: var(--text-secondary);
+      }
+      body[data-page="codeneuron"] .timeline li::before {
+        content: "";
+        position: absolute;
+        left: -7px;
+        top: 0.35rem;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.18);
+      }
+
+      /* CTA banner */
+      body[data-page="codeneuron"] .cta-banner {
+        margin: 0.5rem auto 1.5rem;
+        padding: 1.25rem 1rem;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.06),
+          rgba(255, 255, 255, 0.03)
+        );
+        text-align: center;
+        box-shadow: 0 14px 42px rgba(0, 0, 0, 0.22);
+      }
+      body[data-page="codeneuron"] .cta-banner h3 {
+        margin-bottom: 0.4rem;
+      }
+      body[data-page="codeneuron"] .cta-banner p {
+        color: var(--text-secondary);
+      }
+      body[data-page="codeneuron"] .cta-banner .cta-group {
+        margin-top: 0.6rem;
+      }
+
       @media (max-width: 720px) {
         body[data-page="codeneuron"] main section {
           padding: 2.25rem 1rem;
@@ -255,11 +427,21 @@
         <div class="tags" style="justify-content: center">
           <span class="tag">Early Access — Open to collaborate</span>
         </div>
+        <div class="cta-group hero-ctas">
+          <a
+            class="button"
+            href="https://codeneuron.tech/"
+            target="_blank"
+            rel="noopener"
+            >Live</a
+          >
+          <a class="cta cta-ghost" href="#overview">Explore details</a>
+        </div>
       </div>
     </header>
 
     <main style="padding-top: 2rem">
-      <section>
+      <section id="overview">
         <h2>Overview</h2>
         <p>
           Preparing for ML roles often becomes juggling tutorials, notes, and
@@ -276,6 +458,50 @@
           appear only when helpful so momentum stays high.
         </p>
 
+        <section class="cn-highlights">
+          <div class="highlights-grid">
+            <article class="highlight">
+              <div class="icon">🧪</div>
+              <h4>Practice In‑Browser</h4>
+              <p>
+                Run code against real datasets, see outputs and plots inline.
+              </p>
+            </article>
+            <article class="highlight">
+              <div class="icon">📚</div>
+              <h4>Story‑Driven</h4>
+              <p>Real scenarios over puzzles, with goals and constraints.</p>
+            </article>
+            <article class="highlight">
+              <div class="icon">📈</div>
+              <h4>Visible Progress</h4>
+              <p>Metrics, graphs, and dataset peeks at every step.</p>
+            </article>
+            <article class="highlight">
+              <div class="icon">🧠</div>
+              <h4>Intuition First</h4>
+              <p>Understand when and why techniques fit the problem.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="cn-stats" aria-label="Platform stats">
+          <div class="stat-row">
+            <div class="stat">
+              <span class="num" data-count="9">9</span
+              ><span class="label">Core Topics</span>
+            </div>
+            <div class="stat">
+              <span class="num" data-count="30">30+</span
+              ><span class="label">Structured Problems</span>
+            </div>
+            <div class="stat">
+              <span class="num" data-count="4">4</span
+              ><span class="label">Step Workflow</span>
+            </div>
+          </div>
+        </section>
+
         <section class="why-different">
           <h3>Why CodeNeuron Is Different</h3>
           <p class="lead">
@@ -290,10 +516,10 @@
               <strong>Real scenarios:</strong> Work through end‑to‑end problems,
               not riddles.
             </li>
-            <li>
+            <!-- <li>
               <strong>Guided flow:</strong> Preprocess → model → evaluate →
               visualize.
-            </li>
+            </li> -->
             <li>
               <strong>Visible progress:</strong> See samples, metrics, and plots
               as you go.
@@ -311,34 +537,11 @@
             <li>Visualize</li>
           </ol>
         </section>
-
-        <div class="tags">
-          <!-- <span class="tag">React</span>
-          <span class="tag">Vite</span>
-          <span class="tag">Tailwind</span>
-          <span class="tag">FastAPI</span>
-          <span class="tag">Python</span>
-          <span class="tag">Docker</span>
-          <span class="tag">Firebase</span>
-          <span class="tag">Cloud Run</span> -->
-        </div>
-
-        <div style="margin-top: 1rem">
-          <a
-            class="button"
-            href="https://codeneuron.tech/"
-            target="_blank"
-            rel="noopener"
-            >Live</a
-          >
-          <!-- <a class="cta cta-ghost" href="#" style="margin-left: 0.5rem;" aria-disabled="true">Repo (coming soon)</a>
-          <a class="cta cta-ghost" href="#" style="margin-left: 0.5rem;" aria-disabled="true">Demo (coming soon)</a> -->
-        </div>
       </section>
 
       <section>
         <h2>What’s Shipped (v1)</h2>
-        <ul style="color: var(--text-secondary); margin-left: 1rem">
+        <ul class="checklist">
           <li>
             Problem sets grounded in real‑life scenarios — topics like linear
             regression, train/test splits, k‑nearest neighbours, decision trees,
@@ -365,6 +568,20 @@
       </section>
 
       <section>
+        <h2>Stack</h2>
+        <div class="tags">
+          <span class="tag">React</span>
+          <span class="tag">Vite</span>
+          <span class="tag">Tailwind</span>
+          <span class="tag">FastAPI</span>
+          <span class="tag">Python</span>
+          <span class="tag">Docker</span>
+          <span class="tag">Firebase</span>
+          <span class="tag">Cloud Run</span>
+        </div>
+      </section>
+
+      <section>
         <h2>My Role</h2>
         <p>
           Solo engineer — product design, UI, backend, runner, Firebase,
@@ -378,7 +595,7 @@
           <strong>Status:</strong> Early Access. Shipping fast and learning in
           public.
         </p>
-        <ul style="color: var(--text-secondary); margin-left: 1rem">
+        <ul class="timeline">
           <li>Publish more problems and topics</li>
           <li>Add editorial walkthroughs and a layered hint system</li>
           <li>Shape learning paths with milestones</li>
@@ -408,6 +625,21 @@
           <li>Or email me — happy to share via LinkedIn</li>
         </ul>
       </section>
+
+      <!-- <section class="cta-banner" aria-label="Join early access">
+        <h3>Build ML intuition the applied way</h3>
+        <p>Try CodeNeuron today and help shape what’s next.</p>
+        <div class="cta-group" style="justify-content: center">
+          <a
+            class="button"
+            href="https://codeneuron.tech/"
+            target="_blank"
+            rel="noopener"
+            >Open Live</a
+          >
+          <a class="cta cta-ghost" href="#overview">Back to overview</a>
+        </div>
+      </section> -->
 
       <!-- <section>
         <h2>Demo &amp; Screens</h2>
@@ -470,6 +702,39 @@
       </section>
     </footer>
 
+    <script>
+      // Light counter animation for stats (scoped to this page)
+      (function () {
+        if (document.body.getAttribute("data-page") !== "codeneuron") return;
+        const items = Array.from(
+          document.querySelectorAll(".cn-stats [data-count]")
+        );
+        if (!items.length || !("IntersectionObserver" in window)) return;
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              const el = entry.target;
+              const target = Number(el.getAttribute("data-count")) || 0;
+              const hasPlus = /\+$/.test(el.textContent);
+              const duration = 800;
+              const start = performance.now();
+              const startVal = 0;
+              function tick(now) {
+                const t = Math.min(1, (now - start) / duration);
+                const val = Math.floor(startVal + (target - startVal) * t);
+                el.textContent = hasPlus ? `${val}+` : String(val);
+                if (t < 1) requestAnimationFrame(tick);
+              }
+              requestAnimationFrame(tick);
+              io.unobserve(el);
+            });
+          },
+          { threshold: 0.4 }
+        );
+        items.forEach((el) => io.observe(el));
+      })();
+    </script>
     <script src="../script.js"></script>
   </body>
 </html>
