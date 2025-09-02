@@ -47,6 +47,93 @@
         );
         box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
       }
+
+      /* Why Different: structured + attractive */
+      body[data-page="codeneuron"] .why-different {
+        margin: 1.75rem 0 0.5rem;
+        padding: 1.25rem 1rem 1rem;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.06),
+          rgba(255, 255, 255, 0.03)
+        );
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+      }
+      body[data-page="codeneuron"] .why-different h3 {
+        margin-bottom: 0.4rem;
+      }
+      body[data-page="codeneuron"] .why-different .lead {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: var(--text-secondary);
+        max-width: 68ch;
+      }
+      body[data-page="codeneuron"] .why-different .value-points {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 0.6rem 0.9rem;
+        margin: 1rem 0 1.25rem;
+        padding: 0;
+        list-style: none;
+      }
+      body[data-page="codeneuron"] .why-different .value-points li {
+        position: relative;
+        padding-left: 1.25rem;
+        color: var(--text-secondary);
+      }
+      body[data-page="codeneuron"] .why-different .value-points li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.6em;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 0 2px rgba(52, 211, 153, 0.18);
+      }
+      body[data-page="codeneuron"] .why-different .flow-stepper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 0.75rem;
+        align-items: center;
+        counter-reset: step;
+        list-style: none;
+        padding: 0;
+        margin: 0.25rem 0 0;
+      }
+      body[data-page="codeneuron"] .why-different .flow-stepper li {
+        counter-increment: step;
+        position: relative;
+        padding-left: 2rem;
+        padding-right: 0.5rem;
+      }
+      body[data-page="codeneuron"] .why-different .flow-stepper li::before {
+        content: counter(step);
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 999px;
+        display: grid;
+        place-items: center;
+        font-size: 0.8rem;
+        font-weight: 600;
+        background: var(--accent);
+        color: #0f1115;
+        box-shadow: 0 6px 16px rgba(52, 211, 153, 0.25);
+      }
+      body[data-page="codeneuron"]
+        .why-different
+        .flow-stepper
+        li:not(:last-child)::after {
+        content: "→";
+        margin-left: 0.25rem;
+        opacity: 0.7;
+      }
       body[data-page="codeneuron"] .hero-content h1 {
         margin-bottom: 0.25rem;
       }
@@ -100,6 +187,9 @@
         }
         body[data-page="codeneuron"] .hero {
           min-height: 52vh !important;
+        }
+        body[data-page="codeneuron"] .why-different {
+          padding: 1rem 0.85rem 0.85rem;
         }
       }
       @media (max-width: 420px) {
@@ -186,15 +276,51 @@
           appear only when helpful so momentum stays high.
         </p>
 
+        <section class="why-different">
+          <h3>Why CodeNeuron Is Different</h3>
+          <p class="lead">
+            Not puzzles. Projects. CodeNeuron teaches applied ML through
+            end‑to‑end scenarios. Each task follows the real workflow —
+            preprocess → model → evaluate → visualize — with dataset peeks,
+            intermediate outputs, and visualizations that build intuition.
+          </p>
+
+          <ul class="value-points">
+            <li>
+              <strong>Real scenarios:</strong> Work through end‑to‑end problems,
+              not riddles.
+            </li>
+            <li>
+              <strong>Guided flow:</strong> Preprocess → model → evaluate →
+              visualize.
+            </li>
+            <li>
+              <strong>Visible progress:</strong> See samples, metrics, and plots
+              as you go.
+            </li>
+            <li>
+              <strong>Intuition first:</strong> Learn when and why each method
+              fits.
+            </li>
+          </ul>
+
+          <ol class="flow-stepper" aria-label="Challenge workflow">
+            <li>Preprocess</li>
+            <li>Model</li>
+            <li>Evaluate</li>
+            <li>Visualize</li>
+          </ol>
+        </section>
+
         <div class="tags">
-          <span class="tag">React</span>
+          <!-- <span class="tag">React</span>
           <span class="tag">Vite</span>
           <span class="tag">Tailwind</span>
           <span class="tag">FastAPI</span>
           <span class="tag">Python</span>
           <span class="tag">Docker</span>
           <span class="tag">Firebase</span>
-          <span class="tag">Cloud Run</span>
+          <span class="tag">Cloud Run</span> -->
         </div>
 
         <div style="margin-top: 1rem">
