@@ -51,8 +51,8 @@
           --dx: 80px;
           --dy: 60px;
           --time: 16s;
-          --start-color: rgba(130, 170, 255, 0.6);
-          --end-color: rgba(155, 81, 224, 0.3);
+          --start-color: rgba(139, 92, 246, 0.55);
+          --end-color: rgba(45, 212, 191, 0.24);
         "
       ></span>
       <span
@@ -64,8 +64,8 @@
           --dx: -100px;
           --dy: 90px;
           --time: 18s;
-          --start-color: rgba(155, 81, 224, 0.5);
-          --end-color: rgba(111, 207, 151, 0.3);
+          --start-color: rgba(56, 189, 248, 0.5);
+          --end-color: rgba(139, 92, 246, 0.25);
         "
       ></span>
       <span
@@ -77,8 +77,8 @@
           --dx: 120px;
           --dy: -100px;
           --time: 20s;
-          --start-color: rgba(111, 207, 151, 0.5);
-          --end-color: rgba(130, 170, 255, 0.3);
+          --start-color: rgba(34, 211, 238, 0.45);
+          --end-color: rgba(147, 197, 253, 0.2);
         "
       ></span>
       <span
@@ -90,26 +90,87 @@
           --dx: -80px;
           --dy: -70px;
           --time: 22s;
-          --start-color: rgba(155, 81, 224, 0.6);
-          --end-color: rgba(130, 170, 255, 0.2);
+          --start-color: rgba(168, 85, 247, 0.42);
+          --end-color: rgba(59, 130, 246, 0.18);
         "
       ></span>
     </div>
 
-    <!-- Hero section with AI‑themed artwork -->
-    <header class="hero">
-      <div class="overlay"></div>
-      <div class="hero-content">
-        <h1>Anurag Jain</h1>
-        <p>AI/ML Researcher &amp; Developer</p>
-        <div class="cta-group" aria-label="Primary navigation shortcuts">
-          <a href="#about" class="cta cta-ghost">About</a>
-          <a href="#education" class="cta cta-ghost">Education</a>
-          <a href="#experience" class="cta cta-ghost">Experience</a>
-          <a href="#projects" class="cta cta-ghost">Projects</a>
-          <a href="#skills" class="cta cta-ghost">Skills</a>
-          <a href="#contact" class="cta cta-ghost">Contact</a>
+    <!-- Hero section -->
+    <header class="hero" aria-labelledby="home-intro">
+      <div class="hero-shell">
+        <div class="hero-content">
+          <span class="hero-kicker">Applied AI &amp; ML Engineering</span>
+          <h1 id="home-intro">Anurag Jain designs dependable intelligence.</h1>
+          <p>I transform research breakthroughs into reliable products with pragmatic experimentation, rigorous evaluation, and human-centered design.</p>
+          <ul class="hero-highlights" aria-label="Focus areas">
+            <li>
+              <span class="hero-highlight-title">Production ML Pipelines</span>
+              <span class="hero-highlight-copy"
+                >Evaluation-first workflows, observability, and guardrails that
+                keep models accountable.</span
+              >
+            </li>
+            <li>
+              <span class="hero-highlight-title">Generative &amp; Multimodal AI</span>
+              <span class="hero-highlight-copy"
+                >Diffusion, LLM alignment, and multimodal interfaces built for
+                creativity.</span
+              >
+            </li>
+            <li>
+              <span class="hero-highlight-title">Responsible Research</span>
+              <span class="hero-highlight-copy"
+                >Reinforcement learning, interpretability, and inclusive,
+                ethical deployment.</span
+              >
+            </li>
+          </ul>
+          <div class="cta-group" aria-label="Primary navigation shortcuts">
+            <a href="#projects" class="cta">View Projects</a>
+            <a href="#contact" class="cta cta-ghost">Let's Collaborate</a>
+            <a href="#about" class="cta cta-ghost">About</a>
+            <a href="#experience" class="cta cta-ghost">Experience</a>
+            <a href="#skills" class="cta cta-ghost">Skills</a>
+            <a href="#education" class="cta cta-ghost">Education</a>
+          </div>
         </div>
+        <aside class="hero-aside" aria-label="Portrait and quick stats">
+          <div class="hero-portrait">
+            <span class="hero-portrait-glow" aria-hidden="true"></span>
+            <img
+              src="images/anurag.jpg"
+              alt="Portrait of Anurag Jain"
+              class="hero-photo"
+            />
+          </div>
+          <div class="hero-metrics">
+            <article class="hero-metric">
+              <span class="hero-metric-title">Latest work</span>
+              <span class="hero-metric-value">Research to Production</span>
+              <p class="hero-metric-copy">
+                Bringing prototypes to launch with evaluation-first workflows
+                and human-centered design.
+              </p>
+            </article>
+            <article class="hero-metric">
+              <span class="hero-metric-title">Focus areas</span>
+              <span class="hero-metric-value">Generative / RL / Applied AI</span>
+              <p class="hero-metric-copy">
+                Prototyping diffusion pipelines, reinforcement learning agents,
+                and human-centered ML experiences.
+              </p>
+            </article>
+            <article class="hero-metric">
+              <span class="hero-metric-title">Toolkit</span>
+              <span class="hero-metric-value">Python / PyTorch</span>
+              <p class="hero-metric-copy">
+                Also fluent with TensorFlow, Flutter, React, Docker, and
+                low-level optimization in C++/Assembly.
+              </p>
+            </article>
+          </div>
+        </aside>
       </div>
     </header>
     <!-- About section -->
