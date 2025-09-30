@@ -34,20 +34,472 @@
     />
     <link rel="stylesheet" href="../styles.css" />
     <style>
-      /* Scoped tweaks for CodeNeuron page */
-      body[data-page="codeneuron"] .hero-content {
-        max-width: 760px;
-        padding: 1.25rem 1.25rem;
-        border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        background: linear-gradient(
-          180deg,
-          rgba(0, 0, 0, 0.32),
-          rgba(0, 0, 0, 0.18)
-        );
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
+      /* CodeNeuron page styling */
+      body[data-page="codeneuron"] {
+        background: var(--background);
+        color: var(--text-primary);
       }
 
+      body[data-page="codeneuron"] .back-link {
+        position: fixed;
+        top: 18px;
+        left: 18px;
+        z-index: 1000;
+        padding: 0.5rem 0.85rem;
+        border-radius: 999px;
+        font-size: 0.9rem;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        background: rgba(8, 12, 24, 0.55);
+        border: 1px solid rgba(96, 165, 250, 0.32);
+        transition: border-color 0.2s ease, transform 0.2s ease;
+      }
+
+      body[data-page="codeneuron"] .back-link:hover {
+        border-color: rgba(56, 189, 248, 0.55);
+        transform: translateY(-2px);
+      }
+
+      @media (max-width: 640px) {
+        body[data-page="codeneuron"] .back-link {
+          top: 14px;
+          left: 14px;
+          font-size: 0.82rem;
+          padding: 0.45rem 0.7rem;
+        }
+      }
+
+      body[data-page="codeneuron"] .cn-hero {
+        min-height: 60vh;
+        padding: clamp(4rem, 7vw, 5.5rem) clamp(1.4rem, 4vw, 2.6rem);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: url('../images/projects/codeneuron/hero.jpg') center / cover
+          no-repeat;
+      }
+
+      body[data-page="codeneuron"] .cn-hero::before {
+        background: linear-gradient(
+            135deg,
+            rgba(6, 9, 20, 0.92) 0%,
+            rgba(6, 10, 22, 0.82) 48%,
+            rgba(6, 9, 20, 0.94) 100%
+          ),
+          rgba(6, 9, 20, 0.75);
+      }
+
+      body[data-page="codeneuron"] .cn-hero::after {
+        bottom: -22vh;
+        height: 36vh;
+        background: linear-gradient(
+          to bottom,
+          rgba(12, 20, 34, 0) 0%,
+          rgba(9, 16, 30, 0.38) 40%,
+          rgba(5, 8, 18, 0.82) 75%,
+          rgba(5, 7, 15, 1) 100%
+        );
+      }
+
+      body[data-page="codeneuron"] .cn-hero .overlay {
+        background: linear-gradient(
+          135deg,
+          rgba(6, 10, 22, 0.88) 0%,
+          rgba(6, 10, 22, 0.6) 55%,
+          rgba(6, 10, 22, 0.9) 100%
+        );
+      }
+
+      body[data-page="codeneuron"] .cn-hero__inner {
+        position: relative;
+        max-width: min(760px, 100%);
+        padding: clamp(2.6rem, 6vw, 3.4rem) clamp(1.6rem, 5vw, 2.6rem);
+        border-radius: 26px;
+        border: 1px solid rgba(96, 165, 250, 0.28);
+        background: linear-gradient(
+          145deg,
+          rgba(14, 24, 40, 0.82),
+          rgba(10, 18, 32, 0.78)
+        );
+        box-shadow: 0 36px 80px rgba(5, 9, 22, 0.58);
+        text-align: center;
+      }
+
+      body[data-page="codeneuron"] .cn-hero__tagline {
+        font-size: clamp(1rem, 2.4vw, 1.2rem);
+        color: var(--text-secondary);
+        margin: 0.35rem auto 1.2rem;
+        max-width: 52ch;
+      }
+
+      body[data-page="codeneuron"] .cn-hero__tag {
+        justify-content: center;
+        margin-bottom: 1.4rem;
+      }
+
+      body[data-page="codeneuron"] .cn-hero__tag .tag {
+        background: rgba(56, 189, 248, 0.16);
+        border: 1px solid rgba(96, 165, 250, 0.32);
+        color: var(--text-primary);
+      }
+
+      body[data-page="codeneuron"] .cn-hero__ctas {
+        display: inline-flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.75rem;
+      }
+
+      body[data-page="codeneuron"] .cn-hero__ctas .cta,
+      body[data-page="codeneuron"] .cn-hero__ctas .button {
+        min-width: 170px;
+        min-height: 46px;
+        font-weight: 600;
+      }
+
+      @media (max-width: 540px) {
+        body[data-page="codeneuron"] .cn-hero__ctas {
+          display: grid;
+          width: 100%;
+        }
+        body[data-page="codeneuron"] .cn-hero__ctas .cta,
+        body[data-page="codeneuron"] .cn-hero__ctas .button {
+          width: 100%;
+        }
+      }
+
+      body[data-page="codeneuron"] main {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(2rem, 4vw, 3.2rem);
+        padding: clamp(2.6rem, 6vw, 3.4rem) clamp(1.4rem, 4vw, 2.2rem) 4rem;
+      }
+
+      body[data-page="codeneuron"] main > section {
+        width: min(960px, 100%);
+        margin: 0 auto;
+        padding: clamp(2rem, 4vw, 3rem);
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      body[data-page="codeneuron"] main > section h2 {
+        font-size: clamp(1.8rem, 3vw, 2.3rem);
+        margin-bottom: 1rem;
+        position: relative;
+        font-weight: 650;
+      }
+
+      body[data-page="codeneuron"] main > section h2::after {
+        content: "";
+        display: block;
+        width: 64px;
+        height: 2px;
+        margin-top: 0.6rem;
+        background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+        opacity: 0.8;
+      }
+
+      body[data-page="codeneuron"] main > section > p,
+      body[data-page="codeneuron"] main > section > ul,
+      body[data-page="codeneuron"] main > section > div,
+      body[data-page="codeneuron"] main > section > section {
+        color: var(--text-secondary);
+      }
+
+      body[data-page="codeneuron"] p {
+        line-height: 1.65;
+        margin-bottom: 0.85rem;
+      }
+
+      body[data-page="codeneuron"] ul {
+        padding-left: 1.1rem;
+        margin: 0.35rem 0 0.85rem;
+      }
+
+      body[data-page="codeneuron"] li {
+        margin: 0.4rem 0;
+        line-height: 1.55;
+      }
+
+      body[data-page="codeneuron"] .cn-intro-note {
+        font-style: italic;
+        color: var(--text-secondary);
+        margin-bottom: 1.1rem;
+      }
+
+      body[data-page="codeneuron"] .cn-panel {
+        border-radius: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+        padding: clamp(1.4rem, 3vw, 1.9rem);
+      }
+
+      body[data-page="codeneuron"] .cn-panel + .cn-panel {
+        margin-top: 1.25rem;
+      }
+
+      body[data-page="codeneuron"] .why-different {
+        margin-top: 1.6rem;
+        color: var(--text-primary);
+      }
+
+      body[data-page="codeneuron"] .why-different .lead {
+        color: var(--text-secondary);
+        margin-bottom: 1rem;
+        max-width: 68ch;
+      }
+
+      body[data-page="codeneuron"] .value-points {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 0.9rem;
+        margin: 0 0 1.4rem;
+        padding: 0;
+        list-style: none;
+      }
+
+      body[data-page="codeneuron"] .value-points li {
+        position: relative;
+        padding: 0.65rem 0.85rem 0.65rem 1.6rem;
+        border-radius: 16px;
+        border: 1px solid rgba(96, 165, 250, 0.18);
+        background: rgba(10, 18, 32, 0.65);
+        color: var(--text-secondary);
+      }
+
+      body[data-page="codeneuron"] .value-points li::before {
+        content: "";
+        position: absolute;
+        left: 0.75rem;
+        top: 1.05rem;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.18);
+      }
+
+      body[data-page="codeneuron"] .flow-stepper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem 0.9rem;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        counter-reset: step;
+      }
+
+      body[data-page="codeneuron"] .flow-stepper li {
+        counter-increment: step;
+        position: relative;
+        padding-left: 2.2rem;
+        padding-right: 0.75rem;
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+
+      body[data-page="codeneuron"] .flow-stepper li::before {
+        content: counter(step);
+        position: absolute;
+        left: 0;
+        top: -0.15rem;
+        width: 1.8rem;
+        height: 1.8rem;
+        border-radius: 999px;
+        background: var(--accent);
+        color: #06101b;
+        font-size: 0.85rem;
+        font-weight: 700;
+        display: grid;
+        place-items: center;
+        box-shadow: 0 8px 22px rgba(56, 189, 248, 0.4);
+      }
+
+      body[data-page="codeneuron"] .flow-stepper li:not(:last-child)::after {
+        content: "→";
+        margin-left: 0.35rem;
+        opacity: 0.65;
+        color: var(--text-secondary);
+      }
+
+      body[data-page="codeneuron"] .highlights-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      body[data-page="codeneuron"] .highlight {
+        border-radius: 18px;
+        border: 1px solid rgba(96, 165, 250, 0.2);
+        background: linear-gradient(
+          145deg,
+          rgba(18, 30, 52, 0.75),
+          rgba(12, 22, 38, 0.62)
+        );
+        box-shadow: 0 18px 40px rgba(6, 12, 30, 0.38);
+        padding: 1.1rem 1.15rem;
+      }
+
+      body[data-page="codeneuron"] .highlight .icon {
+        font-size: 1.35rem;
+        margin-bottom: 0.4rem;
+      }
+
+      body[data-page="codeneuron"] .cn-stats {
+        margin-top: 1.4rem;
+        border-radius: 18px;
+        border: 1px solid rgba(96, 165, 250, 0.2);
+        background: linear-gradient(
+          145deg,
+          rgba(16, 26, 44, 0.7),
+          rgba(10, 18, 32, 0.6)
+        );
+        padding: 1.2rem;
+      }
+
+      body[data-page="codeneuron"] .stat-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 0.85rem;
+      }
+
+      body[data-page="codeneuron"] .stat {
+        display: flex;
+        align-items: baseline;
+        gap: 0.5rem;
+      }
+
+      body[data-page="codeneuron"] .stat .num {
+        font-size: 1.9rem;
+        font-weight: 700;
+        letter-spacing: -0.015em;
+      }
+
+      body[data-page="codeneuron"] .stat .label {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+      }
+
+      body[data-page="codeneuron"] .checklist {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+        display: grid;
+        gap: 0.55rem;
+      }
+
+      body[data-page="codeneuron"] .checklist li {
+        position: relative;
+        padding-left: 1.8rem;
+        color: var(--text-secondary);
+      }
+
+      body[data-page="codeneuron"] .checklist li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        top: 0.05rem;
+        font-size: 1rem;
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      body[data-page="codeneuron"] .timeline {
+        list-style: none;
+        margin: 0;
+        padding-left: 1.1rem;
+        border-left: 2px dashed rgba(96, 165, 250, 0.25);
+      }
+
+      body[data-page="codeneuron"] .timeline li {
+        position: relative;
+        padding-left: 1.2rem;
+        margin: 0.65rem 0;
+        color: var(--text-secondary);
+      }
+
+      body[data-page="codeneuron"] .timeline li::before {
+        content: "";
+        position: absolute;
+        left: -0.95rem;
+        top: 0.4rem;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+      }
+
+      body[data-page="codeneuron"] .cn-contact-list {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+        color: var(--text-secondary);
+        display: grid;
+        gap: 0.55rem;
+      }
+
+      body[data-page="codeneuron"] .cn-contact-link {
+        color: var(--accent-secondary);
+        font-weight: 600;
+      }
+
+      body[data-page="codeneuron"] .cn-contact-link:hover,
+      body[data-page="codeneuron"] .cn-contact-link:focus {
+        color: var(--accent);
+      }
+
+      body[data-page="codeneuron"] .project-grid img {
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 14px 38px rgba(0, 0, 0, 0.25);
+      }
+
+      body[data-page="codeneuron"] .cn-footer {
+        padding: 2.2rem 0 2.8rem;
+        text-align: center;
+        color: var(--text-secondary);
+      }
+
+      body[data-page="codeneuron"] .cn-footer__inner {
+        width: min(960px, 100%);
+        margin: 0 auto;
+        padding: 1.2rem 1.5rem 0;
+        border-top: 1px solid rgba(96, 165, 250, 0.2);
+      }
+
+      @media (max-width: 900px) {
+        body[data-page="codeneuron"] main > section {
+          padding: clamp(1.6rem, 6vw, 2.2rem);
+        }
+      }
+
+      @media (max-width: 720px) {
+        body[data-page="codeneuron"] main {
+          padding: clamp(2.2rem, 7vw, 2.8rem) 1.1rem 3.4rem;
+        }
+
+        body[data-page="codeneuron"] main > section {
+          padding: clamp(1.4rem, 5vw, 2rem);
+          border-radius: 20px;
+        }
+
+        body[data-page="codeneuron"] .cn-hero {
+          min-height: 56vh;
+        }
+
+        body[data-page="codeneuron"] .cn-hero__inner {
+          padding: clamp(2.2rem, 8vw, 2.8rem) clamp(1.2rem, 6vw, 2rem);
+        }
+      }
+    </style>
       /* Why Different: structured + attractive */
       body[data-page="codeneuron"] .why-different {
         margin: 1.75rem 0 0.5rem;
@@ -92,7 +544,7 @@
         height: 8px;
         border-radius: 50%;
         background: var(--accent);
-        box-shadow: 0 0 0 2px rgba(52, 211, 153, 0.18);
+        box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.18);
       }
       body[data-page="codeneuron"] .why-different .flow-stepper {
         display: flex;
@@ -124,7 +576,7 @@
         font-weight: 600;
         background: var(--accent);
         color: #0f1115;
-        box-shadow: 0 6px 16px rgba(52, 211, 153, 0.25);
+        box-shadow: 0 6px 16px rgba(56, 189, 248, 0.35);
       }
       body[data-page="codeneuron"]
         .why-different
@@ -249,7 +701,7 @@
         border: 1px solid rgba(255, 255, 255, 0.1);
         background: radial-gradient(
             180px 90px at 15% 30%,
-            rgba(52, 211, 153, 0.12),
+            rgba(56, 189, 248, 0.14),
             transparent 60%
           ),
           radial-gradient(
@@ -323,7 +775,7 @@
         height: 10px;
         border-radius: 50%;
         background: var(--accent);
-        box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.18);
+        box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
       }
 
       /* CTA banner */
@@ -384,7 +836,7 @@
         border-color: rgba(255, 255, 255, 0.22);
       }
       body[data-page="codeneuron"] .back-link:hover {
-        border-color: rgba(52, 211, 153, 0.5);
+        border-color: rgba(56, 189, 248, 0.55);
       }
       @media (max-width: 600px) {
         body[data-page="codeneuron"] .back-link {
@@ -395,23 +847,12 @@
         }
       }
     </style>
+
   </head>
   <body data-page="codeneuron">
-    <canvas id="bg"></canvas>
-    <div id="blobs"></div>
-
-    <header
-      class="hero"
-      style="
-        height: auto;
-        min-height: 48vh;
-        background-image: url('../images/projects/codeneuron/hero.jpg');
-        background-size: cover;
-        background-position: center;
-      "
-    >
+    <header class="hero cn-hero" aria-labelledby="cn-title">
       <div class="overlay"></div>
-      <div class="hero-content" style="padding: 4rem 1rem; max-width: 960px">
+      <div class="cn-hero__inner hero-content">
         <a
           href="../index.html#featured"
           class="cta cta-ghost back-link"
@@ -419,15 +860,15 @@
           onclick="try{if(document.referrer && new URL(document.referrer).origin===location.origin){history.back(); return false;}}catch(e){}"
           >← Back</a
         >
-        <h1 style="margin-top: 0.5rem">CodeNeuron</h1>
-        <p style="margin: 0.25rem 0 0.75rem 0">
-          Hands‑on ML practice: guided problems, in‑browser IDE, instant
-          feedback.
+        <h1 id="cn-title">CodeNeuron</h1>
+        <p class="cn-hero__tagline">
+          Hands‑on ML practice with guided problems, an in-browser IDE, and
+          instant feedback.
         </p>
-        <div class="tags" style="justify-content: center">
+        <div class="tags cn-hero__tag">
           <span class="tag">Early Access — Open to collaborate</span>
         </div>
-        <div class="cta-group hero-ctas">
+        <div class="cta-group hero-ctas cn-hero__ctas">
           <a
             class="button"
             href="https://codeneuron.tech/"
@@ -440,7 +881,7 @@
       </div>
     </header>
 
-    <main style="padding-top: 2rem">
+    <main>
       <section id="overview">
         <h2>Overview</h2>
         <p>
@@ -448,7 +889,7 @@
           repos — with little signal on whether you can actually ship a
           solution.
         </p>
-        <p style="font-style: italic; color: var(--text-secondary)">
+        <p class="cn-intro-note">
           Plenty of theory exists; structured practice is scarce.
         </p>
         <p>
@@ -458,7 +899,7 @@
           appear only when helpful so momentum stays high.
         </p>
 
-        <section class="cn-highlights">
+        <section class="cn-highlights cn-panel">
           <div class="highlights-grid">
             <article class="highlight">
               <div class="icon">🧪</div>
@@ -485,7 +926,7 @@
           </div>
         </section>
 
-        <section class="cn-stats" aria-label="Platform stats">
+        <section class="cn-stats cn-panel" aria-label="Platform stats">
           <div class="stat-row">
             <div class="stat">
               <span class="num" data-count="9">9</span
@@ -502,7 +943,7 @@
           </div>
         </section>
 
-        <section class="why-different">
+        <section class="why-different cn-panel">
           <h3>Why CodeNeuron Is Different</h3>
           <p class="lead">
             Not puzzles. Projects. CodeNeuron teaches applied ML through
@@ -610,11 +1051,11 @@
           If this resonates and you’d like to jam on ideas, contribute problems,
           help with UX/UI, or just chat about ML learning — I’d love to connect.
         </p>
-        <ul style="color: var(--text-secondary); margin-left: 1rem">
+        <ul class="cn-contact-list">
           <li>
             DM me on LinkedIn:
             <a
-              style="color: aqua"
+              class="cn-contact-link"
               href="https://linkedin.com/in/jainanurag23"
               target="_blank"
               rel="noopener"
@@ -626,66 +1067,7 @@
         </ul>
       </section>
 
-      <!-- <section class="cta-banner" aria-label="Join early access">
-        <h3>Build ML intuition the applied way</h3>
-        <p>Try CodeNeuron today and help shape what’s next.</p>
-        <div class="cta-group" style="justify-content: center">
-          <a
-            class="button"
-            href="https://codeneuron.tech/"
-            target="_blank"
-            rel="noopener"
-            >Open Live</a
-          >
-          <a class="cta cta-ghost" href="#overview">Back to overview</a>
-        </div>
-      </section> -->
-
-      <!-- <section>
-        <h2>Demo &amp; Screens</h2>
-        <p>
-          Short demo video coming soon. Screenshots below (IDE, problem view,
-          results, dev console):
-        </p>
-        <div class="project-grid" style="margin-top: 1rem">
-          <img
-            src="../images/projects/codeneuron/hero.jpg"
-            alt="CodeNeuron hero"
-            style="
-              width: 100%;
-              border-radius: 8px;
-              border: 1px solid rgba(255, 255, 255, 0.08);
-            "
-          />
-          <img
-            src="../images/projects/codeneuron/ide.jpg"
-            alt="IDE screenshot"
-            style="
-              width: 100%;
-              border-radius: 8px;
-              border: 1px solid rgba(255, 255, 255, 0.08);
-            "
-          />
-          <img
-            src="../images/projects/codeneuron/results.jpg"
-            alt="Results view"
-            style="
-              width: 100%;
-              border-radius: 8px;
-              border: 1px solid rgba(255, 255, 255, 0.08);
-            "
-          />
-          <img
-            src="../images/projects/codeneuron/dev-console.jpg"
-            alt="Developer console"
-            style="
-              width: 100%;
-              border-radius: 8px;
-              border: 1px solid rgba(255, 255, 255, 0.08);
-            "
-          />
-        </div>
-      </section> -->
+      <!-- CTA + media sections intentionally omitted for now -->
     </main>
 
     <button
@@ -696,8 +1078,8 @@
     >
       ▲
     </button>
-    <footer style="padding-top: 1rem">
-      <section style="padding-top: 1rem">
+    <footer class="cn-footer">
+      <section class="cn-footer__inner">
         <p>&copy; 2025 Anurag Jain. Thanks for reading!</p>
       </section>
     </footer>
