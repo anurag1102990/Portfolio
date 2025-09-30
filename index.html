@@ -38,71 +38,17 @@
     <link rel="stylesheet" href="styles.css?v=2025-08-13a" />
   </head>
   <body>
-    <!-- Dynamic particle background canvas -->
-    <canvas id="bg"></canvas>
-    <!-- Floating gradient blobs -->
-    <div id="blobs">
-      <span
-        class="blob"
-        style="
-          --size: 360px;
-          --top: 10%;
-          --left: 15%;
-          --dx: 80px;
-          --dy: 60px;
-          --time: 16s;
-          --start-color: rgba(139, 92, 246, 0.55);
-          --end-color: rgba(45, 212, 191, 0.24);
-        "
-      ></span>
-      <span
-        class="blob"
-        style="
-          --size: 420px;
-          --top: 60%;
-          --left: 70%;
-          --dx: -100px;
-          --dy: 90px;
-          --time: 18s;
-          --start-color: rgba(56, 189, 248, 0.5);
-          --end-color: rgba(139, 92, 246, 0.25);
-        "
-      ></span>
-      <span
-        class="blob"
-        style="
-          --size: 300px;
-          --top: 35%;
-          --left: 80%;
-          --dx: 120px;
-          --dy: -100px;
-          --time: 20s;
-          --start-color: rgba(34, 211, 238, 0.45);
-          --end-color: rgba(147, 197, 253, 0.2);
-        "
-      ></span>
-      <span
-        class="blob"
-        style="
-          --size: 480px;
-          --top: 75%;
-          --left: 20%;
-          --dx: -80px;
-          --dy: -70px;
-          --time: 22s;
-          --start-color: rgba(168, 85, 247, 0.42);
-          --end-color: rgba(59, 130, 246, 0.18);
-        "
-      ></span>
-    </div>
-
     <!-- Hero section -->
     <header class="hero" aria-labelledby="home-intro">
       <div class="hero-shell">
         <div class="hero-content">
           <span class="hero-kicker">Applied AI &amp; ML Engineering</span>
-          <h1 id="home-intro">Anurag Jain designs dependable intelligence.</h1>
-          <p>I transform research breakthroughs into reliable products with pragmatic experimentation, rigorous evaluation, and human-centered design.</p>
+          <h1 id="home-intro">Anurag Jain, AI/ML Engineer</h1>
+          <p>
+            I transform research breakthroughs into reliable products with
+            pragmatic experimentation, rigorous evaluation, and human-centered
+            design.
+          </p>
           <ul class="hero-highlights" aria-label="Focus areas">
             <li>
               <span class="hero-highlight-title">Production ML Pipelines</span>
@@ -112,7 +58,9 @@
               >
             </li>
             <li>
-              <span class="hero-highlight-title">Generative &amp; Multimodal AI</span>
+              <span class="hero-highlight-title"
+                >Generative &amp; Multimodal AI</span
+              >
               <span class="hero-highlight-copy"
                 >Diffusion, LLM alignment, and multimodal interfaces built for
                 creativity.</span
@@ -155,7 +103,9 @@
             </article>
             <article class="hero-metric">
               <span class="hero-metric-title">Focus areas</span>
-              <span class="hero-metric-value">Generative / RL / Applied AI</span>
+              <span class="hero-metric-value"
+                >Generative / RL / Applied AI</span
+              >
               <p class="hero-metric-copy">
                 Prototyping diffusion pipelines, reinforcement learning agents,
                 and human-centered ML experiences.
@@ -183,23 +133,15 @@
         class="profile-photo"
       />
       <p>
-        I'm a Computing Science Undergraduate at the University of Alberta, with
-        a strong focus on Artificial Intelligence and Machine Learning. With
-        experience in Python, Java, Dart, Flutter, React, C++ and Assembly, I
-        enjoy working on complex real-work problems using my prior experience
-        and theoretical knowledge.
+        I'm a Computing Science undergrad at the University of Alberta focused
+        on applied AI/ML. I like taking research ideas, prototyping quickly, and
+        turning the best ones into tools teams can rely on.
       </p>
       <p>
-        Currently, my focus is on ML research and projects involving deep
-        learning, reinforcement learning, and generative models. My passion lies
-        in exploring more advanced AI techniques, solving problems, and
-        expanding my knowledge and experience within the field.
-      </p>
-      <p>
-        I'm actively seeking internship opportunities in AI/ML to further
-        develop my expertise and collaborate with like minded people. I'm always
-        eager to connect with professionals and researchers to exchange ideas
-        and possible collaboration.
+        Lately that means building CodeNeuron, experimenting with generative and
+        reinforcement learning workflows, and shaping evaluation-first
+        practices. I'm always open to internships or collaborations in those
+        spaces.
       </p>
       <a href="Anurag_Jain_Resume.pdf" class="cta cta-ghost" download
         >Download Resume</a
@@ -233,14 +175,14 @@
       <h2>Experience</h2>
       <div class="exp-list">
         <!-- Skat Research -->
-        <article class="exp-card" data-start="2025-05" data-end="present">
+        <article class="exp-card" data-start="2025-04" data-end="present">
           <header class="exp-top">
             <div class="exp-role">
               Undergraduate Researcher <span>@ University of Alberta</span>
             </div>
             <div class="exp-meta">
               <span class="exp-chip"
-                ><time class="exp-start">May 2025</time> —
+                ><time class="exp-start">April 2025</time> —
                 <time class="exp-end present">Present</time> •
                 <span class="exp-duration">ongoing</span></span
               >
@@ -267,6 +209,47 @@
             <span class="tag">Deep Learning</span>
             <span class="tag">Reinforcement Learning</span>
             <span class="tag">Generative Models</span>
+          </div>
+        </article>
+
+        <!-- CodeNeuron -->
+        <article class="exp-card" data-start="2025-04" data-end="present">
+          <header class="exp-top">
+            <div class="exp-role">
+              Founder &amp; Product Engineer <span>@ CodeNeuron</span>
+            </div>
+            <div class="exp-meta">
+              <span class="exp-chip"
+                ><time class="exp-start">April 2025</time> —
+                <time class="exp-end present">Present</time> •
+                <span class="exp-duration">ongoing</span></span
+              >
+            </div>
+          </header>
+          <p class="exp-summary">
+            Conceptualized and built an interactive platform to practice AI/ML
+            concepts through structured, real-world problem sets.
+          </p>
+          <ul class="exp-bullets">
+            <li>
+              Structured 30+ questions across 9 core topics each with datasets,
+              input-output examples, and estimated difficulty levels.
+            </li>
+            <li>
+              Developed a browser-based IDE with secure sandboxing to run Python
+              code safely on real datasets, embedding plots and metrics directly
+              into the output
+            </li>
+            <li>
+              Deployed evaluation pipelines on Google Cloud (GCP) for scalable
+              code execution, dataset hosting, and reliable performance.
+            </li>
+          </ul>
+          <div class="tags exp-tags">
+            <span class="tag">Product</span>
+            <span class="tag">React</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">Docker</span>
           </div>
         </article>
 
