@@ -1066,39 +1066,22 @@ footer {
   grid-template-columns: 1.2fr 1fr;
   gap: 1.25rem;
   align-items: stretch;
-  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
-  border: 1px solid rgba(255,255,255,0.10);
-  border-radius: 16px;
-  padding: 1.25rem;
-  box-shadow: 0 16px 50px rgba(0,0,0,0.28);
-  overflow: hidden;
-  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
-  will-change: transform;
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
-}
-
-.feature-card::after {
-  content: "";
-  position: absolute;
-  inset: -30% -30% auto -30%;
-  height: 120%;
-  background: radial-gradient(closest-side, rgba(52,211,153,0.14), transparent 70%);
-  filter: blur(40px);
-  z-index: 0;
-  animation: featureGlow 8s ease-in-out infinite alternate;
-  pointer-events: none;
-}
-
-@keyframes featureGlow {
-  0% { transform: translateY(-10%) translateX(-6%); opacity: 0.7; }
-  100% { transform: translateY(6%) translateX(8%); opacity: 0.5; }
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  overflow: visible;
+  transition: none;
 }
 
 .feature-content {
   position: relative;
   z-index: 1;
-  padding: 0.5rem 0.5rem 0.75rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0.25rem 0.75rem 0.75rem 0;
 }
 
 .feature-chip {
@@ -1159,6 +1142,6 @@ footer {
 }
 
 .feature-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 22px 60px rgba(85, 83, 83, 0.28);
+  transform: none;
+  box-shadow: none;
 }
