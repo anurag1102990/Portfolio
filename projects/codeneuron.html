@@ -36,12 +36,24 @@
     <style>
       /* CodeNeuron page styling */
       body[data-page="codeneuron"] {
-        background: var(--background);
+        /* Global background for all content after hero */
+        background: radial-gradient(
+            1000px 600px at 85% 20%,
+            rgba(56, 189, 248, 0.1),
+            transparent 60%
+          ),
+          radial-gradient(
+            1100px 700px at 15% 80%,
+            rgba(96, 165, 250, 0.08),
+            transparent 60%
+          ),
+          linear-gradient(160deg, #05070f 0%, #0a0f1d 55%, #05070f 100%);
+        background-attachment: fixed;
         color: var(--text-primary);
       }
 
       body[data-page="codeneuron"] .back-link {
-        position: absolute;
+        position: fixed;
         top: 18px;
         left: 18px;
         z-index: 1000;
@@ -75,7 +87,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: url('../images/projects/codeneuron/hero.jpg') center / cover
+        background: url("../images/projects/codeneuron/hero.jpg") center / cover
           no-repeat;
       }
 
@@ -114,10 +126,11 @@
 
       body[data-page="codeneuron"] .cn-hero__inner {
         position: relative;
-        max-width: min(760px, 100%);
+        width: min(780px, 100%);
+        margin: 0 auto;
         padding: clamp(2.6rem, 6vw, 3.4rem) clamp(1.6rem, 5vw, 2.6rem);
         border-radius: 26px;
-        border: 1px solid rgba(96, 165, 250, 0.28);
+        border: none;
         background: linear-gradient(
           145deg,
           rgba(14, 24, 40, 0.82),
@@ -127,47 +140,62 @@
         text-align: center;
       }
 
+      body[data-page="codeneuron"] .cn-hero__title {
+        font-size: clamp(2.6rem, 5vw, 3.2rem);
+        margin-bottom: 0.65rem;
+      }
+
+      body[data-page="codeneuron"] .feature-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        font-size: 0.75rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        background: rgba(56, 189, 248, 0.16);
+        border: 1px solid rgba(96, 165, 250, 0.32);
+        color: var(--text-primary);
+        border-radius: 999px;
+        padding: 0.3rem 0.8rem;
+        margin-bottom: 0.4rem;
+      }
+
+      body[data-page="codeneuron"] .cn-hero__tagline {
+        color: var(--text-secondary);
+        font-size: clamp(1.05rem, 2.4vw, 1.25rem);
+        min-height: 1.8em;
+        margin-bottom: 1.25rem;
+      }
+
+      body[data-page="codeneuron"] .cn-hero__cta-row {
+        display: inline-flex;
+        gap: 0.75rem;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0.9rem;
+      }
+
+      body[data-page="codeneuron"] .btn-sm {
+        padding: 0.45rem 1.1rem;
+        border-radius: 999px;
+        font-size: 0.95rem;
+      }
+
+      body[data-page="codeneuron"] .cn-hero__details {
+        color: var(--accent-secondary);
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      body[data-page="codeneuron"] .cn-hero__details:hover {
+        color: var(--accent);
+      }
+
       body[data-page="codeneuron"] .cn-hero__tagline {
         font-size: clamp(1rem, 2.4vw, 1.2rem);
         color: var(--text-secondary);
         margin: 0.35rem auto 1.2rem;
         max-width: 52ch;
-      }
-
-      body[data-page="codeneuron"] .cn-hero__tag {
-        justify-content: center;
-        margin-bottom: 1.4rem;
-      }
-
-      body[data-page="codeneuron"] .cn-hero__tag .tag {
-        background: rgba(56, 189, 248, 0.16);
-        border: 1px solid rgba(96, 165, 250, 0.32);
-        color: var(--text-primary);
-      }
-
-      body[data-page="codeneuron"] .cn-hero__ctas {
-        display: inline-flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 0.75rem;
-      }
-
-      body[data-page="codeneuron"] .cn-hero__ctas .cta,
-      body[data-page="codeneuron"] .cn-hero__ctas .button {
-        min-width: 170px;
-        min-height: 46px;
-        font-weight: 600;
-      }
-
-      @media (max-width: 540px) {
-        body[data-page="codeneuron"] .cn-hero__ctas {
-          display: grid;
-          width: 100%;
-        }
-        body[data-page="codeneuron"] .cn-hero__ctas .cta,
-        body[data-page="codeneuron"] .cn-hero__ctas .button {
-          width: 100%;
-        }
       }
 
       body[data-page="codeneuron"] main {
@@ -200,7 +228,11 @@
         width: 64px;
         height: 2px;
         margin-top: 0.6rem;
-        background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+        background: linear-gradient(
+          135deg,
+          var(--accent),
+          var(--accent-secondary)
+        );
         opacity: 0.8;
       }
 
@@ -502,36 +534,35 @@
         }
       }
     </style>
-
   </head>
   <body data-page="codeneuron">
     <header class="hero cn-hero" aria-labelledby="cn-title">
+      <a
+        href="../index.html#featured"
+        class="cta cta-ghost back-link"
+        aria-label="Back to portfolio"
+        onclick="try{if(document.referrer && new URL(document.referrer).origin===location.origin){history.back(); return false;}}catch(e){}"
+        >← Back</a
+      >
       <div class="overlay"></div>
       <div class="cn-hero__inner hero-content">
-        <a
-          href="../index.html#featured"
-          class="cta cta-ghost back-link"
-          aria-label="Back to portfolio"
-          onclick="try{if(document.referrer && new URL(document.referrer).origin===location.origin){history.back(); return false;}}catch(e){}"
-          >← Back</a
-        >
-        <h1 id="cn-title">CodeNeuron</h1>
+        <span class="feature-chip">Early Access</span>
+        <h1 id="cn-title" class="cn-hero__title">CodeNeuron</h1>
         <p class="cn-hero__tagline">
-          Hands‑on ML practice with guided problems, an in-browser IDE, and
-          instant feedback.
+          <span id="cnHeroTyping"
+            >Hands-on ML practice with guided problems, a browser IDE, and
+            instant feedback.</span
+          >
         </p>
-        <div class="tags cn-hero__tag">
-          <span class="tag">Early Access — Open to collaborate</span>
-        </div>
-        <div class="cta-group hero-ctas cn-hero__ctas">
+        <div class="cn-hero__cta-row">
           <a
-            class="button"
+            class="button btn-sm"
             href="https://codeneuron.tech/"
             target="_blank"
             rel="noopener"
             >Live</a
           >
-          <a class="cta cta-ghost" href="#overview">Explore details</a>
+          <a class="cn-hero__details" href="#overview">Details</a>
         </div>
       </div>
     </header>
@@ -681,7 +712,7 @@
         <h2>My Role</h2>
         <p>
           Solo engineer — product design, UI, backend, runner, Firebase,
-          Docker/Cloud Run, and early content tooling.
+          Docker/Cloud Run, and content.
         </p>
       </section>
 
@@ -718,12 +749,32 @@
             >
           </li>
           <li>Share feedback via the site’s Feedback option</li>
-          <li>Or email me — happy to share via LinkedIn</li>
+          <li>
+            Or <a href="anurag.jain486@gmail.com">email</a> me — happy to share
+            via LinkedIn
+          </li>
         </ul>
       </section>
 
       <!-- CTA + media sections intentionally omitted for now -->
     </main>
+
+    <!-- Keep caret style if you like the blinking cursor -->
+    <style>
+      #cnHeroTyping.is-typing::after {
+        content: "▍";
+        margin-left: 2px;
+        opacity: 0.85;
+        animation: cnBlink 1s steps(1) infinite;
+      }
+      @keyframes cnBlink {
+        50% {
+          opacity: 0;
+        }
+      }
+    </style>
+
+    <!-- Removed duplicate hero typing IIFEs here -->
 
     <button
       id="backToTop"
@@ -740,7 +791,7 @@
     </footer>
 
     <script>
-      // Light counter animation for stats (scoped to this page)
+      // Keep only the stats counter (removed the hero typing from this block)
       (function () {
         if (document.body.getAttribute("data-page") !== "codeneuron") return;
         const items = Array.from(

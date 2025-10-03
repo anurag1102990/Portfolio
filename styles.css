@@ -10,6 +10,8 @@
   --text-secondary: #ccd6e8;
   --muted: #9aa9c2;
   --card-shadow: rgba(3, 10, 24, 0.45);
+  /* Unified vertical gap between blocks */
+  --stack-gap: clamp(2rem, 5vw, 3rem);
 }
 
 * {
@@ -352,12 +354,19 @@ section {
   box-shadow: none;
 }
 
-section:first-of-type {
-  margin-top: clamp(1.2rem, 2.5vw, 2.4rem);
+/* Consistent gaps:
+   - Between the starter hero and the first section (About)
+   - Between any two consecutive sections (About → Education → Experience → Featured → …) */
+.hero + section {
+  margin-top: var(--stack-gap);
 }
 
 section + section {
-  margin-top: clamp(1.6rem, 3.8vw, 2.6rem);
+  margin-top: var(--stack-gap);
+}
+
+section:first-of-type {
+  margin-top: clamp(1.2rem, 2.5vw, 2.4rem);
 }
 
 section h2 {
@@ -874,9 +883,12 @@ footer {
 }
 
 #education {
-  padding: 4rem 2rem 2.5rem 2rem;
-  max-width: 1000px;
-  margin: 0 auto;
+  /* Wider than the default section width (1000px) */
+  max-width: 1100px;   /* same as section and #experience */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;  /* match section padding */
+  padding-right: 2rem;
 }
 
 .edu-timeline {
@@ -1053,94 +1065,199 @@ footer {
   }
 }
 
-/* Featured Project */
+/* Featured: CodeNeuron */
 #featured {
   padding-top: 2.5rem;
   padding-bottom: 0.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
-.feature-card {
+#featured .feature-card {
   position: relative;
   display: grid;
   grid-template-columns: 1.2fr 1fr;
   gap: 1.25rem;
   align-items: stretch;
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  padding: 0;
-  box-shadow: none;
-  overflow: visible;
-  transition: none;
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: 0 16px 50px rgba(0,0,0,0.28);
+  overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+  will-change: transform;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
 }
 
-.feature-content {
+#featured .feature-card::before {
+  content: "";
+  position: absolute;
+  inset: -30% -30% auto -30%;
+  height: 120%;
+  background: radial-gradient(closest-side, rgba(52,211,153,0.14), transparent 70%);
+  filter: blur(40px);
+  z-index: 0;
+  animation: featureGlow 8s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes featureGlow {
+  0% { transform: translateY(-10%) translateX(-6%); opacity: 0.7; }
+  100% { transform: translateY(6%) translateX(8%); opacity: 0.5; }
+}
+
+#featured .feature-content {
   position: relative;
   z-index: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 0.25rem 0.75rem 0.75rem 0;
+  padding: 0.5rem 0.5rem 0.75rem 0.75rem;
 }
 
-.feature-chip {
-  display: inline-block;
-  font-size: 0.75rem;
-  letter-spacing: 0.06em;
+#featured .feature-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--text-primary);
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.14);
-  padding: 0.25rem 0.5rem;
-  border-radius: 999px;
-  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.25), rgba(96, 165, 250, 0.2));
+  border: 1px solid rgba(96, 165, 250, 0.5);
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(56, 189, 248, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  position: relative;
+  overflow: hidden;
 }
 
-.feature-title {
+#featured .feature-chip::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  transform: translateX(-100%);
+  animation: shimmer 2.5s infinite;
+}
+
+#featured .feature-title {
   font-size: 2rem;
   margin-bottom: 0.35rem;
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
-.feature-title .eyebrow {
-  color: var(--text-secondary);
-  font-weight: 500;
-  font-size: 1.1rem;
-}
-
-.feature-subtitle {
+#featured .feature-subtitle {
   color: var(--text-secondary);
   margin-bottom: 0.6rem;
+  font-size: 1rem;
 }
 
-.feature-ctas {
+#featured .feature-tagline {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+}
+
+#featured .feature-actions {
   margin-top: 0.75rem;
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
 }
 
-.feature-media {
+#featured .feature-preview {
   position: relative;
   z-index: 1;
   border-radius: 12px;
   border: 1px solid rgba(255,255,255,0.10);
-  background: url('images/codeneuron.png');
-  background-size: cover;
-  background-position: center;
+  overflow: hidden;
   min-height: 240px;
   box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+  background: #000;
+}
+
+#featured .feature-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.btn-sm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.btn-sm.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: var(--text-primary);
+  box-shadow: 0 12px 30px rgba(52, 211, 153, 0.3);
+}
+
+.btn-sm.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px rgba(52, 211, 153, 0.4);
+  filter: brightness(1.05);
+}
+
+.btn-sm.btn-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  color: var(--text-primary);
+}
+
+.btn-sm.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.30);
+  transform: translateY(-2px);
+}
+
+#featured .feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 60px rgba(85, 83, 83, 0.28);
+  border-color: rgba(255, 255, 255, 0.14);
 }
 
 @media (max-width: 860px) {
-  .feature-card {
+  #featured .feature-card {
     grid-template-columns: 1fr;
   }
-  .feature-media {
+  #featured .feature-preview {
     min-height: 180px;
   }
 }
 
-.feature-card:hover {
-  transform: none;
-  box-shadow: none;
+/* Tighter gap between About and Education only */
+#about { 
+  padding-bottom: 3rem;        /* was 4rem */
 }
+
+#about + #education {
+  margin-top: 1rem;            /* override any section+section gap */
+}
+
+#education {
+  padding-top: 2rem;           /* was 4rem */
+}
+
+/* Optional: a bit looser on small screens */
+@media (max-width: 700px) {
+  #about { padding-bottom: 2.5rem; }
+  #about + #education { margin-top: 0.75rem; }
+  #education { padding-top: 1.5rem; }
+}
+

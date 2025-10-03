@@ -17,9 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Respect reduced motion preferences
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isCnPage = document.body.getAttribute('data-page') === 'codeneuron';
 
-  // Typewriter effect for hero tagline
-  if (!reduceMotion) {
+  // Typewriter effect for hero tagline (HOME ONLY, not CodeNeuron page)
+  if (!reduceMotion && !isCnPage) {
     const taglineEl = document.querySelector('.hero-content p');
     if (taglineEl) {
       const text = taglineEl.textContent.trim();
@@ -28,11 +29,50 @@ document.addEventListener('DOMContentLoaded', () => {
       function type() {
         taglineEl.textContent += text.charAt(idx);
         idx += 1;
-        if (idx < text.length) {
-          setTimeout(type, 60);
-        }
+        if (idx < text.length) setTimeout(type, 60);
       }
       setTimeout(type, 300);
+    }
+  }
+
+  // CodeNeuron page: typewriter for #cnHeroTyping
+  if (!reduceMotion && isCnPage) {
+    const el = document.getElementById('cnHeroTyping');
+    if (el) {
+      const text = el.textContent.trim();
+      el.textContent = '';
+      el.setAttribute('aria-label', text);
+      el.classList.add('is-typing');
+      let i = 0;
+      const speed = 32;
+      function type() {
+        if (i < text.length) {
+          el.textContent += text.charAt(i++);
+          setTimeout(type, speed);
+        } else {
+          el.classList.remove('is-typing');
+        }
+      }
+      setTimeout(type, 250);
+    }
+  }
+
+  if (!reduceMotion) {
+    const homeCnTyping = document.getElementById('homeCnTyping');
+    if (homeCnTyping) {
+      const text = homeCnTyping.textContent.trim();
+      homeCnTyping.textContent = '';
+      let i = 0;
+      const speed = 35;
+      function type() {
+        if (i < text.length) {
+          homeCnTyping.textContent += text.charAt(i);
+          i++;
+          setTimeout(type, speed);
+        }
+      }
+      // Start typing after a short delay
+      setTimeout(type, 800);
     }
   }
 
