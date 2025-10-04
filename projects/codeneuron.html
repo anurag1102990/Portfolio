@@ -34,6 +34,12 @@
     />
     <link rel="stylesheet" href="../styles.css" />
     <style>
+      body[data-page="codeneuron"] {
+        --accent: #4fc3f7; /* light teal-blue */
+        --accent-soft: rgba(79, 195, 247, 0.18);
+        --accent-bg: rgba(79, 195, 247, 0.06);
+        --accent-text: #e0f7fa;
+      }
       /* CodeNeuron page styling */
       body[data-page="codeneuron"] {
         /* Global background for all content after hero */
@@ -82,35 +88,13 @@
       }
 
       body[data-page="codeneuron"] .cn-hero {
-        min-height: 60vh;
-        padding: clamp(4rem, 7vw, 5.5rem) clamp(1.4rem, 4vw, 2.6rem);
+        min-height: 48vh;
+        padding: 0; /* example has padding on inner, not on hero */
         display: flex;
         align-items: center;
         justify-content: center;
         background: url("../images/projects/codeneuron/hero.jpg") center / cover
           no-repeat;
-      }
-
-      body[data-page="codeneuron"] .cn-hero::before {
-        background: linear-gradient(
-            135deg,
-            rgba(6, 9, 20, 0.92) 0%,
-            rgba(6, 10, 22, 0.82) 48%,
-            rgba(6, 9, 20, 0.94) 100%
-          ),
-          rgba(6, 9, 20, 0.75);
-      }
-
-      body[data-page="codeneuron"] .cn-hero::after {
-        bottom: -22vh;
-        height: 36vh;
-        background: linear-gradient(
-          to bottom,
-          rgba(12, 20, 34, 0) 0%,
-          rgba(9, 16, 30, 0.38) 40%,
-          rgba(5, 8, 18, 0.82) 75%,
-          rgba(5, 7, 15, 1) 100%
-        );
       }
 
       body[data-page="codeneuron"] .cn-hero .overlay {
@@ -126,23 +110,40 @@
 
       body[data-page="codeneuron"] .cn-hero__inner {
         position: relative;
-        width: min(780px, 100%);
+        width: 100%;
+        max-width: 960px; /* example */
         margin: 0 auto;
-        padding: clamp(2.6rem, 6vw, 3.4rem) clamp(1.6rem, 5vw, 2.6rem);
-        border-radius: 26px;
-        border: none;
-        background: linear-gradient(
-          145deg,
-          rgba(14, 24, 40, 0.82),
-          rgba(10, 18, 32, 0.78)
-        );
-        box-shadow: 0 36px 80px rgba(5, 9, 22, 0.58);
-        text-align: center;
+        padding: 4rem 1rem; /* example */
+        /* border-radius: 12px; */
+        /* border: 1px solid rgba(255, 255, 255, 0.08); */
+        /* background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.32),
+          rgba(0, 0, 0, 0.18)
+        ); */
+        /* box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22); */
+        text-align: left;
       }
 
       body[data-page="codeneuron"] .cn-hero__title {
         font-size: clamp(2.6rem, 5vw, 3.2rem);
         margin-bottom: 0.65rem;
+        font-weight: 700;
+        position: relative;
+      }
+
+      body[data-page="codeneuron"] .cn-hero__title::after {
+        content: "";
+        display: block;
+        width: 72px;
+        height: 3px;
+        margin-top: 0.5rem;
+        background: linear-gradient(
+          135deg,
+          var(--accent),
+          var(--accent-secondary)
+        );
+        border-radius: 2px;
       }
 
       body[data-page="codeneuron"] .feature-chip {
@@ -165,6 +166,7 @@
         font-size: clamp(1.05rem, 2.4vw, 1.25rem);
         min-height: 1.8em;
         margin-bottom: 1.25rem;
+        text-align: left;
       }
 
       body[data-page="codeneuron"] .cn-hero__cta-row {
@@ -203,16 +205,25 @@
         flex-direction: column;
         gap: clamp(2rem, 4vw, 3.2rem);
         padding: clamp(2.6rem, 6vw, 3.4rem) clamp(1.4rem, 4vw, 2.2rem) 4rem;
+        gap: clamp(2rem, 4vw, 3.2rem);
+        padding-top: 2rem;
       }
 
       body[data-page="codeneuron"] main > section {
-        width: min(960px, 100%);
+        max-width: 940px; /* match example */
+        padding: 3rem 1.5rem; /* match example */
+        width: 100%;
         margin: 0 auto;
-        padding: clamp(2rem, 4vw, 3rem);
         background: transparent;
         border: none;
         border-radius: 0;
         box-shadow: none;
+      }
+
+      body[data-page="codeneuron"] main > section:not(#overview) {
+        margin-bottom: 1.5rem;
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
       }
 
       body[data-page="codeneuron"] main > section h2 {
@@ -272,111 +283,153 @@
         padding: clamp(1.4rem, 3vw, 1.9rem);
       }
 
-      body[data-page="codeneuron"] .cn-panel + .cn-panel {
-        margin-top: 1.25rem;
+      body[data-page="codeneuron"] .cn-compact {
+        padding-top: 1.5rem;
+        padding-bottom: 1.4rem;
+        margin-top: 0.6rem;
+      }
+      body[data-page="codeneuron"] .cn-compact + .cn-compact {
+        margin-top: 0.4rem;
       }
 
-      body[data-page="codeneuron"] .why-different {
-        margin-top: 1.6rem;
-        color: var(--text-primary);
+      body[data-page="codeneuron"] .cn-stats.cn-panel {
+        max-width: 940px;
+        margin-left: auto;
+        margin-right: auto;
+        margin: 1.25rem 0 0;
+        padding: 1.25rem 1rem 1rem;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.06),
+          rgba(255, 255, 255, 0.03)
+        );
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
       }
 
-      body[data-page="codeneuron"] .why-different .lead {
+      body[data-page="codeneuron"] .why-different.cn-panel {
+        max-width: 940px; /* align to example section width */
+        margin-left: auto;
+        margin-right: auto;
+        margin: 1.75rem 0 0.5rem; /* example */
+        padding: 1.25rem 1rem 1rem; /* example */
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.06),
+          rgba(255, 255, 255, 0.03)
+        );
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+      }
+
+      .why-different h3 {
+        margin-bottom: 0.4rem;
+      }
+      .why-different .lead {
+        font-size: 1rem;
+        line-height: 1.6;
         color: var(--text-secondary);
-        margin-bottom: 1rem;
         max-width: 68ch;
       }
-
-      body[data-page="codeneuron"] .value-points {
+      .why-different .value-points {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 0.9rem;
-        margin: 0 0 1.4rem;
+        gap: 0.6rem 0.9rem;
+        margin: 1rem 0 1.25rem;
         padding: 0;
         list-style: none;
       }
-
-      body[data-page="codeneuron"] .value-points li {
+      .why-different .value-points li {
         position: relative;
-        padding: 0.65rem 0.85rem 0.65rem 1.6rem;
-        border-radius: 16px;
-        border: 1px solid rgba(96, 165, 250, 0.18);
-        background: rgba(10, 18, 32, 0.65);
+        padding-left: 1.25rem;
         color: var(--text-secondary);
       }
-
-      body[data-page="codeneuron"] .value-points li::before {
+      .why-different .value-points li::before {
         content: "";
         position: absolute;
-        left: 0.75rem;
-        top: 1.05rem;
+        left: 0;
+        top: 0.6em;
         width: 8px;
         height: 8px;
         border-radius: 50%;
         background: var(--accent);
-        box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.18);
+        box-shadow: 0 0 0 2px rgba(52, 211, 153, 0.18);
+      }
+
+      /* If global section gap still feels large, gently reduce the main vertical gap */
+      body[data-page="codeneuron"] main {
+        gap: clamp(1.4rem, 3vw, 2.4rem);
+      }
+
+      /* body[data-page="codeneuron"] .cn-panel + .cn-panel {
+        margin-top: 1.25rem;
+      } */
+
+      body[data-page="codeneuron"] .why-different {
+        margin-top: 0;
+        color: var(--text-primary);
       }
 
       body[data-page="codeneuron"] .flow-stepper {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.6rem 0.9rem;
+        gap: 0.5rem 0.75rem;
+        align-items: center;
+        counter-reset: step;
         list-style: none;
         padding: 0;
-        margin: 0;
-        counter-reset: step;
+        margin: 0.25rem 0 0;
       }
-
       body[data-page="codeneuron"] .flow-stepper li {
         counter-increment: step;
         position: relative;
-        padding-left: 2.2rem;
-        padding-right: 0.75rem;
-        font-weight: 600;
-        color: var(--text-primary);
+        padding-left: 2rem;
+        padding-right: 0.5rem;
       }
-
       body[data-page="codeneuron"] .flow-stepper li::before {
         content: counter(step);
         position: absolute;
         left: 0;
-        top: -0.15rem;
-        width: 1.8rem;
-        height: 1.8rem;
+        top: 0;
+        width: 1.5rem;
+        height: 1.5rem;
         border-radius: 999px;
-        background: var(--accent);
-        color: #06101b;
-        font-size: 0.85rem;
-        font-weight: 700;
         display: grid;
         place-items: center;
-        box-shadow: 0 8px 22px rgba(56, 189, 248, 0.4);
+        font-size: 0.8rem;
+        font-weight: 600;
+        background: var(--accent);
+        color: #0f1115;
+        box-shadow: 0 6px 16px rgba(52, 211, 153, 0.25);
       }
-
       body[data-page="codeneuron"] .flow-stepper li:not(:last-child)::after {
         content: "→";
-        margin-left: 0.35rem;
-        opacity: 0.65;
-        color: var(--text-secondary);
+        margin-left: 0.25rem;
+        opacity: 0.7;
       }
 
+      body[data-page="codeneuron"] .cn-highlights {
+        padding-top: 1rem;
+      }
       body[data-page="codeneuron"] .highlights-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 1rem;
-        margin-top: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 0.9rem;
+        margin-top: 0.75rem;
       }
-
       body[data-page="codeneuron"] .highlight {
-        border-radius: 18px;
-        border: 1px solid rgba(96, 165, 250, 0.2);
+        position: relative;
+        padding: 1rem;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
         background: linear-gradient(
-          145deg,
-          rgba(18, 30, 52, 0.75),
-          rgba(12, 22, 38, 0.62)
+          180deg,
+          rgba(255, 255, 255, 0.06),
+          rgba(255, 255, 255, 0.03)
         );
-        box-shadow: 0 18px 40px rgba(6, 12, 30, 0.38);
-        padding: 1.1rem 1.15rem;
+        box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
       }
 
       body[data-page="codeneuron"] .highlight .icon {
@@ -384,39 +437,23 @@
         margin-bottom: 0.4rem;
       }
 
-      body[data-page="codeneuron"] .cn-stats {
-        margin-top: 1.4rem;
-        border-radius: 18px;
-        border: 1px solid rgba(96, 165, 250, 0.2);
-        background: linear-gradient(
-          145deg,
-          rgba(16, 26, 44, 0.7),
-          rgba(10, 18, 32, 0.6)
-        );
-        padding: 1.2rem;
-      }
-
       body[data-page="codeneuron"] .stat-row {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-        gap: 0.85rem;
+        gap: 0.75rem;
       }
-
       body[data-page="codeneuron"] .stat {
         display: flex;
         align-items: baseline;
-        gap: 0.5rem;
+        gap: 0.45rem;
       }
-
       body[data-page="codeneuron"] .stat .num {
-        font-size: 1.9rem;
-        font-weight: 700;
-        letter-spacing: -0.015em;
+        font-size: 1.8rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
       }
-
       body[data-page="codeneuron"] .stat .label {
         color: var(--text-secondary);
-        font-size: 0.9rem;
       }
 
       body[data-page="codeneuron"] .checklist {
@@ -533,6 +570,22 @@
           padding: clamp(2.2rem, 8vw, 2.8rem) clamp(1.2rem, 6vw, 2rem);
         }
       }
+
+      body[data-page="codeneuron"] .cn-stack {
+        margin: 0.25rem 0 0.9rem;
+        padding-left: 1.1rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 0.35rem 1rem;
+        list-style: disc;
+      }
+      body[data-page="codeneuron"] .cn-stack li {
+        color: var(--text-secondary);
+        line-height: 1.5;
+      }
+      body[data-page="codeneuron"] .cn-stack li::marker {
+        color: var(--accent);
+      }
     </style>
   </head>
   <body data-page="codeneuron">
@@ -637,7 +690,6 @@
             preprocess → model → evaluate → visualize — with dataset peeks,
             intermediate outputs, and visualizations that build intuition.
           </p>
-
           <ul class="value-points">
             <li>
               <strong>Real scenarios:</strong> Work through end‑to‑end problems,
@@ -656,7 +708,6 @@
               fits.
             </li>
           </ul>
-
           <ol class="flow-stepper" aria-label="Challenge workflow">
             <li>Preprocess</li>
             <li>Model</li>
@@ -666,7 +717,7 @@
         </section>
       </section>
 
-      <section>
+      <section class="cn-compact">
         <h2>What’s Shipped (v1)</h2>
         <ul class="checklist">
           <li>
@@ -696,19 +747,19 @@
 
       <section>
         <h2>Stack</h2>
-        <div class="tags">
-          <span class="tag">React</span>
-          <span class="tag">Vite</span>
-          <span class="tag">Tailwind</span>
-          <span class="tag">FastAPI</span>
-          <span class="tag">Python</span>
-          <span class="tag">Docker</span>
-          <span class="tag">Firebase</span>
-          <span class="tag">Cloud Run</span>
-        </div>
+        <ul class="cn-stack">
+          <li>React</li>
+          <li>Vite</li>
+          <li>Tailwind</li>
+          <li>FastAPI</li>
+          <li>Python</li>
+          <li>Docker</li>
+          <li>Firebase</li>
+          <li>Cloud Run</li>
+        </ul>
       </section>
 
-      <section>
+      <section class="cn-compact">
         <h2>My Role</h2>
         <p>
           Solo engineer — product design, UI, backend, runner, Firebase,
@@ -716,7 +767,7 @@
         </p>
       </section>
 
-      <section>
+      <section class="cn-compact">
         <h2>Status &amp; Roadmap</h2>
         <p>
           <strong>Status:</strong> Early Access. Shipping fast and learning in
@@ -731,7 +782,7 @@
         </ul>
       </section>
 
-      <section>
+      <section class="cn-compact">
         <h2>Collaborate / Feedback</h2>
         <p>
           If this resonates and you’d like to jam on ideas, contribute problems,
@@ -749,10 +800,7 @@
             >
           </li>
           <li>Share feedback via the site’s Feedback option</li>
-          <li>
-            Or <a href="anurag.jain486@gmail.com">email</a> me — happy to share
-            via LinkedIn
-          </li>
+          <li>Or email me — anurag.jain486@gmail.com</li>
         </ul>
       </section>
 

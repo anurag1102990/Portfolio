@@ -36,6 +36,34 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css?v=2025-08-13a" />
+    <style>
+      /* Feature CTA styling */
+      .cta-featured {
+        background: linear-gradient(135deg, #4fc3f7, #0288d1);
+        color: #fff !important;
+        font-weight: 700;
+        border-radius: 999px;
+        padding: 0.45rem 1.2rem;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .cta-featured:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(79, 195, 247, 0.4);
+      }
+
+      /* Right column alignment: only on larger screens */
+      @media (min-width: 1024px) {
+        .hero-aside-wrapper {
+          display: flex;
+          justify-content: flex-end;
+        }
+        .hero-aside {
+          margin-left: auto;
+          margin-right: 0;
+          transform: translateX(24px);
+        }
+      }
+    </style>
   </head>
   <body>
     <!-- Hero section -->
@@ -43,18 +71,13 @@
       <div class="hero-shell">
         <div class="hero-content">
           <span class="hero-kicker">Applied AI &amp; ML Engineering</span>
-          <h1 id="home-intro">Anurag Jain, AI/ML Engineer</h1>
-          <!-- <p>
-            I transform research breakthroughs into reliable products with
-            pragmatic experimentation, rigorous evaluation, and human-centered
-            design.
-          </p> -->
+          <h1 id="home-intro">Anurag Jain, always building something</h1>
           <ul class="hero-highlights" aria-label="Focus areas">
             <li>
               <span class="hero-highlight-title">Production ML Pipelines</span>
               <span class="hero-highlight-copy"
-                >Evaluation-first workflows, observability, and guardrails that
-                keep models accountable.</span
+                >Evaluation‑first workflows, observability, and
+                guardrails.</span
               >
             </li>
             <li>
@@ -62,65 +85,60 @@
                 >Generative &amp; Multimodal AI</span
               >
               <span class="hero-highlight-copy"
-                >Diffusion, LLM alignment, and multimodal interfaces built for
-                creativity.</span
+                >Diffusion, LLM alignment, and multimodal interfaces.</span
               >
             </li>
-            <!-- <li>
-              <span class="hero-highlight-title">Responsible Research</span>
-              <span class="hero-highlight-copy"
-                >Reinforcement learning, interpretability, and inclusive,
-                ethical deployment.</span
-              >
-            </li> -->
           </ul>
           <div class="cta-group" aria-label="Primary navigation shortcuts">
-            <a href="#projects" class="cta">View Projects</a>
-            <a href="#contact" class="cta cta-ghost">Let's Collaborate</a>
             <a href="#about" class="cta cta-ghost">About</a>
-            <a href="#experience" class="cta cta-ghost">Experience</a>
-            <a href="#skills" class="cta cta-ghost">Skills</a>
             <a href="#education" class="cta cta-ghost">Education</a>
+            <a href="#experience" class="cta cta-ghost">Experience</a>
+            <a href="#featured" class="cta cta-ghost">View Projects</a>
+            <!-- <a href="#featured" class="cta cta-featured">CodeNeuron</a> -->
+            <a href="#skills" class="cta cta-ghost">Skills</a>
+            <a href="#contact" class="cta cta-ghost">Let's Collaborate</a>
           </div>
         </div>
-        <aside class="hero-aside" aria-label="Portrait and quick stats">
-          <div class="hero-portrait">
-            <span class="hero-portrait-glow" aria-hidden="true"></span>
-            <img
-              src="images/anurag.jpg"
-              alt="Portrait of Anurag Jain"
-              class="hero-photo"
-            />
-          </div>
-          <div class="hero-metrics">
-            <article class="hero-metric">
-              <span class="hero-metric-title">Latest work</span>
-              <span class="hero-metric-value">Research to Production</span>
-              <p class="hero-metric-copy">
-                From research to production — taking prototypes to launch with
-                evaluation-driven workflows and human-centered design.
-              </p>
-            </article>
-            <article class="hero-metric">
-              <span class="hero-metric-title">Focus areas</span>
-              <span class="hero-metric-value"
-                >Generative / RL / Applied ML</span
-              >
-              <p class="hero-metric-copy">
-                Generative models, RL, and applied ML — building diffusion
-                pipelines, RL agents, and practical ML tools
-              </p>
-            </article>
-            <article class="hero-metric">
-              <span class="hero-metric-title">Toolkit</span>
-              <span class="hero-metric-value">Python / PyTorch</span>
-              <p class="hero-metric-copy">
-                Python & PyTorch — also experienced with TensorFlow, Flutter,
-                React, Docker, and low-level performance in C++/Assembly.
-              </p>
-            </article>
-          </div>
-        </aside>
+        <div class="hero-aside-wrapper">
+          <aside class="hero-aside" aria-label="Portrait and quick stats">
+            <div class="hero-portrait">
+              <span class="hero-portrait-glow" aria-hidden="true"></span>
+              <img
+                src="images/anurag.jpg"
+                alt="Portrait of Anurag Jain"
+                class="hero-photo"
+              />
+            </div>
+            <div class="hero-metrics">
+              <article class="hero-metric">
+                <span class="hero-metric-title">Latest work</span>
+                <span class="hero-metric-value">Research to Production</span>
+                <p class="hero-metric-copy">
+                  Turning research prototypes into production with
+                  evaluation‑driven, human‑centered workflows.
+                </p>
+              </article>
+              <article class="hero-metric">
+                <span class="hero-metric-title">Focus areas</span>
+                <span class="hero-metric-value"
+                  >Generative / RL / Applied ML</span
+                >
+                <p class="hero-metric-copy">
+                  Generative models, RL, and applied ML — building diffusion
+                  pipelines, RL agents, and practical ML tools.
+                </p>
+              </article>
+              <article class="hero-metric">
+                <span class="hero-metric-title">Toolkit</span>
+                <span class="hero-metric-value">Python / PyTorch</span>
+                <p class="hero-metric-copy">
+                  Python &amp; PyTorch, with experience in TensorFlow, Flutter,
+                  React, Docker, and C++/Assembly.
+                </p>
+              </article>
+            </div>
+          </aside>
+        </div>
       </div>
     </header>
     <!-- About section -->
@@ -359,7 +377,13 @@
             <a href="projects/codeneuron.html" class="btn-sm btn-primary"
               >About CodeNeuron</a
             >
-            <a href="#" class="btn-sm btn-secondary">Visit Site</a>
+            <a
+              href="https://codeneuron.tech/"
+              class="btn-sm btn-secondary"
+              target="_blank"
+              rel="noopener"
+              >Visit Site</a
+            >
           </div>
         </div>
         <div class="feature-preview">
