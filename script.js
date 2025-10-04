@@ -17,9 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Respect reduced motion preferences
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isCnPage = document.body.getAttribute('data-page') === 'codeneuron';
 
-  // Typewriter effect for hero tagline
-  if (!reduceMotion) {
+  // Typewriter effect for hero tagline (HOME ONLY, not CodeNeuron page)
+  if (!reduceMotion && !isCnPage) {
     const taglineEl = document.querySelector('.hero-content p');
     if (taglineEl) {
       const text = taglineEl.textContent.trim();
@@ -28,103 +29,51 @@ document.addEventListener('DOMContentLoaded', () => {
       function type() {
         taglineEl.textContent += text.charAt(idx);
         idx += 1;
-        if (idx < text.length) {
-          setTimeout(type, 60);
-        }
+        if (idx < text.length) setTimeout(type, 60);
       }
       setTimeout(type, 300);
     }
   }
 
-  // ===== Animated particle background =====
-  const canvas = document.getElementById('bg');
-  const ctx = canvas ? canvas.getContext('2d') : null;
-  let w = 0, h = 0, particles = [];
-
-  function resize() {
-    if (!canvas) return;
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
-  }
-
-  function rnd(min, max) { return Math.random() * (max - min) + min; }
-
-  function createParticles() {
-    // Increase particle count for a more noticeable effect
-    const count = Math.min(200, Math.floor((w * h) / 10000));
-    particles = new Array(count).fill(0).map(() => ({
-      x: rnd(0, w),
-      y: rnd(0, h),
-      vx: rnd(-0.25, 0.25),
-      vy: rnd(-0.25, 0.25),
-      r: rnd(0.6, 2.0)
-    }));
-  }
-
-  function step() {
-    if (!ctx) return;
-    ctx.clearRect(0, 0, w, h);
-    const linkDist = 180;
-    // Draw particles
-    ctx.fillStyle = 'rgba(230, 235, 240, 0.60)';
-    particles.forEach(p => {
-      p.x += p.vx;
-      p.y += p.vy;
-      if (p.x < 0 || p.x > w) p.vx *= -1;
-      if (p.y < 0 || p.y > h) p.vy *= -1;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fill();
-    });
-    // Draw connecting lines
-    ctx.lineWidth = 0.6;
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const a = particles[i];
-        const b = particles[j];
-        const dx = a.x - b.x;
-        const dy = a.y - b.y;
-        const dist2 = dx * dx + dy * dy;
-        if (dist2 < linkDist * linkDist) {
-          const alpha = 1 - dist2 / (linkDist * linkDist);
-          ctx.strokeStyle = `rgba(220, 225, 230, ${alpha * 0.25})`;
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.stroke();
+  // CodeNeuron page: typewriter for #cnHeroTyping
+  if (!reduceMotion && isCnPage) {
+    const el = document.getElementById('cnHeroTyping');
+    if (el) {
+      const text = el.textContent.trim();
+      el.textContent = '';
+      el.setAttribute('aria-label', text);
+      el.classList.add('is-typing');
+      let i = 0;
+      const speed = 32;
+      function type() {
+        if (i < text.length) {
+          el.textContent += text.charAt(i++);
+          setTimeout(type, speed);
+        } else {
+          el.classList.remove('is-typing');
         }
       }
-    }
-    if (!reduceMotion) {
-      requestAnimationFrame(step);
+      setTimeout(type, 250);
     }
   }
 
-  if (canvas && ctx && !reduceMotion) {
-    resize();
-    createParticles();
-    step();
-    window.addEventListener('resize', () => {
-      resize();
-      createParticles();
-    });
-    // Subtle repulsion effect on mouse move
-    canvas.addEventListener('mousemove', (e) => {
-      const rect = canvas.getBoundingClientRect();
-      const mx = e.clientX - rect.left;
-      const my = e.clientY - rect.top;
-      particles.forEach(p => {
-        const dx = p.x - mx;
-        const dy = p.y - my;
-        const d2 = dx * dx + dy * dy;
-        const r = 150 * 150;
-        if (d2 < r) {
-          const f = (r - d2) / r * 0.06;
-          p.vx += dx * f / 150;
-          p.vy += dy * f / 150;
+  if (!reduceMotion) {
+    const homeCnTyping = document.getElementById('homeCnTyping');
+    if (homeCnTyping) {
+      const text = homeCnTyping.textContent.trim();
+      homeCnTyping.textContent = '';
+      let i = 0;
+      const speed = 35;
+      function type() {
+        if (i < text.length) {
+          homeCnTyping.textContent += text.charAt(i);
+          i++;
+          setTimeout(type, speed);
         }
-      });
-    });
+      }
+      // Start typing after a short delay
+      setTimeout(type, 800);
+    }
   }
 
   // ===== IntersectionObserver for staggered scroll reveal =====
