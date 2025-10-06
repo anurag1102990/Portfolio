@@ -1,14 +1,17 @@
 // Smooth scroll + background animations + typewriter + card tilt + hover highlights
 document.addEventListener('DOMContentLoaded', () => {
-  // Smooth scroll on hero CTA clicks
-  document.querySelectorAll('.hero .cta').forEach(link => {
+  // Smooth scroll for any in-page anchor (site-wide)
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    const href = link.getAttribute('href') || '';
+    if (href.length <= 1) return; // skip plain '#'
     link.addEventListener('click', (e) => {
-      const href = link.getAttribute('href') || '';
-      if (href.startsWith('#')) {
-        e.preventDefault();
-        const target = document.querySelector(href);
-        if (target) target.scrollIntoView({ behavior: 'smooth' });
-      }
+      const target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      // account for fixed announce bar height
+      const OFFSET = 72; // px
+      const y = target.getBoundingClientRect().top + window.pageYOffset - OFFSET;
+      window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
     });
   });
 
@@ -164,4 +167,12 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.style.setProperty('--my', `${e.clientY - rect.top}px`);
     });
   });
+
+  // Dismissible announcement bar with persistence
+(function () {
+  const bar = document.querySelector('.announce-bar');
+  if (!bar) return;
+  try { localStorage.removeItem('hideAnnouncementV1'); } catch (_) {}
+  // No close button; nothing else to do
+})();
 });
