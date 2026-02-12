@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -44,7 +44,9 @@
         font-weight: 700;
         border-radius: 999px;
         padding: 0.45rem 1.2rem;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
       }
       .cta-featured:hover {
         transform: translateY(-2px);
@@ -64,34 +66,39 @@
         }
       }
     </style>
-        <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Anurag Jain",
-      "jobTitle": "ML Engineer",
-      "alumniOf": "University of Alberta",
-      "url": "https://jainanurag.me",
-      "sameAs": [
-        "https://linkedin.com/in/jainanurag23",
-        "https://github.com/anurag1102990"
-      ]
-    }
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Anurag Jain",
+        "jobTitle": "ML Engineer",
+        "alumniOf": "University of Alberta",
+        "url": "https://jainanurag.me",
+        "sameAs": [
+          "https://linkedin.com/in/jainanurag23",
+          "https://github.com/anurag1102990"
+        ]
+      }
     </script>
-
   </head>
   <body>
     <div class="announce-bar">
       <span class="pulse"></span>
-      <span>Graduating April 2026 • Open to Full-Time ML/Software Engineering Roles</span>
+      <span
+        >Graduating April 2026 • Open to Full-Time ML/Software Engineering
+        Roles</span
+      >
       <a href="#contact" class="announce-cta">Let's Connect →</a>
-    </div>  
+    </div>
     <!-- Hero section -->
     <header class="hero" aria-labelledby="home-intro">
       <div class="hero-shell">
         <div class="hero-content">
           <span class="hero-kicker">Applied AI &amp; ML Engineering</span>
-          <h1 id="home-intro">Anurag Jain — Building ML Systems That Ship</h1>
+          <h1 id="home-intro" class="hero-title">
+            <span class="hero-title-name">Anurag Jain</span>
+            <span class="hero-title-tagline">Building ML Systems That Ship</span>
+          </h1>
           <ul class="hero-highlights" aria-label="Focus areas">
             <li>
               <span class="hero-highlight-title">Production ML Pipelines</span>
@@ -148,13 +155,16 @@
                   pipelines, RL agents, and practical ML tools.
                 </p>
               </article>
-<article class="hero-metric">
-  <span class="hero-metric-title">Impact</span>
-  <span class="hero-metric-value">40+ Active Users • 26x Accuracy</span>
-  <p class="hero-metric-copy">
-    CodeNeuron serving 40+ developers. Research achieving 26x improvement in RL agents.
-  </p>
-</article>
+              <article class="hero-metric">
+                <span class="hero-metric-title">Impact</span>
+                <span class="hero-metric-value"
+                  >40+ Active Users • 26x Accuracy</span
+                >
+                <p class="hero-metric-copy">
+                  CodeNeuron serving 40+ developers. Research achieving 26x
+                  improvement in RL agents.
+                </p>
+              </article>
             </div>
           </aside>
         </div>
@@ -170,13 +180,17 @@
         class="profile-photo"
       /> -->
       <p>
-        I'm a Computing Science student at University of Alberta (graduating April 2026) who builds production ML systems and ships real products.
+        I'm a Computing Science student at University of Alberta (graduating
+        April 2026) who builds production ML systems and ships real products.
       </p>
       <p>
-        Recently: Built CodeNeuron (40+ active users), achieved 26x accuracy improvement in transformer-based RL research, and deployed full-stack platforms with Docker/GCP. I take ML from research to production.
+        Recently: Built CodeNeuron (40+ active users), achieved 26x accuracy
+        improvement in transformer-based RL research, and deployed full-stack
+        platforms with Docker/GCP. I take ML from research to production.
       </p>
       <p>
-        Open to full-time ML Engineer or Software Engineer roles starting May 2026.
+        Open to full-time ML Engineer or Software Engineer roles starting May
+        2026.
       </p>
       <a
         href="https://drive.google.com/file/d/1zN7glQYz5JSFlO2_vsoZE-sZeRBoARnf/view?usp=sharing"
@@ -187,8 +201,7 @@
       >
     </section>
 
-
-        <!-- Featured project: CodeNeuron -->
+    <!-- Featured project: CodeNeuron -->
     <section id="featured" aria-label="Featured Project">
       <div class="feature-card">
         <div class="feature-content">
@@ -236,9 +249,6 @@
       </div>
     </section>
 
-    
-
-    
     <!-- Education section -->
     <section id="education">
       <h2>Education</h2>
@@ -286,16 +296,20 @@
             learning, and generative models.
           </p>
           <ul class="exp-bullets">
-  <li>
-    Implemented transformer-based RL agents for Skat (imperfect-information card game), achieving 26x improvement in move prediction accuracy (3% → 80%) through behavioral cloning
-  </li>
-  <li>
-    Engineered custom MLP policy networks with logit-level action masking, reducing training loss by 58%
-  </li>
-  <li>
-    Built hybrid Java-Python architecture integrating game engine with ML models for real-time decision-making
-  </li>
-</ul>
+            <li>
+              Implemented transformer-based RL agents for Skat
+              (imperfect-information card game), achieving 26x improvement in
+              move prediction accuracy (3% → 80%) through behavioral cloning
+            </li>
+            <li>
+              Engineered custom MLP policy networks with logit-level action
+              masking, reducing training loss by 58%
+            </li>
+            <li>
+              Built hybrid Java-Python architecture integrating game engine with
+              ML models for real-time decision-making
+            </li>
+          </ul>
           <div class="tags exp-tags">
             <span class="tag">Deep Learning</span>
             <span class="tag">Reinforcement Learning</span>
@@ -318,19 +332,24 @@
             </div>
           </header>
           <p class="exp-summary">
-          Built full-stack ML learning platform serving 40+ active users with automated code evaluation and real-time feedback.
-            </p>
-            <ul class="exp-bullets">
-              <li>
-                Developed browser-based IDE with secure Dockerized sandbox for Python execution, implementing isolated environments for safe user-submitted code
-              </li>
-              <li>
-                Deployed on GCP with CI/CD pipelines (GitHub Actions), automating container orchestration for 30+ ML problems across 9 topics
-              </li>
-              <li>
-                Built automated grading system evaluating ML implementations with instant visual feedback (metrics, plots)
-              </li>
-            </ul>
+            Built full-stack ML learning platform serving 40+ active users with
+            automated code evaluation and real-time feedback.
+          </p>
+          <ul class="exp-bullets">
+            <li>
+              Developed browser-based IDE with secure Dockerized sandbox for
+              Python execution, implementing isolated environments for safe
+              user-submitted code
+            </li>
+            <li>
+              Deployed on GCP with CI/CD pipelines (GitHub Actions), automating
+              container orchestration for 30+ ML problems across 9 topics
+            </li>
+            <li>
+              Built automated grading system evaluating ML implementations with
+              instant visual feedback (metrics, plots)
+            </li>
+          </ul>
           <div class="tags exp-tags">
             <span class="tag">Product</span>
             <span class="tag">React</span>
