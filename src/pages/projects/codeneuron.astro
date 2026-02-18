@@ -12,428 +12,668 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 >
   <Fragment slot="head">
     <style>
+      /* ── Page base ── */
       body[data-page="codeneuron"] {
-        --accent: #4fc3f7;
-        --accent-soft: rgba(79, 195, 247, 0.18);
-        --accent-bg: rgba(79, 195, 247, 0.06);
-        --accent-text: #e0f7fa;
-        background:
-          radial-gradient(1000px 600px at 85% 20%, rgba(56, 189, 248, 0.1), transparent 60%),
-          radial-gradient(1100px 700px at 15% 80%, rgba(96, 165, 250, 0.08), transparent 60%),
-          linear-gradient(160deg, #05070f 0%, #0a0f1d 55%, #05070f 100%);
-        background-attachment: fixed;
+        background: #05070f;
         color: var(--text-primary);
       }
 
-      body[data-page="codeneuron"] .back-link {
+      /* ── Back link ── */
+      .cn-back {
         position: fixed;
         top: 18px; left: 18px;
         z-index: 1000;
-        padding: 0.5rem 0.85rem;
+        padding: 0.44rem 0.9rem;
         border-radius: 999px;
+        text-decoration: none;
+        background: rgba(8, 12, 24, 0.72);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(96,165,250,0.22);
+        color: var(--text-secondary);
+        font-size: 0.84rem;
+        transition: border-color 0.18s, color 0.18s, transform 0.18s;
+      }
+      .cn-back:hover { border-color: rgba(56,189,248,0.5); color: var(--text-primary); transform: translateX(-2px); }
+
+      /* ── Shared wrapper ── */
+      .cn-wrap {
+        width: min(820px, 100%);
+        margin: 0 auto;
+        padding-left: clamp(1.5rem, 5vw, 2.5rem);
+        padding-right: clamp(1.5rem, 5vw, 2.5rem);
+      }
+
+      /* ── Divider ── */
+      .cn-divider {
+        width: min(820px, 100%);
+        margin: 0 auto;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(96,165,250,0.15), transparent);
+      }
+
+      /* ══════════ HERO ══════════ */
+      .cn-hero {
+        padding: clamp(7rem, 14vw, 10rem) clamp(1.5rem, 5vw, 2.5rem) clamp(4rem, 8vw, 6rem);
+        text-align: center;
+        position: relative;
+      }
+      .cn-hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(ellipse 80% 55% at 50% 0%, rgba(56,189,248,0.09), transparent 65%);
+        pointer-events: none;
+      }
+
+      .cn-hero-badge {
+        display: inline-block;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        color: #38bdf8;
+        border: 1px solid rgba(56,189,248,0.3);
+        padding: 0.28rem 0.85rem;
+        border-radius: 999px;
+        margin-bottom: 1.6rem;
+      }
+
+      .cn-hero-title {
+        font-size: clamp(3rem, 7vw, 5.2rem);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1.05;
+        margin: 0 auto 1.4rem;
+        background: linear-gradient(135deg, #f0f9ff 30%, #7dd3fc 70%, #38bdf8 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .cn-hero-sub {
+        font-size: clamp(1.05rem, 2vw, 1.25rem);
+        color: var(--text-secondary);
+        line-height: 1.7;
+        max-width: 52ch;
+        margin: 0 auto 2.4rem;
+      }
+
+      .cn-hero-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 2rem;
+        border-radius: 999px;
+        font-size: 1rem;
+        font-weight: 600;
+        background: linear-gradient(135deg, #38bdf8, #60a5fa);
+        color: #05070f;
+        text-decoration: none;
+        transition: opacity 0.2s, transform 0.2s;
+        box-shadow: 0 0 32px rgba(56,189,248,0.25);
+      }
+      .cn-hero-cta:hover { opacity: 0.88; transform: translateY(-2px); }
+      .cn-hero-cta-ghost {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.75rem 1.6rem;
+        border-radius: 999px;
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+        text-decoration: none;
+        border: 1px solid rgba(255,255,255,0.1);
+        transition: border-color 0.2s, color 0.2s;
+      }
+      .cn-hero-cta-ghost:hover { border-color: rgba(56,189,248,0.4); color: var(--text-primary); }
+      .cn-hero-actions { display: flex; align-items: center; justify-content: center; gap: 0.75rem; flex-wrap: wrap; }
+
+      /* ══════════ STATS ══════════ */
+      .cn-stats {
+        padding: clamp(3rem, 6vw, 4.5rem) clamp(1.5rem, 5vw, 2.5rem);
+      }
+      .cn-stats-grid {
+        width: min(820px, 100%);
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0;
+      }
+      .cn-stat {
+        padding: 1.5rem 1rem;
+        text-align: center;
+        position: relative;
+      }
+      .cn-stat:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        right: 0; top: 20%; bottom: 20%;
+        width: 1px;
+        background: rgba(255,255,255,0.08);
+      }
+      .cn-stat-num {
+        display: block;
+        font-size: clamp(2.4rem, 5vw, 3.6rem);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        background: linear-gradient(135deg, #f0f9ff, #38bdf8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1;
+        margin-bottom: 0.4rem;
+      }
+      .cn-stat-label {
+        font-size: 0.82rem;
+        color: var(--text-secondary);
+        letter-spacing: 0.04em;
+      }
+
+      /* ══════════ PROBLEM ══════════ */
+      .cn-problem {
+        padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 2.5rem);
+      }
+      .cn-problem-inner {
+        width: min(820px, 100%);
+        margin: 0 auto;
+      }
+      .cn-label {
+        display: block;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #38bdf8;
+        margin-bottom: 1.2rem;
+      }
+      .cn-problem-text {
+        font-size: clamp(1.25rem, 2.5vw, 1.65rem);
+        line-height: 1.55;
+        color: var(--text-primary);
+        font-weight: 500;
+        max-width: 64ch;
+      }
+      .cn-problem-text em {
+        font-style: normal;
+        color: #7dd3fc;
+      }
+
+      /* ══════════ FEATURES ══════════ */
+      .cn-features {
+        padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 2.5rem);
+      }
+      .cn-features-inner { width: min(820px, 100%); margin: 0 auto; }
+      .cn-features-header { margin-bottom: 2.5rem; }
+      .cn-features-title {
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        font-weight: 700;
+        margin: 0.4rem 0 0.75rem;
+      }
+      .cn-features-desc {
+        color: var(--text-secondary);
+        font-size: 1rem;
+        line-height: 1.6;
+        max-width: 52ch;
+      }
+      .cn-features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1px;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 16px;
+        overflow: hidden;
+      }
+      .cn-feature {
+        padding: 1.8rem 2rem;
+        background: #05070f;
+        transition: background 0.2s;
+      }
+      .cn-feature:hover { background: rgba(56,189,248,0.04); }
+      .cn-feature-icon {
+        width: 36px; height: 36px;
+        border-radius: 8px;
+        background: rgba(56,189,248,0.1);
+        border: 1px solid rgba(56,189,248,0.2);
+        display: grid; place-items: center;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+      }
+      .cn-feature h3 {
+        font-size: 1rem;
+        font-weight: 650;
+        color: var(--text-primary);
+        margin: 0 0 0.45rem;
+      }
+      .cn-feature p {
         font-size: 0.9rem;
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        background: rgba(8, 12, 24, 0.55);
-        border: 1px solid rgba(96, 165, 250, 0.32);
-        transition: border-color 0.2s ease, transform 0.2s ease;
-      }
-      body[data-page="codeneuron"] .back-link:hover { border-color: rgba(56, 189, 248, 0.55); transform: translateY(-2px); }
-
-      @media (max-width: 640px) {
-        body[data-page="codeneuron"] .back-link { top: 14px; left: 14px; font-size: 0.82rem; padding: 0.45rem 0.7rem; }
+        color: var(--text-secondary);
+        line-height: 1.6;
+        margin: 0;
       }
 
-      body[data-page="codeneuron"] .cn-hero {
-        min-height: 48vh;
+      /* ══════════ WORKFLOW ══════════ */
+      .cn-workflow {
+        padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 2.5rem);
+      }
+      .cn-workflow-inner { width: min(820px, 100%); margin: 0 auto; }
+      .cn-steps {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1px;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 16px;
+        overflow: hidden;
+        margin-top: 2rem;
+      }
+      .cn-step {
+        padding: 1.6rem 1.4rem;
+        background: #05070f;
+        position: relative;
+      }
+      .cn-step-num {
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        color: #38bdf8;
+        margin-bottom: 0.6rem;
+      }
+      .cn-step h4 {
+        font-size: 0.95rem;
+        font-weight: 650;
+        color: var(--text-primary);
+        margin: 0 0 0.35rem;
+      }
+      .cn-step p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; margin: 0; }
+
+      /* ══════════ SHIPPED ══════════ */
+      .cn-shipped {
+        padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 2.5rem);
+      }
+      .cn-shipped-inner { width: min(820px, 100%); margin: 0 auto; }
+      .cn-shipped-list {
+        list-style: none;
+        padding: 0; margin: 2rem 0 0;
+        display: grid;
+        gap: 0;
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 16px;
+        overflow: hidden;
+      }
+      .cn-shipped-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1.25rem 1.6rem;
+        background: #05070f;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        line-height: 1.6;
+        transition: background 0.18s;
+      }
+      .cn-shipped-list li:last-child { border-bottom: none; }
+      .cn-shipped-list li:hover { background: rgba(56,189,248,0.03); }
+      .cn-shipped-list li::before {
+        content: "✓";
+        color: #38bdf8;
+        font-weight: 700;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+        margin-top: 0.1rem;
+      }
+
+      /* ══════════ STACK ══════════ */
+      .cn-stack-section {
+        padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 2.5rem);
+      }
+      .cn-stack-inner { width: min(820px, 100%); margin: 0 auto; }
+      .cn-stack-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        margin-top: 1.6rem;
+      }
+      .cn-pill {
+        padding: 0.4rem 1rem;
+        border-radius: 999px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+        border: 1px solid rgba(255,255,255,0.1);
+        background: rgba(255,255,255,0.03);
+        transition: border-color 0.18s, color 0.18s;
+      }
+      .cn-pill:hover { border-color: rgba(56,189,248,0.35); color: var(--text-primary); }
+
+      /* ══════════ ROADMAP ══════════ */
+      .cn-roadmap {
+        padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 2.5rem);
+      }
+      .cn-roadmap-inner { width: min(820px, 100%); margin: 0 auto; }
+      .cn-roadmap-list {
+        list-style: none;
+        padding: 0; margin: 2rem 0 0;
+        display: grid;
+        gap: 0.5rem;
+      }
+      .cn-roadmap-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        line-height: 1.55;
+      }
+      .cn-roadmap-list li:last-child { border-bottom: none; }
+      .cn-roadmap-dot {
+        width: 8px; height: 8px;
+        border-radius: 50%;
+        background: #38bdf8;
+        box-shadow: 0 0 0 3px rgba(56,189,248,0.15);
+        flex-shrink: 0;
+        margin-top: 0.42rem;
+      }
+
+      /* ══════════ BOTTOM CTA ══════════ */
+      .cn-cta-section {
+        padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 2.5rem);
+        text-align: center;
+        position: relative;
+      }
+      .cn-cta-section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(56,189,248,0.07), transparent 70%);
+        pointer-events: none;
+      }
+      .cn-cta-inner { position: relative; width: min(580px, 100%); margin: 0 auto; }
+      .cn-cta-title {
+        font-size: clamp(1.8rem, 4vw, 2.6rem);
+        font-weight: 750;
+        letter-spacing: -0.02em;
+        line-height: 1.15;
+        margin: 0.5rem 0 1rem;
+      }
+      .cn-cta-sub {
+        color: var(--text-secondary);
+        font-size: 1rem;
+        line-height: 1.65;
+        margin-bottom: 2rem;
+      }
+      .cn-cta-links {
         display: flex;
         align-items: center;
         justify-content: center;
-        background: url("/images/projects/codeneuron/hero.jpg") center / cover no-repeat;
-      }
-
-      body[data-page="codeneuron"] .cn-hero .overlay {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(135deg, rgba(6, 10, 22, 0.88) 0%, rgba(6, 10, 22, 0.6) 55%, rgba(6, 10, 22, 0.9) 100%);
-      }
-
-      body[data-page="codeneuron"] .cn-hero__inner {
-        position: relative;
-        width: 100%;
-        max-width: 960px;
-        margin: 0 auto;
-        padding: 4rem 1rem;
-        text-align: left;
-      }
-
-      body[data-page="codeneuron"] .cn-hero__title {
-        font-size: clamp(2.6rem, 5vw, 3.2rem);
-        margin-bottom: 0.65rem;
-        font-weight: 700;
-        position: relative;
-      }
-      body[data-page="codeneuron"] .cn-hero__title::after {
-        content: "";
-        display: block;
-        width: 72px; height: 3px;
-        margin-top: 0.5rem;
-        background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-        border-radius: 2px;
-      }
-
-      body[data-page="codeneuron"] .feature-chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.45rem;
-        font-size: 0.75rem;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        background: rgba(56, 189, 248, 0.16);
-        border: 1px solid rgba(96, 165, 250, 0.32);
-        color: var(--text-primary);
-        border-radius: 999px;
-        padding: 0.3rem 0.8rem;
-        margin-bottom: 0.4rem;
-      }
-
-      body[data-page="codeneuron"] .cn-hero__tagline {
+        gap: 0.6rem;
+        flex-wrap: wrap;
+        font-size: 0.9rem;
         color: var(--text-secondary);
-        font-size: clamp(1rem, 2.4vw, 1.2rem);
-        min-height: 1.8em;
-        margin-bottom: 1.25rem;
-        text-align: left;
+        margin-top: 1.4rem;
+      }
+      .cn-cta-link { color: #7dd3fc; text-decoration: none; transition: color 0.15s; }
+      .cn-cta-link:hover { color: #38bdf8; }
+
+      /* ══════════ FOOTER ══════════ */
+      .cn-footer {
+        padding: 1.8rem 2rem;
+        text-align: center;
+        font-size: 0.82rem;
+        color: var(--text-secondary);
+        border-top: 1px solid rgba(255,255,255,0.06);
       }
 
-      body[data-page="codeneuron"] .cn-hero__cta-row {
-        display: inline-flex;
-        gap: 0.75rem;
-        align-items: center;
-        margin-bottom: 0.9rem;
+      /* ══════════ SCROLL REVEAL ══════════ */
+      .cn-reveal {
+        opacity: 0;
+        transform: translateY(22px);
+        transition: opacity 0.55s ease, transform 0.55s ease;
+      }
+      .cn-reveal.visible {
+        opacity: 1;
+        transform: none;
       }
 
-      body[data-page="codeneuron"] .btn-sm { padding: 0.45rem 1.1rem; border-radius: 999px; font-size: 0.95rem; }
-
-      body[data-page="codeneuron"] .cn-hero__details { color: var(--accent-secondary); font-weight: 600; text-decoration: none; }
-      body[data-page="codeneuron"] .cn-hero__details:hover { color: var(--accent); }
-
-      body[data-page="codeneuron"] main {
-        display: flex;
-        flex-direction: column;
-        gap: clamp(1.4rem, 3vw, 2.4rem);
-        padding: clamp(2.6rem, 6vw, 3.4rem) clamp(1.4rem, 4vw, 2.2rem) 4rem;
-        padding-top: 2rem;
+      /* ══════════ RESPONSIVE ══════════ */
+      @media (max-width: 640px) {
+        .cn-steps { grid-template-columns: repeat(2, 1fr); }
+        .cn-stats-grid { grid-template-columns: repeat(3, 1fr); }
+        .cn-stat-num { font-size: 2rem; }
       }
-
-      body[data-page="codeneuron"] main > section {
-        max-width: 940px;
-        padding: 3rem 1.5rem;
-        width: 100%;
-        margin: 0 auto;
-        background: transparent;
-        border: none;
-        border-radius: 0;
-        box-shadow: none;
+      @media (max-width: 420px) {
+        .cn-stats-grid { grid-template-columns: 1fr; }
+        .cn-stat:not(:last-child)::after { display: none; }
+        .cn-steps { grid-template-columns: 1fr; }
       }
-
-      body[data-page="codeneuron"] main > section:not(#overview) { margin-bottom: 1.5rem; padding-top: 1.5rem; padding-bottom: 1.5rem; }
-
-      body[data-page="codeneuron"] main > section h2 {
-        font-size: clamp(1.8rem, 3vw, 2.3rem);
-        margin-bottom: 1rem;
-        position: relative;
-        font-weight: 650;
-      }
-      body[data-page="codeneuron"] main > section h2::after {
-        content: "";
-        display: block;
-        width: 64px; height: 2px;
-        margin-top: 0.6rem;
-        background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-        opacity: 0.8;
-      }
-
-      body[data-page="codeneuron"] main > section > p,
-      body[data-page="codeneuron"] main > section > ul,
-      body[data-page="codeneuron"] main > section > div,
-      body[data-page="codeneuron"] main > section > section { color: var(--text-secondary); }
-
-      body[data-page="codeneuron"] p { line-height: 1.65; margin-bottom: 0.85rem; }
-      body[data-page="codeneuron"] ul { padding-left: 1.1rem; margin: 0.35rem 0 0.85rem; }
-      body[data-page="codeneuron"] li { margin: 0.4rem 0; line-height: 1.55; }
-      body[data-page="codeneuron"] .cn-intro-note { font-style: italic; color: var(--text-secondary); margin-bottom: 1.1rem; }
-
-      body[data-page="codeneuron"] .cn-panel { border-radius: 0; border: none; background: transparent; box-shadow: none; padding: clamp(1.4rem, 3vw, 1.9rem); }
-      body[data-page="codeneuron"] .cn-compact { padding-top: 1.5rem; padding-bottom: 1.4rem; margin-top: 0.6rem; }
-
-      body[data-page="codeneuron"] .cn-stats.cn-panel {
-        max-width: 940px;
-        margin: 1.25rem 0 0;
-        padding: 1.25rem 1rem 1rem;
-        border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
-        box-shadow: 0 12px 32px rgba(0,0,0,0.18);
-      }
-
-      body[data-page="codeneuron"] .why-different.cn-panel {
-        max-width: 940px;
-        margin: 1.75rem 0 0.5rem;
-        padding: 1.25rem 1rem 1rem;
-        border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
-        box-shadow: 0 12px 32px rgba(0,0,0,0.18);
-      }
-
-      .why-different h3 { margin-bottom: 0.4rem; }
-      .why-different .lead { font-size: 1rem; line-height: 1.6; color: var(--text-secondary); max-width: 68ch; }
-      .why-different .value-points {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 0.6rem 0.9rem;
-        margin: 1rem 0 1.25rem;
-        padding: 0; list-style: none;
-      }
-      .why-different .value-points li { position: relative; padding-left: 1.25rem; color: var(--text-secondary); }
-      .why-different .value-points li::before {
-        content: "";
-        position: absolute;
-        left: 0; top: 0.6em;
-        width: 8px; height: 8px;
-        border-radius: 50%;
-        background: var(--accent);
-        box-shadow: 0 0 0 2px rgba(52, 211, 153, 0.18);
-      }
-
-      body[data-page="codeneuron"] .flow-stepper {
-        display: flex; flex-wrap: wrap;
-        gap: 0.5rem 0.75rem;
-        align-items: center;
-        counter-reset: step;
-        list-style: none; padding: 0; margin: 0.25rem 0 0;
-      }
-      body[data-page="codeneuron"] .flow-stepper li { counter-increment: step; position: relative; padding-left: 2rem; padding-right: 0.5rem; }
-      body[data-page="codeneuron"] .flow-stepper li::before {
-        content: counter(step);
-        position: absolute; left: 0; top: 0;
-        width: 1.5rem; height: 1.5rem;
-        border-radius: 999px;
-        display: grid; place-items: center;
-        font-size: 0.8rem; font-weight: 600;
-        background: var(--accent); color: #0f1115;
-        box-shadow: 0 6px 16px rgba(52, 211, 153, 0.25);
-      }
-      body[data-page="codeneuron"] .flow-stepper li:not(:last-child)::after { content: "→"; margin-left: 0.25rem; opacity: 0.7; }
-
-      body[data-page="codeneuron"] .cn-highlights { padding-top: 1rem; }
-      body[data-page="codeneuron"] .highlights-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0.9rem; margin-top: 0.75rem; }
-      body[data-page="codeneuron"] .highlight {
-        position: relative;
-        padding: 1rem;
-        border-radius: 12px;
-        border: 1px solid rgba(255,255,255,0.1);
-        background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
-        box-shadow: 0 10px 26px rgba(0,0,0,0.18);
-      }
-      body[data-page="codeneuron"] .highlight .icon { font-size: 1.35rem; margin-bottom: 0.4rem; }
-
-      body[data-page="codeneuron"] .stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.75rem; }
-      body[data-page="codeneuron"] .stat { display: flex; align-items: baseline; gap: 0.45rem; }
-      body[data-page="codeneuron"] .stat .num { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.02em; }
-      body[data-page="codeneuron"] .stat .label { color: var(--text-secondary); }
-
-      body[data-page="codeneuron"] .checklist { list-style: none; padding-left: 0; margin: 0; display: grid; gap: 0.55rem; }
-      body[data-page="codeneuron"] .checklist li { position: relative; padding-left: 1.8rem; color: var(--text-secondary); }
-      body[data-page="codeneuron"] .checklist li::before { content: "✓"; position: absolute; left: 0; top: 0.05rem; font-size: 1rem; color: var(--accent); font-weight: 700; }
-
-      body[data-page="codeneuron"] .timeline { list-style: none; margin: 0; padding-left: 1.1rem; border-left: 2px dashed rgba(96, 165, 250, 0.25); }
-      body[data-page="codeneuron"] .timeline li { position: relative; padding-left: 1.2rem; margin: 0.65rem 0; color: var(--text-secondary); }
-      body[data-page="codeneuron"] .timeline li::before { content: ""; position: absolute; left: -0.95rem; top: 0.4rem; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2); }
-
-      body[data-page="codeneuron"] .cn-contact-list { list-style: none; padding-left: 0; margin: 0; color: var(--text-secondary); display: grid; gap: 0.55rem; }
-      body[data-page="codeneuron"] .cn-contact-link { color: var(--accent-secondary); font-weight: 600; }
-      body[data-page="codeneuron"] .cn-contact-link:hover { color: var(--accent); }
-
-      body[data-page="codeneuron"] .cn-footer { padding: 2.2rem 0 2.8rem; text-align: center; color: var(--text-secondary); }
-      body[data-page="codeneuron"] .cn-footer__inner { width: min(960px, 100%); margin: 0 auto; padding: 1.2rem 1.5rem 0; border-top: 1px solid rgba(96, 165, 250, 0.2); }
-
-      body[data-page="codeneuron"] .cn-stack { margin: 0.25rem 0 0.9rem; padding-left: 1.1rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.35rem 1rem; list-style: disc; }
-      body[data-page="codeneuron"] .cn-stack li { color: var(--text-secondary); line-height: 1.5; }
-      body[data-page="codeneuron"] .cn-stack li::marker { color: var(--accent); }
-
-      @media (max-width: 900px) { body[data-page="codeneuron"] main > section { padding: clamp(1.6rem, 6vw, 2.2rem); } }
-      @media (max-width: 720px) {
-        body[data-page="codeneuron"] main { padding: clamp(2.2rem, 7vw, 2.8rem) 1.1rem 3.4rem; }
-        body[data-page="codeneuron"] main > section { padding: clamp(1.4rem, 5vw, 2rem); border-radius: 20px; }
-        body[data-page="codeneuron"] .cn-hero { min-height: 56vh; }
-        body[data-page="codeneuron"] .cn-hero__inner { padding: clamp(2.2rem, 8vw, 2.8rem) clamp(1.2rem, 6vw, 2rem); }
-      }
-
-      #cnHeroTyping.is-typing::after {
-        content: "▍";
-        margin-left: 2px;
-        opacity: 0.85;
-        animation: cnBlink 1s steps(1) infinite;
-      }
-      @keyframes cnBlink { 50% { opacity: 0; } }
     </style>
   </Fragment>
 
-  <header class="hero cn-hero" aria-labelledby="cn-title">
-    <a
-      href="/#featured"
-      class="cta cta-ghost back-link"
-      aria-label="Back to portfolio"
-      onclick="try { if (document.referrer && new URL(document.referrer).origin === location.origin) { history.back(); return false; } } catch(e) {}"
-    >← Back</a>
-    <div class="overlay"></div>
-    <div class="cn-hero__inner hero-content">
-      <span class="feature-chip">Early Access</span>
-      <h1 id="cn-title" class="cn-hero__title">CodeNeuron</h1>
-      <p class="cn-hero__tagline">
-        <span id="cnHeroTyping">Hands-on ML practice with guided problems, a browser IDE, and instant feedback.</span>
-      </p>
-      <div class="cn-hero__cta-row">
-        <a class="button btn-sm" href="https://codeneuron.tech/" target="_blank" rel="noopener">Live</a>
-        <a class="cn-hero__details" href="#overview">Details</a>
-      </div>
+  <!-- Back -->
+  <a class="cn-back" href="/#featured">← Back</a>
+
+  <!-- ── HERO ── -->
+  <header class="cn-hero">
+    <span class="cn-hero-badge">Early Access</span>
+    <h1 class="cn-hero-title">CodeNeuron</h1>
+    <p class="cn-hero-sub">Hands-on ML practice. Real scenarios, a browser IDE, and instant feedback — so you learn by actually shipping solutions, not watching lectures.</p>
+    <div class="cn-hero-actions">
+      <a class="cn-hero-cta" href="https://codeneuron.tech/" target="_blank" rel="noopener">Try it live →</a>
+      <a class="cn-hero-cta-ghost" href="#problem">Learn more</a>
     </div>
   </header>
 
-  <main>
-    <section id="overview">
-      <h2>Overview</h2>
-      <p>Preparing for ML roles often becomes juggling tutorials, notes, and repos — with little signal on whether you can actually ship a solution.</p>
-      <p class="cn-intro-note">Plenty of theory exists; structured practice is scarce.</p>
-      <p>CodeNeuron aims to close that gap: a practical, guided environment where you tackle problems end‑to‑end in a browser IDE, iterate quickly, and get immediate, visual feedback. Short concept notes appear only when helpful so momentum stays high.</p>
+  <div class="cn-divider"></div>
 
-      <section class="cn-highlights cn-panel">
-        <div class="highlights-grid">
-          <article class="highlight">
-            <div class="icon">🧪</div>
-            <h4>Practice In‑Browser</h4>
-            <p>Run code against real datasets, see outputs and plots inline.</p>
-          </article>
-          <article class="highlight">
-            <div class="icon">📚</div>
-            <h4>Story‑Driven</h4>
-            <p>Real scenarios over puzzles, with goals and constraints.</p>
-          </article>
-          <article class="highlight">
-            <div class="icon">📈</div>
-            <h4>Visible Progress</h4>
-            <p>Metrics, graphs, and dataset peeks at every step.</p>
-          </article>
-          <article class="highlight">
-            <div class="icon">🧠</div>
-            <h4>Intuition First</h4>
-            <p>Understand when and why techniques fit the problem.</p>
-          </article>
+  <!-- ── STATS ── -->
+  <section class="cn-stats" aria-label="Platform stats">
+    <div class="cn-stats-grid">
+      <div class="cn-stat">
+        <span class="cn-stat-num" data-count="9">9</span>
+        <span class="cn-stat-label">Core Topics</span>
+      </div>
+      <div class="cn-stat">
+        <span class="cn-stat-num" data-count="30">30+</span>
+        <span class="cn-stat-label">Structured Problems</span>
+      </div>
+      <div class="cn-stat">
+        <span class="cn-stat-num" data-count="4">4</span>
+        <span class="cn-stat-label">Step Workflow</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="cn-divider"></div>
+
+  <!-- ── PROBLEM ── -->
+  <section class="cn-problem" id="problem">
+    <div class="cn-problem-inner cn-reveal">
+      <span class="cn-label">The Problem</span>
+      <p class="cn-problem-text">ML learning is broken. You read theory, watch tutorials, then freeze when a real problem lands in front of you. <em>Plenty of content exists. Structured practice doesn't.</em> CodeNeuron is built to close that gap.</p>
+    </div>
+  </section>
+
+  <div class="cn-divider"></div>
+
+  <!-- ── FEATURES ── -->
+  <section class="cn-features">
+    <div class="cn-features-inner">
+      <div class="cn-features-header cn-reveal">
+        <span class="cn-label">What You Get</span>
+        <h2 class="cn-features-title">Built for doing, not watching</h2>
+        <p class="cn-features-desc">Every feature exists to keep you in flow — writing code, seeing results, building intuition.</p>
+      </div>
+      <div class="cn-features-grid cn-reveal">
+        <article class="cn-feature">
+          <div class="cn-feature-icon">🧪</div>
+          <h3>Browser IDE</h3>
+          <p>Write and run Python against real datasets. See plots, metrics, and outputs inline — no setup.</p>
+        </article>
+        <article class="cn-feature">
+          <div class="cn-feature-icon">📖</div>
+          <h3>Story-Driven Problems</h3>
+          <p>Real-world scenarios with goals and constraints. Not puzzles — actual end-to-end tasks.</p>
+        </article>
+        <article class="cn-feature">
+          <div class="cn-feature-icon">📊</div>
+          <h3>Instant Feedback</h3>
+          <p>Metrics, plots, and dataset previews appear as you work. Know if your solution is right immediately.</p>
+        </article>
+        <article class="cn-feature">
+          <div class="cn-feature-icon">🧠</div>
+          <h3>Just-in-Time Theory</h3>
+          <p>Short concept notes surface only when you need them. Learn the why without breaking momentum.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="cn-divider"></div>
+
+  <!-- ── WORKFLOW ── -->
+  <section class="cn-workflow">
+    <div class="cn-workflow-inner">
+      <div class="cn-reveal">
+        <span class="cn-label">The Workflow</span>
+        <h2 class="cn-features-title">Every problem follows the real ML loop</h2>
+      </div>
+      <div class="cn-steps cn-reveal">
+        <div class="cn-step">
+          <div class="cn-step-num">01</div>
+          <h4>Preprocess</h4>
+          <p>Clean, transform, and understand the dataset.</p>
         </div>
-      </section>
-
-      <section class="cn-stats cn-panel" aria-label="Platform stats">
-        <div class="stat-row">
-          <div class="stat"><span class="num" data-count="9">9</span><span class="label">Core Topics</span></div>
-          <div class="stat"><span class="num" data-count="30">30+</span><span class="label">Structured Problems</span></div>
-          <div class="stat"><span class="num" data-count="4">4</span><span class="label">Step Workflow</span></div>
+        <div class="cn-step">
+          <div class="cn-step-num">02</div>
+          <h4>Model</h4>
+          <p>Pick an algorithm, set parameters, fit your data.</p>
         </div>
-      </section>
+        <div class="cn-step">
+          <div class="cn-step-num">03</div>
+          <h4>Evaluate</h4>
+          <p>Score your model. Understand where it fails.</p>
+        </div>
+        <div class="cn-step">
+          <div class="cn-step-num">04</div>
+          <h4>Visualize</h4>
+          <p>Plot results. Build the intuition that sticks.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <section class="why-different cn-panel">
-        <h3>Why CodeNeuron Is Different</h3>
-        <p class="lead">Not puzzles. Projects. CodeNeuron teaches applied ML through end‑to‑end scenarios. Each task follows the real workflow — preprocess → model → evaluate → visualize — with dataset peeks, intermediate outputs, and visualizations that build intuition.</p>
-        <ul class="value-points">
-          <li><strong>Real scenarios:</strong> Work through end‑to‑end problems, not riddles.</li>
-          <li><strong>Visible progress:</strong> See samples, metrics, and plots as you go.</li>
-          <li><strong>Intuition first:</strong> Learn when and why each method fits.</li>
-        </ul>
-        <ol class="flow-stepper" aria-label="Challenge workflow">
-          <li>Preprocess</li><li>Model</li><li>Evaluate</li><li>Visualize</li>
-        </ol>
-      </section>
-    </section>
+  <div class="cn-divider"></div>
 
-    <section class="cn-compact">
-      <h2>What's Shipped (v1)</h2>
-      <ul class="checklist">
-        <li>Problem sets grounded in real‑life scenarios — topics like linear regression, train/test splits, k‑nearest neighbours, decision trees, and model generalization.</li>
-        <li>Coverage so far: 9 core topics and 30 structured questions (and growing).</li>
-        <li>Every problem follows a clear flow: short scenario, step‑by‑step tasks, datasets, sample inputs/outputs, and difficulty estimates.</li>
-        <li>In‑browser IDE: run your code against real datasets and see instant results — including plots rendered back in the output.</li>
-        <li>Learn alongside the work: concise inline concept notes surface when you need them to build intuition faster.</li>
+  <!-- ── SHIPPED ── -->
+  <section class="cn-shipped">
+    <div class="cn-shipped-inner">
+      <div class="cn-reveal">
+        <span class="cn-label">What's Shipped</span>
+        <h2 class="cn-features-title">V1 is live and growing</h2>
+      </div>
+      <ul class="cn-shipped-list cn-reveal">
+        <li>9 core ML topics — linear regression, KNN, decision trees, train/test splits, generalization, and more.</li>
+        <li>30+ structured problems, each with a scenario, tasks, dataset, sample I/O, and difficulty estimate.</li>
+        <li>In-browser Python IDE — run code, see plots and metrics rendered inline, zero setup.</li>
+        <li>Inline concept notes that surface just when you need them, without breaking your flow.</li>
+        <li>Problems modelled on the full ML workflow: preprocess → model → evaluate → visualize.</li>
       </ul>
-    </section>
+    </div>
+  </section>
 
-    <section>
-      <h2>Stack</h2>
-      <ul class="cn-stack">
-        <li>React</li><li>Vite</li><li>Tailwind</li><li>FastAPI</li>
-        <li>Python</li><li>Docker</li><li>Firebase</li><li>Cloud Run</li>
+  <div class="cn-divider"></div>
+
+  <!-- ── STACK ── -->
+  <section class="cn-stack-section">
+    <div class="cn-stack-inner cn-reveal">
+      <span class="cn-label">Built With</span>
+      <div class="cn-stack-pills">
+        {['React', 'Vite', 'Tailwind', 'FastAPI', 'Python', 'Docker', 'Firebase', 'Cloud Run'].map(t => (
+          <span class="cn-pill">{t}</span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="cn-divider"></div>
+
+  <!-- ── ROADMAP ── -->
+  <section class="cn-roadmap">
+    <div class="cn-roadmap-inner">
+      <div class="cn-reveal">
+        <span class="cn-label">What's Next</span>
+        <h2 class="cn-features-title">Shipping fast, learning in public</h2>
+      </div>
+      <ul class="cn-roadmap-list cn-reveal">
+        <li><span class="cn-roadmap-dot"></span>More problems and topics — deep learning, NLP, time series.</li>
+        <li><span class="cn-roadmap-dot"></span>Editorial walkthroughs and a layered hint system.</li>
+        <li><span class="cn-roadmap-dot"></span>Learning paths with milestones and progress tracking.</li>
+        <li><span class="cn-roadmap-dot"></span>Richer feedback — better metrics, smarter output analysis.</li>
+        <li><span class="cn-roadmap-dot"></span>Community space to share solutions and contribute problems.</li>
       </ul>
-    </section>
+    </div>
+  </section>
 
-    <section class="cn-compact">
-      <h2>My Role</h2>
-      <p>Solo engineer — product design, UI, backend, runner, Firebase, Docker/Cloud Run, and content.</p>
-    </section>
+  <div class="cn-divider"></div>
 
-    <section class="cn-compact">
-      <h2>Status &amp; Roadmap</h2>
-      <p><strong>Status:</strong> Early Access. Shipping fast and learning in public.</p>
-      <ul class="timeline">
-        <li>Publish more problems and topics</li>
-        <li>Add editorial walkthroughs and a layered hint system</li>
-        <li>Shape learning paths with milestones</li>
-        <li>Richer feedback with metrics and visuals</li>
-        <li>Community space to share and create together</li>
-      </ul>
-    </section>
-
-    <section class="cn-compact">
-      <h2>Collaborate / Feedback</h2>
-      <p>If this resonates and you'd like to jam on ideas, contribute problems, help with UX/UI, or just chat about ML learning — I'd love to connect.</p>
-      <ul class="cn-contact-list">
-        <li>DM me on LinkedIn: <a class="cn-contact-link" href="https://linkedin.com/in/jainanurag23" target="_blank" rel="noopener">@jainanurag23</a></li>
-        <li>Share feedback via the site's Feedback option</li>
-        <li>Or email me — <a class="cn-contact-link" href="mailto:anurag.jain486@gmail.com">anurag.jain486@gmail.com</a></li>
-      </ul>
-    </section>
-  </main>
-
-  <button id="backToTop" class="to-top" aria-label="Back to top" title="Back to top">▲</button>
+  <!-- ── BOTTOM CTA ── -->
+  <section class="cn-cta-section">
+    <div class="cn-cta-inner cn-reveal">
+      <span class="cn-label">Try It</span>
+      <h2 class="cn-cta-title">Stop watching.<br/>Start building.</h2>
+      <p class="cn-cta-sub">CodeNeuron is free and live. Open a problem, write some code, see what happens.</p>
+      <a class="cn-hero-cta" href="https://codeneuron.tech/" target="_blank" rel="noopener">Open CodeNeuron →</a>
+      <div class="cn-cta-links">
+        <span>Want to collaborate or give feedback?</span>
+        <a class="cn-cta-link" href="https://linkedin.com/in/jainanurag23" target="_blank" rel="noopener">LinkedIn</a>
+        <span>·</span>
+        <a class="cn-cta-link" href="mailto:anurag.jain486@gmail.com">Email</a>
+      </div>
+    </div>
+  </section>
 
   <footer class="cn-footer">
-    <section class="cn-footer__inner">
-      <p>&copy; 2025 Anurag Jain. Thanks for reading!</p>
-    </section>
+    &copy; 2025 Anurag Jain
   </footer>
+
+  <button id="backToTop" class="to-top" aria-label="Back to top" title="Back to top">▲</button>
 
   <script>
     (function () {
       if (document.body.getAttribute('data-page') !== 'codeneuron') return;
-      const items = Array.from(document.querySelectorAll('.cn-stats [data-count]'));
-      if (!items.length || !('IntersectionObserver' in window)) return;
+
+      // Scroll reveal
+      const reveals = document.querySelectorAll('.cn-reveal');
       const io = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+      }, { threshold: 0.12 });
+      reveals.forEach(el => io.observe(el));
+
+      // Stat counter
+      const stats = document.querySelectorAll('[data-count]');
+      const sio = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
           if (!entry.isIntersecting) return;
           const el = entry.target;
           const target = Number(el.getAttribute('data-count')) || 0;
-          const hasPlus = /\+$/.test(el.textContent);
-          const duration = 800;
+          const hasPlus = /\+/.test(el.textContent);
           const start = performance.now();
-          function tick(now) {
+          const duration = 900;
+          (function tick(now) {
             const t = Math.min(1, (now - start) / duration);
-            const val = Math.floor(target * t);
-            el.textContent = hasPlus ? `${val}+` : String(val);
+            const ease = 1 - Math.pow(1 - t, 3);
+            el.textContent = hasPlus ? `${Math.floor(target * ease)}+` : String(Math.floor(target * ease));
             if (t < 1) requestAnimationFrame(tick);
-          }
-          requestAnimationFrame(tick);
-          io.unobserve(el);
+          })(start);
+          sio.unobserve(el);
         });
-      }, { threshold: 0.4 });
-      items.forEach((el) => io.observe(el));
+      }, { threshold: 0.5 });
+      stats.forEach(el => sio.observe(el));
     })();
   </script>
 </BaseLayout>
