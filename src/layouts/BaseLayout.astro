@@ -1,0 +1,64 @@
+---
+// BaseLayout.astro — shared <head> for every page
+import '../styles/global.css';
+interface Props {
+  title: string;
+  description: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogUrl?: string;
+  ogImage?: string;
+  bodyClass?: string;
+  bodyDataPage?: string;
+}
+
+const {
+  title,
+  description,
+  ogTitle,
+  ogDescription,
+  ogUrl = 'https://jainanurag.me',
+  ogImage = 'https://jainanurag.me/images/og-image.png',
+  bodyDataPage,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={ogTitle ?? title} />
+    <meta property="og:description" content={ogDescription ?? description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={ogUrl} />
+    <meta property="og:image" content={ogImage} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={ogTitle ?? title} />
+    <meta name="twitter:description" content={ogDescription ?? description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Bricolage+Grotesque:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Page-specific styles injected by child layouts -->
+    <slot name="head" />
+  </head>
+  <body data-page={bodyDataPage}>
+    <slot />
+    <script src="/scripts/main.js" is:inline></script>
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "99033085f37f45f48f42683439e0f638"}'></script>
+  </body>
+</html>

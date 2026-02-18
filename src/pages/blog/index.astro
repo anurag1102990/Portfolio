@@ -1,0 +1,252 @@
+---
+// src/pages/blog/index.astro
+// Blog listing page — queries all .md posts from src/content/blog/
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog');
+
+// Sort by date descending
+const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const featuredPost = posts.find(p => p.data.featured);
+const regularPosts = posts.filter(p => !p.data.featured);
+---
+
+<BaseLayout
+  title="Blog | Anurag Jain"
+  description="Anurag Jain's blog on AI/ML engineering, systems, and product building."
+  ogTitle="Blog | Anurag Jain"
+  ogDescription="Posts on AI/ML engineering, systems design, and shipping applied ML."
+  ogUrl="https://jainanurag.me/blog"
+  bodyDataPage="blog"
+>
+  <Fragment slot="head">
+    <style>
+      body[data-page="blog"] { background: #05070f; }
+      body[data-page="blog"]::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background-image:
+          linear-gradient(to right, rgba(148, 163, 184, 0.035) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(148, 163, 184, 0.025) 1px, transparent 1px);
+        background-size: 72px 72px;
+        mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,0,0,0.28), transparent 75%);
+      }
+
+      .blog-back {
+        position: fixed;
+        top: 14px; left: 14px;
+        z-index: 1000;
+        padding: 0.44rem 0.84rem;
+        border-radius: 999px;
+        text-decoration: none;
+        background: rgba(8, 12, 24, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(96, 165, 250, 0.28);
+        color: var(--text-primary);
+        font-size: 0.86rem;
+        transition: transform 0.3s ease, opacity 0.3s ease, border-color 0.18s ease;
+      }
+      .blog-back:hover { border-color: rgba(56, 189, 248, 0.52); }
+      .blog-back.hidden { transform: translateY(-200%); opacity: 0; pointer-events: none; }
+
+      .blog-shell {
+        max-width: 1600px;
+        margin: 0 auto;
+        padding: clamp(5.5rem, 8vw, 7.5rem) clamp(1.5rem, 5vw, 5rem) clamp(3rem, 6vw, 5rem);
+      }
+
+      .blog-header { margin-bottom: clamp(1.4rem, 2.6vw, 2rem); }
+      .blog-heading {
+        font-size: clamp(1.6rem, 3vw, 2.6rem);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+        color: var(--text-primary);
+        margin: 0 0 0.45rem;
+      }
+      .blog-sub {
+        font-size: clamp(0.88rem, 1.05vw, 1.05rem);
+        color: var(--muted);
+        margin: 0;
+        max-width: 58ch;
+        line-height: 1.6;
+      }
+
+      /* Featured */
+      .featured {
+        padding: clamp(1.4rem, 2.4vw, 2rem);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        background: rgba(255, 255, 255, 0.03);
+        margin-bottom: clamp(1.4rem, 2.8vw, 2.2rem);
+        transition: border-color 0.2s ease, background 0.2s ease;
+        text-decoration: none;
+        display: block;
+      }
+      .featured:hover { border-color: rgba(96, 165, 250, 0.2); background: rgba(14, 22, 36, 0.45); }
+      .featured-badge {
+        display: inline-flex;
+        font-size: 0.63rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 0.75rem;
+      }
+      .featured-title {
+        font-size: clamp(1.3rem, 2.2vw, 1.9rem);
+        font-weight: 700;
+        line-height: 1.2;
+        color: var(--text-primary);
+        margin: 0 0 0.6rem;
+        letter-spacing: -0.015em;
+      }
+      .featured-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.38rem;
+        font-size: 0.8rem;
+        color: var(--muted);
+        margin-bottom: 0.85rem;
+        flex-wrap: wrap;
+      }
+      .featured-meta .sep { opacity: 0.38; }
+      .featured-meta .cat { color: var(--accent-secondary); font-weight: 600; font-size: 0.73rem; letter-spacing: 0.05em; text-transform: uppercase; }
+      .featured-desc { font-size: clamp(0.9rem, 1.02vw, 1.02rem); color: var(--text-secondary); line-height: 1.65; margin: 0 0 1.1rem; max-width: 72ch; }
+      .read-cta { display: inline-flex; align-items: center; font-weight: 600; font-size: 0.86rem; color: var(--accent); gap: 0.3rem; transition: gap 0.18s ease, color 0.18s ease; }
+      .read-cta:hover { gap: 0.55rem; color: rgba(125, 211, 252, 0.92); }
+
+      /* Grid */
+      .posts-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: clamp(0.75rem, 1.4vw, 1.1rem);
+        align-items: start;
+      }
+
+      .post-card {
+        display: flex;
+        flex-direction: column;
+        padding: 1.15rem 1.2rem 1.2rem;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        background: rgba(255, 255, 255, 0.025);
+        text-decoration: none;
+        transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+      }
+      .post-card:hover { border-color: rgba(96, 165, 250, 0.22); background: rgba(14, 22, 36, 0.5); transform: translateY(-2px); }
+      .post-cat { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-secondary); margin-bottom: 0.55rem; opacity: 0.85; }
+      .post-title { font-size: clamp(0.92rem, 1.15vw, 1.12rem); font-weight: 700; line-height: 1.32; color: var(--text-primary); margin: 0 0 0.5rem; }
+      .post-meta { display: flex; align-items: center; gap: 0.32rem; font-size: 0.75rem; color: var(--muted); margin-bottom: 0.7rem; flex-wrap: wrap; }
+      .post-meta .sep { opacity: 0.35; }
+      .post-excerpt { font-size: clamp(0.84rem, 0.94vw, 0.94rem); color: var(--text-secondary); line-height: 1.6; margin: 0; flex: 1; opacity: 0.9; }
+      .post-read { display: inline-flex; align-items: center; gap: 0.28rem; margin-top: 0.95rem; font-weight: 600; font-size: 0.8rem; color: var(--accent-secondary); transition: gap 0.18s ease, color 0.18s ease; }
+      .post-card:hover .post-read { gap: 0.48rem; color: var(--accent); }
+
+      /* Empty state */
+      .empty-state { text-align: center; padding: clamp(3rem, 8vw, 6rem) 1rem; color: var(--muted); }
+
+      /* Animations */
+      .blog-fade { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+      .blog-fade.show { opacity: 1; transform: none; }
+      @media (prefers-reduced-motion: reduce) { .blog-fade { opacity: 1; transform: none; transition: none; } }
+
+      @media (max-width: 1024px) { .posts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+      @media (max-width: 600px) {
+        .blog-shell { padding: clamp(5rem, 10vw, 6rem) 1.1rem 2.8rem; }
+        .posts-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </Fragment>
+
+  <a class="blog-back" href="/">← Back Home</a>
+
+  <main class="blog-shell">
+    <header class="blog-header">
+      <h1 class="blog-heading blog-fade">Blog</h1>
+      <p class="blog-sub blog-fade">Practical notes on building and shipping ML systems.</p>
+    </header>
+
+    {featuredPost ? (
+      <a class="featured blog-fade" href={`/blog/${featuredPost.id}`}>
+        <span class="featured-badge">Featured</span>
+        <h2 class="featured-title">{featuredPost.data.title}</h2>
+        <div class="featured-meta">
+          <time datetime={featuredPost.data.date.toISOString()}>
+            {featuredPost.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+          </time>
+          {featuredPost.data.readTime && (
+            <><span class="sep">·</span><span>{featuredPost.data.readTime}</span></>
+          )}
+          <span class="sep">·</span>
+          <span class="cat">{featuredPost.data.category}</span>
+        </div>
+        <p class="featured-desc">{featuredPost.data.excerpt}</p>
+        <span class="read-cta">Read featured post →</span>
+      </a>
+    ) : null}
+
+    {regularPosts.length > 0 ? (
+      <div class="posts-grid">
+        {regularPosts.map(post => (
+          <a class="post-card blog-fade" href={`/blog/${post.id}`}>
+            <span class="post-cat">{post.data.category}</span>
+            <h2 class="post-title">{post.data.title}</h2>
+            <div class="post-meta">
+              <time datetime={post.data.date.toISOString()}>
+                {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+              </time>
+              {post.data.readTime && (
+                <><span class="sep">·</span><span>{post.data.readTime}</span></>
+              )}
+            </div>
+            <p class="post-excerpt">{post.data.excerpt}</p>
+            <span class="post-read">Read post →</span>
+          </a>
+        ))}
+      </div>
+    ) : !featuredPost ? (
+      <div class="empty-state blog-fade">
+        <p style="font-size: 1.05rem; margin: 0 0 0.4rem; opacity: 0.55;">No posts yet.</p>
+        <p style="font-size: 0.85rem; opacity: 0.35; margin: 0;">Posts will appear here when published.</p>
+      </div>
+    ) : null}
+  </main>
+
+  <script>
+    (function () {
+      const btn = document.querySelector('.blog-back');
+      if (btn) {
+        let lastY = 0;
+        window.addEventListener('scroll', function () {
+          const y = window.scrollY;
+          if (y > lastY && y > 60) btn.classList.add('hidden');
+          else btn.classList.remove('hidden');
+          lastY = y;
+        }, { passive: true });
+      }
+
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduceMotion) return;
+
+      const els = document.querySelectorAll('.blog-fade');
+      const viewH = window.innerHeight;
+      const onLoad = [], onScroll = [];
+      els.forEach(el => {
+        (el.getBoundingClientRect().top < viewH * 1.1 ? onLoad : onScroll).push(el);
+      });
+      onLoad.forEach((el, i) => { el.style.transitionDelay = i * 80 + 'ms'; });
+      requestAnimationFrame(() => { onLoad.forEach(el => el.classList.add('show')); });
+      if (onScroll.length) {
+        const io = new IntersectionObserver(entries => {
+          entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('show'); io.unobserve(entry.target); } });
+        }, { threshold: 0.12 });
+        onScroll.forEach(el => io.observe(el));
+      }
+    })();
+  </script>
+</BaseLayout>
