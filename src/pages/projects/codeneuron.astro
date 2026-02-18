@@ -331,29 +331,22 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       }
       .cn-stack-inner { width: 100%; }
       .cn-stack-groups {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.6rem;
         margin-top: 1.6rem;
       }
       .cn-stack-group-label {
-        font-size: 0.65rem;
-        font-weight: 700;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: rgba(255,255,255,0.25);
-        margin-bottom: 0.65rem;
+        display: none;
       }
       .cn-stack-cards {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: 0.6rem;
+        display: contents;
       }
       .cn-stack-card {
         display: flex;
-        align-items: center;
-        gap: 0.7rem;
-        padding: 0.7rem 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem 1.1rem;
         border-radius: 10px;
         background: rgba(255,255,255,0.03);
         border: 1px solid rgba(255,255,255,0.07);
@@ -366,31 +359,34 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         transform: translateY(-2px);
       }
       .cn-stack-card-icon {
-        width: 32px; height: 32px;
-        border-radius: 7px;
+        width: 34px; height: 34px;
+        border-radius: 8px;
         background: rgba(56,189,248,0.08);
         border: 1px solid rgba(56,189,248,0.15);
         display: grid; place-items: center;
-        font-size: 0.95rem;
+        font-size: 1rem;
         flex-shrink: 0;
       }
-      .cn-stack-card-text { min-width: 0; }
+      .cn-stack-card-text { min-width: 0; margin-top: 0.35rem; }
       .cn-stack-card-name {
-        font-size: 0.88rem;
+        font-size: 0.9rem;
         font-weight: 600;
         color: var(--text-primary);
         display: block;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
       }
       .cn-stack-card-role {
         font-size: 0.72rem;
         color: var(--text-secondary);
         display: block;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+      }
+      .cn-stack-card-cat {
+        font-size: 0.6rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: rgba(56,189,248,0.5);
+        display: block;
+        margin-top: 0.2rem;
       }
 
       /* ══════════ ROADMAP ══════════ */
@@ -644,24 +640,24 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         <div>
           <div class="cn-stack-group-label">Frontend</div>
           <div class="cn-stack-cards">
-            <div class="cn-stack-card"><div class="cn-stack-card-icon">⚛️</div><div class="cn-stack-card-text"><span class="cn-stack-card-name">React</span><span class="cn-stack-card-role">Component UI</span></div></div>
-            <div class="cn-stack-card"><div class="cn-stack-card-icon">⚡</div><div class="cn-stack-card-text"><span class="cn-stack-card-name">Vite</span><span class="cn-stack-card-role">Dev &amp; bundler</span></div></div>
-            <div class="cn-stack-card"><div class="cn-stack-card-icon">🎨</div><div class="cn-stack-card-text"><span class="cn-stack-card-name">Tailwind</span><span class="cn-stack-card-role">Styling system</span></div></div>
+            <div class="cn-stack-card"><div class="cn-stack-card-icon">⚛️</div><div class="cn-stack-card-text"><span class="cn-stack-card-name">React</span><span class="cn-stack-card-role">Component UI</span><span class="cn-stack-card-cat">Frontend</span></div></div>
+            <div class="cn-stack-card"><div class="cn-stack-card-icon">⚡</div><div class="cn-stack-card-text"><span class="cn-stack-card-name">Vite</span><span class="cn-stack-card-role">Dev &amp; bundler</span><span class="cn-stack-card-cat">Frontend</span></div></div>
+            <div class="cn-stack-card"><div class="cn-stack-card-icon">🎨</div><div class="cn-stack-card-text"><span class="cn-stack-card-name">Tailwind</span><span class="cn-stack-card-role">Styling system</span><span class="cn-stack-card-cat">Frontend</span></div></div>
           </div>
         </div>
         <div>
           <div class="cn-stack-group-label">Backend</div>
           <div class="cn-stack-cards">
-            <div class="cn-stack-card"><div class="cn-stack-card-icon">🚀</div><div class="cn-stack-card-text"><span class="cn-stack-card-name">FastAPI</span><span class="cn-stack-card-role">REST API</span></div></div>
-            <div class="cn-stack-card"><div class="cn-stack-card-icon">🐍</div><div class="cn-stack-card-text"><span class="cn-stack-card-name">Python</span><span class="cn-stack-card-role">Core ML logic</span></div></div>
+            <div class="cn-stack-card"><div class="cn-stack-card-icon">🚀</div><div class="cn-stack-card-text"><span class="cn-stack-card-name">FastAPI</span><span class="cn-stack-card-role">REST API</span><span class="cn-stack-card-cat">Backend</span></div></div>
+            <div class="cn-stack-card"><div class="cn-stack-card-icon">🐍</div><div class="cn-stack-card-text"><span class="cn-stack-card-name">Python</span><span class="cn-stack-card-role">Core ML logic</span><span class="cn-stack-card-cat">Backend</span></div></div>
           </div>
         </div>
         <div>
           <div class="cn-stack-group-label">Infrastructure</div>
           <div class="cn-stack-cards">
-            <div class="cn-stack-card"><div class="cn-stack-card-icon">🐳</div><div class="cn-stack-card-text"><span class="cn-stack-card-name">Docker</span><span class="cn-stack-card-role">Containerization</span></div></div>
-            <div class="cn-stack-card"><div class="cn-stack-card-icon">🔥</div><div class="cn-stack-card-text"><span class="cn-stack-card-name">Firebase</span><span class="cn-stack-card-role">Auth &amp; database</span></div></div>
-            <div class="cn-stack-card"><div class="cn-stack-card-icon">☁️</div><div class="cn-stack-card-text"><span class="cn-stack-card-name">Cloud Run</span><span class="cn-stack-card-role">Serverless deploy</span></div></div>
+            <div class="cn-stack-card"><div class="cn-stack-card-icon">🐳</div><div class="cn-stack-card-text"><span class="cn-stack-card-name">Docker</span><span class="cn-stack-card-role">Containerization</span><span class="cn-stack-card-cat">Infrastructure</span></div></div>
+            <div class="cn-stack-card"><div class="cn-stack-card-icon">🔥</div><div class="cn-stack-card-text"><span class="cn-stack-card-name">Firebase</span><span class="cn-stack-card-role">Auth &amp; database</span><span class="cn-stack-card-cat">Infrastructure</span></div></div>
+            <div class="cn-stack-card"><div class="cn-stack-card-icon">☁️</div><div class="cn-stack-card-text"><span class="cn-stack-card-name">Cloud Run</span><span class="cn-stack-card-role">Serverless deploy</span><span class="cn-stack-card-cat">Infrastructure</span></div></div>
           </div>
         </div>
       </div>
