@@ -135,10 +135,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         padding: clamp(3rem, 6vw, 4.5rem) clamp(1.5rem, 5vw, 2.5rem);
       }
       .cn-stats-grid {
-        width: min(820px, 100%);
+        width: 100%;
         margin: 0 auto;
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         gap: 0;
       }
       .cn-stat {
@@ -176,8 +176,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 2.5rem);
       }
       .cn-problem-inner {
-        width: min(820px, 100%);
-        margin: 0 auto;
+        width: 100%;
       }
       .cn-label {
         display: block;
@@ -204,7 +203,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       .cn-features {
         padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 2.5rem);
       }
-      .cn-features-inner { width: min(820px, 100%); margin: 0 auto; }
+      .cn-features-inner { width: 100%; }
       .cn-features-header { margin-bottom: 2.5rem; }
       .cn-features-title {
         font-size: clamp(1.5rem, 3vw, 2rem);
@@ -258,7 +257,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       .cn-workflow {
         padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 2.5rem);
       }
-      .cn-workflow-inner { width: min(820px, 100%); margin: 0 auto; }
+      .cn-workflow-inner { width: 100%; }
       .cn-steps {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -293,7 +292,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       .cn-shipped {
         padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 2.5rem);
       }
-      .cn-shipped-inner { width: min(820px, 100%); margin: 0 auto; }
+      .cn-shipped-inner { width: 100%; }
       .cn-shipped-list {
         list-style: none;
         padding: 0; margin: 2rem 0 0;
@@ -330,7 +329,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       .cn-stack-section {
         padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 2.5rem);
       }
-      .cn-stack-inner { width: min(820px, 100%); margin: 0 auto; }
+      .cn-stack-inner { width: 100%; }
       .cn-stack-pills {
         display: flex;
         flex-wrap: wrap;
@@ -353,7 +352,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       .cn-roadmap {
         padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 2.5rem);
       }
-      .cn-roadmap-inner { width: min(820px, 100%); margin: 0 auto; }
+      .cn-roadmap-inner { width: 100%; }
       .cn-roadmap-list {
         list-style: none;
         padding: 0; margin: 2rem 0 0;
@@ -443,11 +442,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       /* ══════════ RESPONSIVE ══════════ */
       @media (max-width: 640px) {
         .cn-steps { grid-template-columns: repeat(2, 1fr); }
-        .cn-stats-grid { grid-template-columns: repeat(3, 1fr); }
+        .cn-stats-grid { grid-template-columns: repeat(2, 1fr); }
         .cn-stat-num { font-size: 2rem; }
       }
       @media (max-width: 420px) {
-        .cn-stats-grid { grid-template-columns: 1fr; }
+        .cn-stats-grid { grid-template-columns: repeat(2, 1fr); }
         .cn-stat:not(:last-child)::after { display: none; }
         .cn-steps { grid-template-columns: 1fr; }
       }
@@ -484,6 +483,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       <div class="cn-stat">
         <span class="cn-stat-num" data-count="4">4</span>
         <span class="cn-stat-label">Step Workflow</span>
+      </div>
+      <div class="cn-stat">
+        <span class="cn-stat-num" data-count="40">40+</span>
+        <span class="cn-stat-label">Registered Users</span>
       </div>
     </div>
   </section>
