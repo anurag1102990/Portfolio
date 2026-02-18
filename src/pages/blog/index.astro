@@ -6,8 +6,10 @@ import { getCollection } from 'astro:content';
 
 const allPosts = await getCollection('blog');
 
-// Sort by date descending
-const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+// Sort by date descending, exclude drafts
+const posts = allPosts
+  .filter(p => !p.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 const featuredPost = posts.find(p => p.data.featured);
 const regularPosts = posts.filter(p => !p.data.featured);
 ---
