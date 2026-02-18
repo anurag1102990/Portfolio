@@ -397,31 +397,44 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         padding: clamp(2rem, 4vw, 3rem) clamp(1.5rem, 5vw, 2.5rem);
       }
       .cn-roadmap-inner { width: 100%; }
-      .cn-roadmap-list {
-        list-style: none;
-        padding: 0; margin: 2rem 0 0;
+      .cn-roadmap-cards {
         display: grid;
-        gap: 0.5rem;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0.6rem;
+        margin-top: 1.6rem;
       }
-      .cn-roadmap-list li {
+      .cn-roadmap-card {
         display: flex;
-        align-items: flex-start;
-        gap: 1rem;
-        padding: 1rem 0;
-        border-bottom: 1px solid rgba(255,255,255,0.05);
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem 1.1rem;
+        border-radius: 10px;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.07);
+        transition: border-color 0.2s, background 0.2s;
+      }
+      .cn-roadmap-card:hover {
+        border-color: rgba(56,189,248,0.25);
+        background: rgba(56,189,248,0.04);
+      }
+      .cn-roadmap-card-icon {
+        font-size: 1.2rem;
+        line-height: 1;
+        margin-bottom: 0.2rem;
+      }
+      .cn-roadmap-card-title {
+        font-size: 0.88rem;
+        font-weight: 650;
+        color: var(--text-primary);
+        line-height: 1.3;
+      }
+      .cn-roadmap-card-desc {
+        font-size: 0.76rem;
         color: var(--text-secondary);
-        font-size: 0.95rem;
-        line-height: 1.55;
+        line-height: 1.5;
       }
-      .cn-roadmap-list li:last-child { border-bottom: none; }
-      .cn-roadmap-dot {
-        width: 8px; height: 8px;
-        border-radius: 50%;
-        background: #38bdf8;
-        box-shadow: 0 0 0 3px rgba(56,189,248,0.15);
-        flex-shrink: 0;
-        margin-top: 0.42rem;
-      }
+      @media (max-width: 900px) { .cn-roadmap-cards { grid-template-columns: repeat(3, 1fr); } }
+      @media (max-width: 540px) { .cn-roadmap-cards { grid-template-columns: repeat(2, 1fr); } }
 
       /* ══════════ BOTTOM CTA ══════════ */
       .cn-cta-section {
@@ -674,15 +687,35 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     <div class="cn-roadmap-inner">
       <div class="cn-reveal">
         <span class="cn-label">What's Next</span>
-        <h2 class="cn-features-title">Shipping fast, learning in public</h2>
+        <h2 class="cn-features-title">We're just getting started</h2>
       </div>
-      <ul class="cn-roadmap-list cn-reveal">
-        <li><span class="cn-roadmap-dot"></span>More problems and topics — deep learning, NLP, time series.</li>
-        <li><span class="cn-roadmap-dot"></span>Editorial walkthroughs and a layered hint system.</li>
-        <li><span class="cn-roadmap-dot"></span>Learning paths with milestones and progress tracking.</li>
-        <li><span class="cn-roadmap-dot"></span>Richer feedback — better metrics, smarter output analysis.</li>
-        <li><span class="cn-roadmap-dot"></span>Community space to share solutions and contribute problems.</li>
-      </ul>
+      <div class="cn-roadmap-cards cn-reveal">
+        <div class="cn-roadmap-card">
+          <div class="cn-roadmap-card-icon">🧠</div>
+          <div class="cn-roadmap-card-title">More topics</div>
+          <div class="cn-roadmap-card-desc">Deep learning, NLP &amp; time series.</div>
+        </div>
+        <div class="cn-roadmap-card">
+          <div class="cn-roadmap-card-icon">💡</div>
+          <div class="cn-roadmap-card-title">Hints &amp; walkthroughs</div>
+          <div class="cn-roadmap-card-desc">Layered hints so you get unstuck fast.</div>
+        </div>
+        <div class="cn-roadmap-card">
+          <div class="cn-roadmap-card-icon">📍</div>
+          <div class="cn-roadmap-card-title">Learning paths</div>
+          <div class="cn-roadmap-card-desc">Guided tracks with progress milestones.</div>
+        </div>
+        <div class="cn-roadmap-card">
+          <div class="cn-roadmap-card-icon">📊</div>
+          <div class="cn-roadmap-card-title">Smarter feedback</div>
+          <div class="cn-roadmap-card-desc">Better metrics &amp; model diagnostics.</div>
+        </div>
+        <div class="cn-roadmap-card">
+          <div class="cn-roadmap-card-icon">👥</div>
+          <div class="cn-roadmap-card-title">Community</div>
+          <div class="cn-roadmap-card-desc">Share solutions, discuss approaches.</div>
+        </div>
+      </div>
     </div>
   </section>
 
