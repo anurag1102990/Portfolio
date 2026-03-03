@@ -24,17 +24,18 @@ const regularPosts = posts.filter(p => !p.data.featured);
 >
   <Fragment slot="head">
     <style>
-      body[data-page="blog"] { background: #05070f; }
+      body[data-page="blog"] { background: var(--background); }
       body[data-page="blog"]::before {
         content: "";
         position: fixed;
         inset: 0;
         pointer-events: none;
         background-image:
-          linear-gradient(to right, rgba(148, 163, 184, 0.035) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(148, 163, 184, 0.025) 1px, transparent 1px);
+          linear-gradient(to right, var(--border-subtle) 1px, transparent 1px),
+          linear-gradient(to bottom, var(--border-subtle) 1px, transparent 1px);
         background-size: 72px 72px;
         mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,0,0,0.28), transparent 75%);
+        opacity: 0.5;
       }
 
       .blog-back {
@@ -44,15 +45,15 @@ const regularPosts = posts.filter(p => !p.data.featured);
         padding: 0.44rem 0.84rem;
         border-radius: 999px;
         text-decoration: none;
-        background: rgba(8, 12, 24, 0.7);
+        background: var(--surface-overlay);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
-        border: 1px solid rgba(96, 165, 250, 0.28);
+        border: 1px solid var(--border-accent);
         color: var(--text-primary);
         font-size: 0.86rem;
         transition: transform 0.3s ease, opacity 0.3s ease, border-color 0.18s ease;
       }
-      .blog-back:hover { border-color: rgba(56, 189, 248, 0.52); }
+      .blog-back:hover { border-color: var(--accent); }
       .blog-back.hidden { transform: translateY(-200%); opacity: 0; pointer-events: none; }
 
       .blog-shell {
@@ -82,14 +83,14 @@ const regularPosts = posts.filter(p => !p.data.featured);
       .featured {
         padding: clamp(1.4rem, 2.4vw, 2rem);
         border-radius: 10px;
-        border: 1px solid rgba(255, 255, 255, 0.07);
-        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border-subtle);
+        background: var(--surface);
         margin-bottom: clamp(1.4rem, 2.8vw, 2.2rem);
         transition: border-color 0.2s ease, background 0.2s ease;
         text-decoration: none;
         display: block;
       }
-      .featured:hover { border-color: rgba(96, 165, 250, 0.2); background: rgba(14, 22, 36, 0.45); }
+      .featured:hover { border-color: var(--border-accent); background: var(--surface-elevated); }
       .featured-badge {
         display: inline-flex;
         font-size: 0.63rem;
@@ -135,12 +136,12 @@ const regularPosts = posts.filter(p => !p.data.featured);
         flex-direction: column;
         padding: 1.15rem 1.2rem 1.2rem;
         border-radius: 10px;
-        border: 1px solid rgba(255, 255, 255, 0.07);
-        background: rgba(255, 255, 255, 0.025);
+        border: 1px solid var(--border-subtle);
+        background: var(--surface);
         text-decoration: none;
         transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
       }
-      .post-card:hover { border-color: rgba(96, 165, 250, 0.22); background: rgba(14, 22, 36, 0.5); transform: translateY(-2px); }
+      .post-card:hover { border-color: var(--border-accent); background: var(--surface-elevated); transform: translateY(-2px); }
       .post-cat { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-secondary); margin-bottom: 0.55rem; opacity: 0.85; }
       .post-title { font-size: clamp(0.92rem, 1.15vw, 1.12rem); font-weight: 700; line-height: 1.32; color: var(--text-primary); margin: 0 0 0.5rem; }
       .post-meta { display: flex; align-items: center; gap: 0.32rem; font-size: 0.75rem; color: var(--muted); margin-bottom: 0.7rem; flex-wrap: wrap; }
