@@ -27,7 +27,7 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
   bodyDataPage="blog-post"
 >
   <Fragment slot="head">
-    <style>
+    <style is:global>
       body[data-page="blog-post"] {
         background: var(--background);
       }
@@ -165,7 +165,6 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
         color: var(--text-primary);
         margin: 4rem 0 1.2rem;
         padding-bottom: 0.55rem;
-        border-bottom: 1px solid var(--border-subtle);
         letter-spacing: -0.01em;
       }
 
@@ -192,7 +191,7 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
         margin-bottom: 2rem;
         color: var(--text-secondary);
       }
-can ycan you
+
       .post-body a {
         color: var(--accent);
         text-decoration: underline;
@@ -371,6 +370,11 @@ can ycan you
         .post-meta { font-size: 0.78rem; }
         .post-footer-inner { flex-direction: column; align-items: flex-start; }
       }
+
+      /* Page entrance animation */
+      .post-fade { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+      .post-fade.show { opacity: 1; transform: none; }
+      @media (prefers-reduced-motion: reduce) { .post-fade { opacity: 1; transform: none; transition: none; } }
     </style>
   </Fragment>
 
@@ -381,7 +385,7 @@ can ycan you
   <a class="post-back" href="/blog">← All Posts</a>
 
   <!-- Hero -->
-  <header class="post-hero">
+  <header class="post-hero post-fade">
     <span class="post-cat">{category}</span>
     <h1 class="post-title">{title}</h1>
     <p class="post-excerpt">{excerpt}</p>
@@ -392,14 +396,14 @@ can ycan you
   </header>
 
   <!-- Body -->
-  <main class="post-shell">
+  <main class="post-shell post-fade">
     <article class="post-body">
       <slot />
     </article>
   </main>
 
   <!-- Footer -->
-  <footer class="post-footer">
+  <footer class="post-footer post-fade">
     <div class="post-footer-inner">
       <a class="post-footer-cta" href="/blog">← More posts</a>
       <a class="post-footer-cta" href="https://codeneuron.tech/" target="_blank" rel="noopener">
@@ -407,6 +411,18 @@ can ycan you
       </a>
     </div>
   </footer>
+
+  <script>
+    // Page entrance animation
+    (function () {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const els = document.querySelectorAll('.post-fade');
+      els.forEach((el, i) => {
+        el.style.transitionDelay = i * 100 + 'ms';
+      });
+      requestAnimationFrame(() => { els.forEach(el => el.classList.add('show')); });
+    })();
+  </script>
 
   <script>
     // Reading progress bar
